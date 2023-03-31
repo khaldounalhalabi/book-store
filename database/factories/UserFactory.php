@@ -17,13 +17,13 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    #[ArrayShape(['first_name' => "string", 'last_name' => "string", 'address_id' => "mixed", 'email' => "string", 'email_verified_at' => "\Illuminate\Support\Carbon", 'password' => "string", 'remember_token' => "string"])]
+    #[ArrayShape(['first_name' => 'string', 'last_name' => 'string', 'address_id' => 'mixed', 'email' => 'string', 'email_verified_at' => "\Illuminate\Support\Carbon", 'password' => 'string', 'remember_token' => 'string'])]
     public function definition(): array
     {
         return [
             'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName() ,
-            'phone_number' => fake()->phoneNumber() ,
+            'last_name' => fake()->lastName(),
+            'phone_number' => fake()->phoneNumber(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '12345678',

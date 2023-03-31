@@ -35,8 +35,6 @@ trait RestfulTrait
     /**
      * to handle validations
      *
-     * @param $request
-     * @param $array
      * @return array|Application|ResponseFactory|Response
      */
     public function apiValidation($request, $array)
@@ -57,7 +55,6 @@ trait RestfulTrait
     /**
      * standard for pagination
      *
-     * @param $data
      * @return array
      */
     public function formatPaginateData($data)

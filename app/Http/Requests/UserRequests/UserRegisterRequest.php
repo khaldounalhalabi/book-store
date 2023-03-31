@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\UserRequests;
 
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
+use JetBrains\PhpStorm\ArrayShape;
 
 class UserRegisterRequest extends FormRequest
 {
@@ -23,11 +25,20 @@ class UserRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|max:255|min:3' ,
-            'last_name' => 'required|max:255|min:3' ,
-            'phone_number' => 'required|string' ,
-            'email' => 'required|email|string' ,
-            'password' => 'min:8|required|confirmed|max:255' ,
+            'first_name' => 'required|max:255|min:3|string',
+            'last_name' => 'required|max:255|min:3|string',
+            'phone_number' => 'required|string',
+            'email' => 'required|email|string',
+            'password' => ['required', 'string', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()],
+            'street' => 'required|string' ,
+            'house_number' => 'string|required' ,
+            'door_number' => 'string|required' ,
+            'post_code' => 'string|required' ,
+            'city' => 'string|required' ,
+            'country' => 'string|required' ,
         ];
     }
 }
+
+
+

@@ -10,9 +10,6 @@ trait PushNotificationHelper
 {
     /**
      * This function send to every user has fcm token
-     *
-     * @param $notification
-     * @param  array  $data
      */
     public function sendToAllUsers($notification, array $data)
     {
@@ -27,10 +24,6 @@ trait PushNotificationHelper
 
     /**
      * send to many users
-     *
-     * @param $notification
-     * @param  array  $data
-     * @param  array  $users_ids
      */
     public function sendToManyUsers($notification, array $data, array $users_ids)
     {
@@ -45,10 +38,6 @@ trait PushNotificationHelper
 
     /**
      * This function send to every user has role Player
-     *
-     * @param $notification
-     * @param  array  $data
-     * @param $user
      */
     public function sendSingleFcm($notification, array $data, User $user)
     {

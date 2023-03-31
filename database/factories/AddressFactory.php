@@ -18,13 +18,13 @@ class AddressFactory extends Factory
     public function definition(): array
     {
         return [
-            'street' => fake()->streetName() ,
-            'house_number' => fake()->buildingNumber() ,
-            'door_number' => fake()->buildingNumber() ,
-            'post_code' => fake()->postcode() ,
-            'city' => fake()->city() ,
-            'country' => fake()->country() ,
-            'user_id' => User::factory() ,
+            'street' => fake()->streetName(),
+            'house_number' => fake()->buildingNumber(),
+            'door_number' => fake()->buildingNumber(),
+            'post_code' => fake()->postcode(),
+            'city' => fake()->city(),
+            'country' => fake()->country(),
+            'user_id' => User::factory(),
         ];
     }
 }
