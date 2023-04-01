@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\customer\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index')->name('index');
 Route::view('/login', 'login')->name('login-page');
 Route::view('/register' , 'register')->name('register-page');
+Route::post('/doLogin' , [AuthController::class , 'login'])->name('customer.doLogin') ;

@@ -16,6 +16,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/vendor.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/loginStyle.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">
+
 
     <!-- script
     ================================================== -->
@@ -33,21 +35,25 @@
 </header>
 
 <main >
-    <div id="login-form-wrap">
+    <div id="login-form-wrap" class="transparent">
         <h2>Login</h2>
-        <form id="login-form">
-            <p>
-                <input type="email" id="email" name="email" placeholder="Email Address" required><i class="validation"><span></span><span></span></i>
-            </p>
-            <p>
-                <input type="password" id="password" name="password" placeholder="Password" required><i class="validation"><span></span><span></span></i>
-            </p>
+        <form method="POST" id="login-form" action="{{route('customer.doLogin')}}">
+            @csrf
+            <div>
+                <input class="form-control border-dark bg-transparent mb-3" type="email" id="email" name="email" placeholder="Email Address" required><i class="validation"><span></span><span></span></i>
+            </div>
+            <div>
+                <input class="form-control border-dark bg-transparent" type="password" id="password" name="password" placeholder="Password" required><i class="validation"><span></span><span></span></i>
+            </div>
+
+            @include('includes.error')
+
             <p>
                 <input type="submit" id="login" value="Login">
             </p>
         </form>
-        <div id="create-account-wrap">
-            <p>Not a member? <a href="#">Create Account</a><p>
+        <div id="create-account-wrap" class="transparent bg-transparent">
+            <p>Not a member? <a href="{{route('register-page')}}">Create Account</a><p>
         </div><!--create-account-wrap-->
     </div><!--login-form-wrap-->
 </main>
