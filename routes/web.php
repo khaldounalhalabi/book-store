@@ -17,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index')->name('index');
 Route::view('/login', 'login')->name('login-page');
 Route::view('/register' , 'register')->name('register-page');
-Route::post('/doLogin' , [AuthController::class , 'login'])->name('customer.doLogin') ;
+
+Route::name('customer.')->group(function (){
+    Route::post('/doLogin' , [AuthController::class , 'login'])->name('doLogin') ;
+    Route::post('/doRegister' , [AuthController::class , 'register'])->name('doRegister') ;
+    Route::get('user-details' , [AuthController::class , 'userDetails'])->name('userDetails') ;
+    Route::post('edit-user-details' , [AuthController::class , 'editUserDetails'])->name('editUserDetails') ;
+}) ;

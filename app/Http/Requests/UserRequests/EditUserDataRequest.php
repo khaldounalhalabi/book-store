@@ -3,11 +3,8 @@
 namespace App\Http\Requests\UserRequests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
-use JetBrains\PhpStorm\ArrayShape;
 
-class UserRegisterRequest extends FormRequest
+class EditUserDataRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,7 +17,7 @@ class UserRegisterRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, Rule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
      */
     public function rules(): array
     {
@@ -30,7 +27,6 @@ class UserRegisterRequest extends FormRequest
             'country_code' => 'required|string' ,
             'phone_number' => 'required|string',
             'email' => 'required|email|string',
-            'password' => ['required', 'string', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()],
             'street' => 'required|string' ,
             'house_number' => 'string|required' ,
             'door_number' => 'string|required' ,
@@ -40,6 +36,3 @@ class UserRegisterRequest extends FormRequest
         ];
     }
 }
-
-
-

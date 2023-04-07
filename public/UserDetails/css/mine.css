@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:Tahoma,Arial;
+    background-image: url("../img/omega-sunset-34-1440x900.jpg");
+}
+
+.A{
+    width: 100%;
+    height: 55px;
+    text-align: center;
+    border-bottom: 1px solid;
+    border-radius: 35px;
+}
+.A h2 {
+    padding-top: 5px;
+    margin: 0;
+    text-align: center;
+    color: white;
+}
+
+.B{
+    display: flex;
+    justify-content: center;
+    background-color: #ffffff33;
+    border-radius: 35px;
+    border-bottom: 2px solid #00000085
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    padding-left: 10px;
+    justify-content: center;
+}
+
+input{
+    background-color: #ffffff1f;
+    color: #ffffff75;
+    padding-left: 10px;
+}
+
+label {
+    margin-top: 18px;
+    color: black;
+    font-family: unset;
+}
+
+.submit{
+    width: 40%;
+    height: 35px;
+    align-self: center;
+    margin-top: 14px;
+    background-color: black;
+    color: white;
+}
+
+.revise{
+    width: 40%;
+    height: 35px;
+    align-self: center;
+    margin-top: 14px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 4px;
+}
