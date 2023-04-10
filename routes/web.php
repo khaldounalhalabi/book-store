@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\customer\AuthController;
+use App\Http\Controllers\customer\MainPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'index')->name('index');
+Route::get('/test' , [Controller::class , 'test']) ;
+
+Route::get('/', [MainPageController::class,'index'])->name('index');
 Route::view('/login', 'login')->name('login-page');
 Route::view('/register' , 'register')->name('register-page');
 
