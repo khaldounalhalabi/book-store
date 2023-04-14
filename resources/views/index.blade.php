@@ -16,9 +16,15 @@
                         <div class="slider-item">
                             <div class="banner-content">
                                 <h2 class="banner-title">{{$firstHero->name}}</h2>
+                                @if($firstHero->is_original)
+                                    <span style="z-index: -1; background-color: #74642F;; color: white;">Orginal</span>
+                                @else
+                                    <span style="z-index: -1; background-color: black; color: white;">Not Orginal</span>
+                                @endif
                                 <p>{{$firstHero->small_description}}</p>
                                 <div class="btn-wrap">
-                                    <a href="#" class="btn btn-outline-accent btn-accent-arrow">Read More<i
+                                    <a href="{{route('customer.show.book' , $firstHero->id)}}"
+                                       class="btn btn-outline-accent btn-accent-arrow">Read More<i
                                             class="icon icon-ns-arrow-right"></i></a>
                                 </div>
                             </div><!--banner-content-->
@@ -28,9 +34,15 @@
                         <div class="slider-item">
                             <div class="banner-content">
                                 <h2 class="banner-title">{{$secondHero->name}}</h2>
+                                @if($secondHero->is_original)
+                                    <span style="z-index: -1; background-color: #74642F;; color: white;">Orginal</span>
+                                @else
+                                    <span style="z-index: -1; background-color: black; color: white;">Not Orginal</span>
+                                @endif
                                 <p>{{$secondHero->small_description}}</p>
                                 <div class="btn-wrap">
-                                    <a href="#" class="btn btn-outline-accent btn-accent-arrow">Read More<i
+                                    <a href="{{route('customer.show.book' , $secondHero->id)}}"
+                                       class="btn btn-outline-accent btn-accent-arrow">Read More<i
                                             class="icon icon-ns-arrow-right"></i></a>
                                 </div>
                             </div><!--banner-content-->
@@ -74,8 +86,14 @@
                                             Cart
                                         </button>
                                         <figcaption>
-                                            <h3>{{$featuredBook->name}}</h3>
+                                            <a href="{{route('customer.show.book' , $featuredBook->id)}}">
+                                                <h3>{{$featuredBook->name}}</h3></a>
                                             <p>{{$featuredBook->author_name}}</p>
+                                            @if($featuredBook->is_original)
+                                                <span style="z-index: -1; background-color: #74642F;; color: white;">Orginal</span>
+                                            @else
+                                                <span style="z-index: -1; background-color: black; color: white;">Not Orginal</span>
+                                            @endif
                                             <div class="item-price">$ {{$featuredBook->price}}</div>
                                         </figcaption>
                                     </figure>
@@ -92,7 +110,7 @@
                 <div class="col-md-12">
 
                     <div class="btn-wrap align-right">
-                        <a href="#" class="btn-accent-arrow">View all products <i class="icon icon-ns-arrow-right"></i></a>
+                        <a href="{{route('customer.index.books')}}" class="btn-accent-arrow">View all products <i class="icon icon-ns-arrow-right"></i></a>
                     </div>
 
                 </div>
@@ -114,7 +132,8 @@
 
                         <div class="col-md-6">
                             <figure class="products-thumb">
-                                <img src="{{asset("images")}}/single-image.jpg" alt="book" class="single-image">
+                                <a href="{{route('customer.show.book' , $topSelling->id)}}"><img
+                                        src="{{asset("images")}}/single-image.jpg" alt="book" class="single-image"></a>
                             </figure>
                         </div>
 
@@ -124,7 +143,15 @@
 
                                 <div class="products-content">
                                     <div class="author-name">{{$topSelling->author_name}}</div>
-                                    <h3 class="item-title">{{$topSelling->name}}</h3>
+                                    <a href="{{route('customer.show.book' , $topSelling->id)}}"><h3
+                                            class="item-title">{{$topSelling->name}}</h3></a>
+                                    @if($topSelling->is_original)
+                                        <span
+                                            style="z-index: -1; background-color: #74642F;; color: white;">Orginal</span>
+                                    @else
+                                        <span
+                                            style="z-index: -1; background-color: black; color: white;">Not Orginal</span>
+                                    @endif
                                     <p>{{$topSelling->small_description}}</p>
                                     <div class="item-price">$ {{$topSelling->price}}</div>
                                     <div class="btn-wrap">
@@ -173,8 +200,16 @@
                                                 Cart
                                             </button>
                                             <figcaption>
-                                                <h3>{{$poBook->name}}</h3>
+                                                <a href="{{route('customer.show.book' , $featuredBook->id)}}">
+                                                    <h3>{{$poBook->name}}</h3>
+                                                </a>
                                                 <p>{{$poBook->author_name}}</p>
+                                                @if($poBook->is_original)
+                                                    <span
+                                                        style="z-index: -1; background-color: #74642F;; color: white;">Orginal</span>
+                                                @else
+                                                    <span style="z-index: -1; background-color: black; color: white;">Not Orginal</span>
+                                                @endif
                                                 <div class="item-price">$ {{$poBook->price}}</div>
                                             </figcaption>
                                         </figure>
@@ -185,15 +220,23 @@
                                 @foreach($popularBooks_2 as $poBook)
                                     <div class="col-md-3">
                                         <figure class="product-style">
-                                            <img src="{{asset("images")}}/tab-item{{$loop->index + 1}}.jpg" alt="Books"
+                                            <img src="{{asset("images")}}/tab-item{{$loop->index + 5}}.jpg" alt="Books"
                                                  class="product-item">
                                             <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
                                                 Add to
                                                 Cart
                                             </button>
                                             <figcaption>
+                                                <a href="{{route('customer.show.book' , $featuredBook->id)}}">
                                                 <h3>{{$poBook->name}}</h3>
+                                                </a>
                                                 <p>{{$poBook->author_name}}</p>
+                                                @if($poBook->is_original)
+                                                    <span
+                                                        style="z-index: -1; background-color: #74642F;; color: white;">Orginal</span>
+                                                @else
+                                                    <span style="z-index: -1; background-color: black; color: white;">Not Orginal</span>
+                                                @endif
                                                 <div class="item-price">$ {{$poBook->price}}</div>
                                             </figcaption>
                                         </figure>

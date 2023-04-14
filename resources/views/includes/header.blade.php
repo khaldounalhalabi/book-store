@@ -15,11 +15,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('icomoon/icomoon.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/vendor.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
-
     <!-- script
     ================================================== -->
     <script src="{{asset('js/modernizr.js')}}"></script>
-
 </head>
 
 <body>
@@ -53,7 +51,13 @@
                 <!--top-right-->
                 <div class="col-md-6">
                     <div class="right-element">
-                        <a href="#" class="user-account for-buy"><i class="icon icon-user"></i><span>Account</span></a>
+                        @if(auth()->user())
+                            <a href="{{route('customer.userDetails')}}" class="user-account for-buy"><i
+                                    class="icon icon-user"></i><span>{{auth()->user()->first_name}}</span></a>
+                        @else
+                            <a href="{{route('login-page')}}" class="user-account for-buy"><i
+                                    class="icon icon-user"></i><span>Account</span></a>
+                        @endif
                         <a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart:(0 $)</span></a>
 
                         <div class="action-menu">
@@ -92,7 +96,8 @@
                         <div class="main-menu stellarnav">
                             <ul class="menu-list">
                                 <li class="menu-item active"><a href="#home" data-effect="Home">Home</a></li>
-                                <li class="menu-item"><a href="#about" class="nav-link" data-effect="About">About</a></li>
+                                <li class="menu-item"><a href="#about" class="nav-link" data-effect="About">About</a>
+                                </li>
                                 <li class="menu-item has-sub">
                                     <a href="#pages" class="nav-link" data-effect="Pages">Pages</a>
 
@@ -109,9 +114,12 @@
                                     </ul>
 
                                 </li>
-                                <li class="menu-item"><a href="#popular-books" class="nav-link" data-effect="Shop">Shop</a></li>
-                                <li class="menu-item"><a href="#latest-blog" class="nav-link" data-effect="Articles">Articles</a></li>
-                                <li class="menu-item"><a href="#contact" class="nav-link" data-effect="Contact">Contact</a></li>
+                                <li class="menu-item"><a href="#popular-books" class="nav-link"
+                                                         data-effect="Shop">Shop</a></li>
+                                <li class="menu-item"><a href="#latest-blog" class="nav-link" data-effect="Articles">Articles</a>
+                                </li>
+                                <li class="menu-item"><a href="#contact" class="nav-link"
+                                                         data-effect="Contact">Contact</a></li>
                             </ul>
 
                             <div class="hamburger">

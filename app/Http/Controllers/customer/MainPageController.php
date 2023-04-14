@@ -13,12 +13,12 @@ class MainPageController extends Controller
         $data['firstHero'] = $topOrdered->inRandomOrder()->take(1)->first();
         $data['secondHero'] = $topOrdered->inRandomOrder()->take(2)->skip(1)->first();
 
-        $mostLiked = Book::orderByDesc('likes')->get();
+        $mostLiked = Book::orderByDesc('likes_count')->get();
         $data['featuredBooks'] = $mostLiked->take(4);
 
         $data['topSelling'] = $topOrdered->first();
 
-        $popularBooks = $mostLiked->random(8)->split(2);
+        $popularBooks = visits(Book::class)->top(8)->split(2) ;
         $data['popularBooks_1'] = $popularBooks[0];
         $data['popularBooks_2'] = $popularBooks[1];
 

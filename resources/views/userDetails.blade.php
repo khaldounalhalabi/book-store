@@ -78,7 +78,7 @@
             </div>
             <p>
                 <input class="form-control border-dark" type="email" id="email" name="email" placeholder="Email Address"
-                       value="{{$email}}" readonly><i
+                       value="{{$email}}" style="color: black" readonly><i
                     class="validation"><span></span><span></span></i>
             </p>
             <div class="row">

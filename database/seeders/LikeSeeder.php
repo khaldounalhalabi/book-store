@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Book;
+use App\Models\Like;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class BookSeeder extends Seeder
+class LikeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Book::factory(20)->withLikes()->withRates()->create() ;
+        Like::factory(30)->create() ;
     }
 }
