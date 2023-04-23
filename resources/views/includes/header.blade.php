@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" style="font-weight: bold; text-justify: none;
+" class="segoui">
 <head>
     <title>Book Store</title>
     <meta charset="utf-8">
@@ -40,9 +41,6 @@
                             <li>
                                 <a href="#"><i class="icon icon-youtube-play"></i></a>
                             </li>
-                            <li>
-                                <a href="#"><i class="icon icon-behance-square"></i></a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -56,18 +54,32 @@
                                     class="icon icon-user"></i><span>{{auth()->user()->first_name}}</span></a>
                         @else
                             <a href="{{route('login-page')}}" class="user-account for-buy"><i
-                                    class="icon icon-user"></i><span>Account</span></a>
+                                    class="icon icon-user"></i><span>تسجيل الدخول</span></a>
                         @endif
-                        <a href="#" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart:(0 $)</span></a>
+
+                        @if(auth()->user())
+                            <a href="{{route('logout')}}" class="cart for-buy"><i
+                                    class="icon icon-arrow-right-circle"></i><span>تسجيل الخروج</span></a>
+                        @endif
+
+                        <a href="{{route('register-page')}}" class="user-account for-buy"><i
+                                class="icon icon-user"></i><span>التسجيل</span></a>
+                        @if(auth()->user())
+                            <a href="{{route('customer.cart')}}" class="cart for-buy"><i
+                                    class="icon icon-clipboard"></i><span>السلة</span></a>
+                        @endif
 
                         <div class="action-menu">
 
                             <div class="search-bar">
-                                <a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+                                <a class="search-button search-toggle" data-selector="#header-wrap">
                                     <i class="icon icon-search"></i>
                                 </a>
-                                <form role="search" method="get" class="search-box">
-                                    <input class="search-field text search-input" placeholder="Search" type="search">
+                                <form role="search" method="POST" class="search-box"
+                                      action="{{route('customer.books.search')}}">
+                                    @csrf
+                                    <input class="search-field text search-input" placeholder="بحث" type="search"
+                                           name="search">
                                 </form>
                             </div>
                         </div>
@@ -79,47 +91,22 @@
     </div>
     <!--top-content-->
 
-    <header id="header">
+    <header id="header" dir="rtl" lang="ar">
         <div class="container">
             <div class="row">
 
-                <div class="col-md-2">
-                    <div class="main-logo">
-                        <a href="index.html"><img src="{{asset('images/main-logo.png')}}" alt="logo"></a>
-                    </div>
-
-                </div>
-
                 <div class="col-md-10">
 
-                    <nav id="navbar">
+                    <nav id="navbar" dir="rtl">
                         <div class="main-menu stellarnav">
                             <ul class="menu-list">
-                                <li class="menu-item active"><a href="#home" data-effect="Home">Home</a></li>
-                                <li class="menu-item"><a href="#about" class="nav-link" data-effect="About">About</a>
+                                <li class="menu-item active"><a href="{{route('index')}}" data-effect="Home">الصفحة الرئيسية</a></li>
+                                <li class="menu-item"><a href="{{route('customer.about')}}" class="nav-link" data-effect="About">حول</a>
                                 </li>
-                                <li class="menu-item has-sub">
-                                    <a href="#pages" class="nav-link" data-effect="Pages">Pages</a>
-
-                                    <ul>
-                                        <li class="active"><a href="index.html">Home</a></li>
-                                        <li><a href="about.html">About</a></li>
-                                        <li><a href="styles.html">Styles</a></li>
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="single-post.html">Post Single</a></li>
-                                        <li><a href="shop.html">Our Store</a></li>
-                                        <li><a href="single-product.html">Product Single</a></li>
-                                        <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="thank-you.html">Thank You</a></li>
-                                    </ul>
-
-                                </li>
-                                <li class="menu-item"><a href="#popular-books" class="nav-link"
-                                                         data-effect="Shop">Shop</a></li>
-                                <li class="menu-item"><a href="#latest-blog" class="nav-link" data-effect="Articles">Articles</a>
-                                </li>
-                                <li class="menu-item"><a href="#contact" class="nav-link"
-                                                         data-effect="Contact">Contact</a></li>
+                                <li class="menu-item"><a href="{{route('customer.index.books')}}" class="nav-link"
+                                                         data-effect="Store">الكتب</a></li>
+                                <li class="menu-item"><a href="{{route('customer.contact')}}" class="nav-link"
+                                                         data-effect="Contact">اتصل بنا</a></li>
                             </ul>
 
                             <div class="hamburger">
@@ -132,6 +119,15 @@
                     </nav>
 
                 </div>
+
+
+                <div class="col-md-2">
+                    <div class="main-logo">
+                        <a href="{{route('index')}}"><img src="{{asset('images/main-logo.png')}}" alt="logo"></a>
+                    </div>
+
+                </div>
+
 
             </div>
         </div>

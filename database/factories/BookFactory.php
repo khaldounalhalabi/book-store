@@ -74,4 +74,6 @@ class BookFactory extends Factory
         }
         return $this->has(Rate::factory($count) , 'rates') ;
     }
+
+
 }

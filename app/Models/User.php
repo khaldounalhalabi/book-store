@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany as HasManyAlias;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property HasOne address()
+ * @method static create(array $array)
  */
 class User extends Authenticatable
 {
@@ -39,18 +41,35 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    /**
+     * @return HasOne
+     */
     public function address(): HasOne
     {
         return $this->hasOne(Address::class);
     }
 
-    public function likes()
+    /**
+     * @return HasManyAlias
+     */
+    public function likes(): HasManyAlias
     {
         return $this->hasMany(Like::class) ;
     }
 
-    public function rates()
+    /**
+     * @return HasManyAlias
+     */
+    public function rates(): HasManyAlias
     {
         return $this->hasMany(Rate::class) ;
+    }
+
+    /**
+     * @return HasManyAlias
+     */
+    public function cart(): HasManyAlias
+    {
+        return $this->hasMany(Cart::class) ;
     }
 }

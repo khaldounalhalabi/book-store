@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Address;
+use App\Models\Cart;
+use App\Models\Rate;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
@@ -39,5 +41,26 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    /**
+     * @param $count
+     * @return UserFactory
+     */
+    public function withCartItems($count = 0): UserFactory
+    {
+        if($count == 0){
+            $count = fake()->numberBetween(1 , 20) ;
+        }
+
+        return $this->has(Cart::factory($count) , 'cart') ;
+    }
+
+    /**
+     * @return UserFactory
+     */
+    public function withAddress(): UserFactory
+    {
+        return $this->has(Address::factory() , 'address') ;
     }
 }

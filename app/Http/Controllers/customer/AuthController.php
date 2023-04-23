@@ -65,6 +65,7 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         $user = $user->load('address')->toArray();
+//        dd($user) ;
         return view('userDetails')->with($user);
     }
 
@@ -95,5 +96,15 @@ class AuthController extends Controller
             $data['error'] = $e->getMessage();
             return view('serverError')->with($data);
         }
+    }
+
+    public function logout()
+    {
+        if(!auth()->guard('web')->user()){
+            return redirect()->route('index') ;
+        }
+
+        auth()->guard('web')->logout() ;
+        return redirect()->route('index') ;
     }
 }

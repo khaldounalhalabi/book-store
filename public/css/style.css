@@ -56,7 +56,7 @@ html {
   box-sizing: border-box;
 }
 body {
-  font-family: var(--body-font);
+  /*font-family: var(--body-font);*/
   font-size: 16px;
   line-height: 2;
   color: var(--body-text-color);
@@ -145,7 +145,7 @@ figure.align-right {
 /*----------------------------------------------*/
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-  font-family: var(--heading-font);
+  /*font-family: var(--heading-font);*/
   line-height: 1.2;
   color: var(--dark-color);
 }
@@ -157,7 +157,7 @@ h1, h2, h3 {
   text-transform: capitalize;
 }
 h5, h6 {
-  letter-spacing: 1px;
+  /*letter-spacing: 1px;*/
 }
 h1, .h1 {
   font-size: 2.5em;
@@ -1075,7 +1075,7 @@ button {
 /*--- Pattern Overlay
 -----------------------------------------------*/
 .pattern-overlay {
-    background-image: url(images/pattern1.png);
+    background-image: url('../images/pattern1.png');
     background-repeat: no-repeat;
     background-position: top right;
 }
@@ -1317,7 +1317,7 @@ img.post-image {
 #header .menu-list a {
   text-transform: uppercase;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  /*letter-spacing: 0.12em;*/
 }
 
 /*----- Billboard
@@ -1389,6 +1389,7 @@ img.post-image {
       font-size: 3.5em;
   }
   #billboard .main-slider {
+      direction: rtl;
       margin: 70px 0;
       padding: 0;
   }
@@ -1528,7 +1529,7 @@ img.books-image {
     padding: 40px 0;
 }
 #quotation .author-name {
-    font-family: "Prata", Georgia,serif;
+    /*font-family: "Prata", Georgia,serif;*/
     font-size: 1.4em;
 }
 @media screen and (max-width: 768px) {
@@ -1657,7 +1658,7 @@ span.prev-price {
     margin-bottom: 30px;
 }
 #latest-blog .meta-date {
-    font-family: "Prata", Georgia, serif;
+    /*font-family: "Prata", Georgia, serif;*/
     color: #74642F;
     padding-bottom: 20px;
 }
@@ -1866,5 +1867,15 @@ footer#footer {
 
 .logo{
     text-align: center;
+}
+
+.segoui{
+    font-family: "Segoe UI",serif;
+    word-spacing: 0;
+    letter-spacing: 0;
+}
+
+.segoui header{
+    font-size: larger;
 }
 

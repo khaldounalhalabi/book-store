@@ -13,6 +13,6 @@ class Controller extends BaseController
 
     public function test()
     {
-        return response($data['hero'] = Book::orderByDesc('order_number')->first()) ; 
+        return view('cart');
     }
 }

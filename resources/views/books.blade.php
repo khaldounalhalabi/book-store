@@ -43,11 +43,22 @@
                         <figure class="product-style">
                             <img src="{{asset('images')}}/tab-item{{$loop->index + 1}}.jpg" alt="Books"
                                  class="product-item">
-                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart
-                            </button>
+                            <a href="{{route('customer.cart.add' , $book->id)}}">
+                                <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                    Add to
+                                    Cart
+                                </button>
+                            </a>
                             <figcaption>
-                                <h3>{{$book->name}}</h3>
+                                <a href="{{route('customer.show.book' , $book->id)}}"><h3>{{$book->name}}</h3></a>
                                 <p>{{$book->author_name}}</p>
+                                @if($book->is_original)
+                                    <span
+                                        style="z-index: -1; background-color: #74642F;; color: white;">Orginal</span>
+                                @else
+                                    <span
+                                        style="z-index: -1; background-color: black; color: white;">Not Orginal</span>
+                                @endif
                                 <div class="item-price">$ {{$book->price}}</div>
                             </figcaption>
                         </figure>

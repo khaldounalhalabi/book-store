@@ -10,6 +10,7 @@ a:active {
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
+
 a:focus, a:hover,
 a:link:focus,
 a:link:hover,
@@ -62,26 +63,31 @@ input[type="email"] {
     display: inline-block;
     background: none;
 }
+
 input[type="password"]:focus,
 input[type="email"]:focus {
     border-color: #000000;
 }
+
 input[type="password"]:focus:invalid,
 input[type="email"]:focus:invalid {
     color: #cc1e2b;
     border-color: #cc1e2b;
 }
+
 input[type="password"]:valid ~ .validation,
 input[type="email"]:valid ~ .validation {
     display: block;
     border-color: #0C0;
 }
+
 input[type="password"]:valid ~ .validation span,
 input[type="email"]:valid ~ .validation span {
     background: #0C0;
     position: absolute;
     border-radius: 6px;
 }
+
 input[type="password"]:valid ~ .validation span:first-child,
 input[type="email"]:valid ~ .validation span:first-child {
     top: 30px;
@@ -131,7 +137,8 @@ input[type="submit"] {
     display: inline-block;
     text-align: center;
 }
-input[type="button"]{
+
+input[type="button"] {
     border: none;
     background-color: black;
     color: #fff;
@@ -146,6 +153,7 @@ input[type="button"]{
     display: inline-block;
     text-align: center;
 }
+
 input[type="submit"]:hover {
     /*background-color: white;*/
     background-color: rgba(255, 255, 255, 0.1);
@@ -164,16 +172,9 @@ input[type="submit"]:hover {
 }
 
 
-.main-login{
+.main-login {
     background-image: url("../images/login-page-image.jpg");
 }
-
-.password-label{
-    font-family: "Sitka Heading", fangsong;
-    font-size: 15px ;
-/*<label class="password-label">letters | numbers | mix case letters | min:8</label>*/
-}
-
 
 ::placeholder {
     color: black;
@@ -182,97 +183,13 @@ input[type="submit"]:hover {
     font-weight: bold;
 }
 
-#first_name::placeholder {
+option {
     color: black;
     font-size: 18px;
     font-family: "Sitka Heading", serif;
     font-weight: bold;
 }
 
-#last_name::placeholder {
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#country-code{
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#phone::placeholder {
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#country{
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#city::placeholder {
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#street::placeholder {
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#house_number::placeholder {
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#door_number::placeholder {
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#password_confirmation::placeholder {
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#password::placeholder {
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-#email::placeholder {
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-option{
-    color: black;
-    font-size: 18px;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
-.transparent{
+.transparent {
     background-color: rgba(255, 255, 255, 0.1);
 }
