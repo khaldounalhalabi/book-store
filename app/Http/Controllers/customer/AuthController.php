@@ -8,27 +8,30 @@ use App\Http\Requests\UserRequests\UserLoginRequest;
 use App\Http\Requests\UserRequests\UserRegisterRequest;
 use App\Models\Address;
 use App\Models\User;
+use Exception;
 
 class AuthController extends Controller
 {
-    public function login(UserLoginRequest $request)
+    public function login(UserLoginRequest $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
         try {
             $credentials = $request->validated();
 
-            if (!auth()->guard('web')->attempt($credentials)) {
+            if (! auth()->guard('web')->attempt($credentials)) {
                 $error = 'Invalid Credentials';
-                return view('login')->with('error', $error);
+
+                return view('customer.login')->with('error', $error);
             } else {
                 return redirect('/');
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $data['error'] = $e->getMessage();
-            return view('serverError')->with($data);
+
+            return view('customer.serverError')->with($data);
         }
     }
 
-    public function register(UserRegisterRequest $request)
+    public function register(UserRegisterRequest $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
 
@@ -55,25 +58,26 @@ class AuthController extends Controller
             auth()->guard('web')->login($user);
 
             return redirect()->route('userDetails');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $data['error'] = $e->getMessage();
-            return view('serverError')->with($data);
+
+            return view('customer.serverError')->with($data);
         }
     }
 
-    public function userDetails()
+    public function userDetails(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $user = auth()->user();
         $user = $user->load('address')->toArray();
-//        dd($user) ;
-        return view('userDetails')->with($user);
+
+        return view('customer.userDetails')->with($user);
     }
 
-    public function editUserDetails(EditUserDataRequest $request)
+    public function editUserDetails(EditUserDataRequest $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
             $userData = $request->validated();
-            $user = auth()->guard('web')->user()->update([
+            auth()->guard('web')->user()->update([
                 'first_name' => $userData['first_name'],
                 'last_name' => $userData['last_name'],
                 'country_code' => $userData['country_code'],
@@ -81,7 +85,7 @@ class AuthController extends Controller
                 'email' => $userData['email'],
             ]);
 
-            Address::where('user_id' , auth()->user()->id)->update([
+            Address::where('user_id', auth()->user()->id)->update([
                 'country' => $userData['country'],
                 'city' => $userData['city'],
                 'street' => $userData['street'],
@@ -92,19 +96,21 @@ class AuthController extends Controller
 
             return redirect()->route('customer.userDetails');
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $data['error'] = $e->getMessage();
-            return view('serverError')->with($data);
+
+            return view('customer.serverError')->with($data);
         }
     }
 
-    public function logout()
+    public function logout(): \Illuminate\Http\RedirectResponse
     {
-        if(!auth()->guard('web')->user()){
-            return redirect()->route('index') ;
+        if (! auth()->guard('web')->user()) {
+            return redirect()->route('index');
         }
 
-        auth()->guard('web')->logout() ;
-        return redirect()->route('index') ;
+        auth()->guard('web')->logout();
+
+        return redirect()->route('index');
     }
 }

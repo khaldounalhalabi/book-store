@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('likes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete() ;
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete() ;
+            $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
 
             $table->unique(['user_id', 'book_id']);

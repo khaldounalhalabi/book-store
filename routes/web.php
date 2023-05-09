@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\admin\BookController as AdminBookController;
+use App\Http\Controllers\admin\IndexController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\customer\AuthController;
 use App\Http\Controllers\customer\BookController;
 use App\Http\Controllers\customer\CartController;
+use App\Http\Controllers\customer\ContactController;
+use App\Http\Controllers\customer\LikeController;
 use App\Http\Controllers\customer\MainPageController;
-use App\Http\Controllers\customer\SiteSettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,10 +24,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/test', [Controller::class, 'test']);
 
-Route::get('/', [MainPageController::class, 'index'])->name('index');
-Route::view('/login', 'login')->name('login-page');
-Route::view('/register', 'register')->name('register-page');
+Route::view('/login', 'customer.login')->name('login-page');
+Route::view('/register', 'customer.register')->name('register-page');
 Route::get('logout', [AuthController::class, 'logout'])->middleware('web')->name('logout');
+Route::get('/', [MainPageController::class, 'index'])->name('index');
 
 Route::name('customer.')->group(function () {
     Route::post('/doLogin', [AuthController::class, 'login'])->name('doLogin');
@@ -34,9 +37,17 @@ Route::name('customer.')->group(function () {
     Route::get('/books/{id}', [BookController::class, 'show'])->name('show.book');
     Route::get('/books', [BookController::class, 'index'])->name('index.books');
     Route::post('/books/search', [BookController::class, 'search'])->name('books.search');
-    Route::get('/contact', [SiteSettingsController::class, 'contactPage'])->name('contact');
+    Route::get('/contact', [ContactController::class, 'contactPage'])->name('contact');
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::get('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::view('/about', 'about')->name('about');
+    Route::view('/about', 'customer.about')->name('about');
+    Route::post('/messages/send', [ContactController::class, 'send'])->name('messages.send');
+    Route::post('/{book_id}/like', [LikeController::class, 'like'])->name('like');
+});
+
+Route::name('admin.')->prefix('admin')->group(function () {
+    Route::get('/dashboard', [IndexController::class, 'index'])->name('index');
+    Route::get('/books-table', [AdminBookController::class, 'data'])->name('books.table');
+    Route::resource('/books', AdminBookController::class)->names('books');
 });

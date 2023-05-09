@@ -18,10 +18,10 @@ class MainPageController extends Controller
 
         $data['topSelling'] = $topOrdered->first();
 
-        $popularBooks = visits(Book::class)->top(8)->split(2) ;
+        $popularBooks = visits(Book::class)->top(8)->split(2);
         $data['popularBooks_1'] = $popularBooks[0];
         $data['popularBooks_2'] = $popularBooks[1];
 
-        return view('index')->with($data);
+        return view('customer.index')->with($data);
     }
 }

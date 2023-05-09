@@ -1,3 +1,4 @@
+/* Default styles for all screen sizes */
 p {
     position: relative;
 }
@@ -7,11 +8,11 @@ a:link,
 a:visited,
 a:active {
     color: #3ca9e2;
-    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 
-a:focus, a:hover,
+a:focus,
+a:hover,
 a:link:focus,
 a:link:hover,
 a:visited:focus,
@@ -19,21 +20,20 @@ a:visited:hover,
 a:active:focus,
 a:active:hover {
     color: #329dd5;
-    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 
 #login-form-wrap {
-    width: 35%;
+    width: 90%;
     margin: 30px auto;
     text-align: center;
-    padding: 20px 0 0 0;
+    padding: 5% 0 0 0;
     border-radius: 4px;
     box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
 }
 
 #login-form {
-    padding: 0 60px;
+    padding: 0 5%;
     margin: 25px;
 }
 
@@ -42,8 +42,8 @@ input {
     box-sizing: border-box;
     width: 100%;
     outline: none;
-    height: 60px;
-    line-height: 60px;
+    height: 6vw;
+    line-height: 6vw;
     border-radius: 4px;
 }
 
@@ -55,9 +55,7 @@ input[type="email"] {
     color: #8a8b8e;
     border: 1px solid #c2c0ca;
     font-style: normal;
-    font-size: 16px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    font-size: 1rem;
     appearance: none;
     position: relative;
     display: inline-block;
@@ -99,7 +97,7 @@ input[type="email"]:valid ~ .validation span:first-child {
 
 input[type="password"]:valid ~ .validation span:first-child,
 input[type="email"]:valid ~ .validation span:first-child {
-    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }
 
 input[type="password"]:valid ~ .validation span:last-child,
@@ -108,7 +106,6 @@ input[type="email"]:valid ~ .validation span:last-child {
     left: 8px;
     width: 11px;
     height: 3px;
-    -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
 
@@ -116,28 +113,13 @@ input[type="email"]:valid ~ .validation span:last-child {
     display: none;
     position: absolute;
     content: " ";
-    height: 60px;
-    width: 30px;
+    height: 6vw;
+    width: 3vw;
     right: 15px;
     top: 0px;
 }
 
-input[type="submit"] {
-    border: none;
-    background-color: black;
-    color: #fff;
-    font-weight: bold;
-    text-transform: capitalize;
-    cursor: pointer;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-    font-size: 18px;
-    font-family: "Sitka Heading", fangsong;
-    position: relative;
-    display: inline-block;
-    text-align: center;
-}
-
+input[type="submit"],
 input[type="button"] {
     border: none;
     background-color: black;
@@ -145,51 +127,85 @@ input[type="button"] {
     font-weight: bold;
     text-transform: capitalize;
     cursor: pointer;
-    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    font-size: 18px;
+    font-size: 1.2rem;
     font-family: "Sitka Heading", fangsong;
     position: relative;
     display: inline-block;
     text-align: center;
+    padding: 3% 5%;
 }
 
-input[type="submit"]:hover {
-    /*background-color: white;*/
+input[type="submit"]:hover,
+input[type="button"]:hover {
     background-color: rgba(255, 255, 255, 0.1);
     color: black;
-    -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }
 
 #create-account-wrap {
     background-color: #eeedf1;
     color: #8a8b8e;
-    font-size: 14px;
+    font-size: 1rem;
     width: 100%;
-    padding: 10px 0;
+    padding: 5% 0;
     border-radius: 0 0 4px 4px;
 }
 
-
 .main-login {
     background-image: url("../images/login-page-image.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 ::placeholder {
     color: black;
-    font-size: 18px;
+    font-size: 1.2rem;
     font-family: "Sitka Heading", serif;
     font-weight: bold;
 }
 
 option {
     color: black;
-    font-size: 18px;
+    font-size: 1.2rem;
     font-family: "Sitka Heading", serif;
     font-weight: bold;
 }
 
 .transparent {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    #login-form-wrap {
+        width: 80%;
+        padding-top: 10%;
+    }
+
+    input {
+        height: 10vw;
+        line-height: 10vw;
+    }
+
+    #create-account-wrap {
+        padding-top: 10%;
+    }
+}
+
+@media (max-width: 480px) {
+    #login-form-wrap {
+        width: 100%;
+        padding-top: 20%;
+    }
+
+    input {
+        height: 15vw;
+        line-height: 15vw;
+    }
+
+    #create-account-wrap {
+        padding-top: 20%;
+    }
 }

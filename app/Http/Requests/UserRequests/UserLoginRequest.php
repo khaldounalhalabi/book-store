@@ -22,8 +22,8 @@ class UserLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'string|required|email|exists:users,email' ,
-            'password' => 'required|string|min:8'
+            'email' => 'string|required|email|exists:users,email',
+            'password' => 'required|string|min:8',
         ];
     }
 }

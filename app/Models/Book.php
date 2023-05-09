@@ -12,22 +12,24 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'] ;
+    protected $guarded = ['id'];
+
+    protected $casts = [
+        'is_original' => 'boolean',
+    ];
 
     public function likes()
     {
-        return $this->hasMany(Like::class) ;
+        return $this->hasMany(Like::class);
     }
 
     public function rates()
     {
-        return $this->hasMany(Rate::class) ;
+        return $this->hasMany(Rate::class);
     }
 
     /**
      * Get the instance of the user visits
-     *
-     * @return Visits
      */
     public function visitsCounter(): Visits
     {
@@ -36,19 +38,14 @@ class Book extends Model
 
     /**
      * Get the visits relation
-     *
-     * @return Relation
      */
     public function visits(): Relation
     {
         return visits($this)->relation();
     }
 
-    /**
-     * @return HasMany
-     */
     public function cart(): HasMany
     {
-        return $this->hasMany(Cart::class) ;
+        return $this->hasMany(Cart::class);
     }
 }

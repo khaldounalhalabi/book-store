@@ -11,15 +11,16 @@ class LoginMiddlware
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
      * @param Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     * @return Response
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->guard('web')->user()){
+        if (auth()->guard('web')->user()) {
             redirect()->route('customer.userDetails');
-        } else redirect()->route('login-page');
+        } else {
+        redirect()->route('login-page');
+        }
+
         return $next($request);
     }
 }

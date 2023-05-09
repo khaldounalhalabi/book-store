@@ -10,25 +10,28 @@ class CartController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()) {
-            redirect()->route('login-page');
+        if (! auth()->user()) {
+            redirect()->route('customer.login-page');
         }
 
         $user = auth()->user();
         $cart = $user->cart()->get();
-        $itemsCount = $cart->count() ;
-        $totalPrice = 0 ;
+        $itemsCount = $cart->count();
+        $totalPrice = 0;
 
-        foreach ($cart as $item){
-//            dd($item);
-            $totalPrice += $item->book->price ;
+        foreach ($cart as $item) {
+            $totalPrice += $item->book->price;
         }
 
-        return view('cart' , compact(['cart' , 'itemsCount' , 'totalPrice']));
+        return view('customer.cart', compact(['cart', 'itemsCount', 'totalPrice']));
     }
 
     public function addToCart($id)
     {
+        if (! auth()->user()) {
+            redirect()->route('customer.login-page');
+        }
+
         $book = Book::findOrFail($id);
         Cart::create([
             'user_id' => auth()->user()->id,
@@ -40,8 +43,13 @@ class CartController extends Controller
 
     public function remove($id)
     {
-        $cart = Cart::findOrFail($id) ;
-        $cart->delete() ;
-        return redirect()->back() ;
+        if (! auth()->user()) {
+            redirect()->route('customer.login-page');
+        }
+
+        $cart = Cart::findOrFail($id);
+        $cart->delete();
+
+        return redirect()->back();
     }
 }

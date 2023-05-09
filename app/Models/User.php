@@ -14,6 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @property HasOne address()
+ *
  * @method static create(array $array)
  */
 class User extends Authenticatable
@@ -41,35 +42,23 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * @return HasOne
-     */
     public function address(): HasOne
     {
         return $this->hasOne(Address::class);
     }
 
-    /**
-     * @return HasManyAlias
-     */
     public function likes(): HasManyAlias
     {
-        return $this->hasMany(Like::class) ;
+        return $this->hasMany(Like::class);
     }
 
-    /**
-     * @return HasManyAlias
-     */
     public function rates(): HasManyAlias
     {
-        return $this->hasMany(Rate::class) ;
+        return $this->hasMany(Rate::class);
     }
 
-    /**
-     * @return HasManyAlias
-     */
     public function cart(): HasManyAlias
     {
-        return $this->hasMany(Cart::class) ;
+        return $this->hasMany(Cart::class);
     }
 }

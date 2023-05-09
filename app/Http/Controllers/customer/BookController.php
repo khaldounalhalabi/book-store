@@ -11,19 +11,30 @@ class BookController extends Controller
     public function show($id)
     {
         $data['book'] = Book::find($id);
-        return view('singleBook')->with($data);
+        if (auth()->user()) {
+            $like = $data['book']->likes()->where('user_id', auth()->user()->id)->first();
+        }
+
+        if (isset($like)) {
+            $data['liking'] = 'liked';
+        } else {
+        $data['liking'] = 'unliked';
+        }
+
+        return view('customer.singleBook')->with($data);
     }
 
     public function index()
     {
         $data['books'] = Book::orderBy('name')->paginate(6);
-        return view('books')->with($data);
+
+        return view('customer.books')->with($data);
     }
 
     public function search(Request $request)
     {
         $request->validate([
-            'search' => 'string'
+            'search' => 'string',
         ]);
         $search = $request->search;
 
@@ -33,6 +44,7 @@ class BookController extends Controller
             ->orWhere('long_description', 'LIKE', "%$search%")
             ->orWhere('small_description', 'LIKE', "%$search%")
             ->paginate(6);
-        return view('books')->with($data);
+
+        return view('customer.books')->with($data);
     }
 }

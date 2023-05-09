@@ -22,5 +22,31 @@
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="17">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="style" />
+            <item index="7" class="java.lang.String" itemvalue="x-forms.createform" />
+            <item index="8" class="java.lang.String" itemvalue="x-forms.validationerrors" />
+            <item index="9" class="java.lang.String" itemvalue="x-forms.input" />
+            <item index="10" class="java.lang.String" itemvalue="x-forms.select2" />
+            <item index="11" class="java.lang.String" itemvalue="x-forms.multipleselect2" />
+            <item index="12" class="java.lang.String" itemvalue="x-forms.checkbox.formcheck" />
+            <item index="13" class="java.lang.String" itemvalue="x-forms.checkbox.formcheckinput" />
+            <item index="14" class="java.lang.String" itemvalue="x-forms.checkbox.formcheckradio" />
+            <item index="15" class="java.lang.String" itemvalue="x-forms.texteditor" />
+            <item index="16" class="java.lang.String" itemvalue="segoui" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
   </profile>
 </component>

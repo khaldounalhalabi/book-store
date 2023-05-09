@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Rate;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class RateSeeder extends Seeder
@@ -13,6 +12,6 @@ class RateSeeder extends Seeder
      */
     public function run(): void
     {
-        Rate::factory(30)->create() ;
+        Rate::factory(30)->create();
     }
 }

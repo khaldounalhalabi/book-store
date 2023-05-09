@@ -12,19 +12,13 @@ class Cart extends Model
 
     protected $guarded = ['id'];
 
-    /**
-     * @return BelongsToAlias
-     */
     public function user(): BelongsToAlias
     {
-        return $this->belongsTo(User::class) ;
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return BelongsToAlias
-     */
     public function book(): BelongsToAlias
     {
-        return $this->belongsTo(Book::class) ;
+        return $this->belongsTo(Book::class);
     }
 }

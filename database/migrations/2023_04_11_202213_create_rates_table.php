@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete() ;
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete() ;
-            $table->integer('rate')->default(0) ;
+            $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->integer('rate')->default(0);
             $table->timestamps();
 
             $table->unique(['user_id', 'book_id']);

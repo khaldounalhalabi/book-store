@@ -1879,3 +1879,7 @@ footer#footer {
     font-size: larger;
 }
 
+.like {
+    padding: 10px;
+    cursor: pointer;
+}
