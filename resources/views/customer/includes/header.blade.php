@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
           integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="{{asset('css/normalize.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('icomoon/icomoon.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/vendor.css')}}">
@@ -38,15 +40,54 @@
                 <div class="col-md-6">
                     <div class="social-links">
                         <ul>
-                            <li>
-                                <a href="#"><i class="icon icon-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon icon-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon icon-youtube-play"></i></a>
-                            </li>
+                            @if(isset($sc->facebook))
+                                <li>
+                                    <a href="{{url($sc->facebook)}}"><i class="icon icon-facebook"></i></a>
+                                </li>
+                            @endif
+
+                            @if(isset($sc->twitter))
+                                <li>
+                                    <a href="{{$sc->twitter}}"><i class="icon icon-twitter"></i></a>
+                                </li>
+                            @endif
+
+                            @if(isset($sc->youtube))
+                                <li>
+                                    <a href="{{$sc->youtube}}"><i class="icon icon-youtube-play"></i></a>
+                                </li>
+                            @endif
+
+                            @if(isset($sc->instgram))
+                                <li>
+                                    <a href="{{$sc->instgram}}"><i class="bi bi-instagram"></i></a>
+                                </li>
+                            @endif
+
+                            @if(isset($sc->whatsapp))
+                                <li>
+                                    <a href="{{$sc->whatsapp}}"><i class="bi bi-whatsapp"></i></a>
+                                </li>
+                            @endif
+
+                            @if(isset($sc->telegram))
+                                <li>
+                                    <a href="{{$sc->telegram}}"><i class="bi bi-telegram"></i></a>
+                                </li>
+                            @endif
+
+                            @if(isset($sc->snapchat))
+                                <li>
+                                    <a href="{{$sc->snapchat}}"><i class="bi bi-snapchat"></i></a>
+                                </li>
+                            @endif
+
+                            @if(isset($sc->tiktok))
+                                <li>
+                                    <a href="{{$sc->tiktok}}"><i class="bi bi-tiktok"></i></a>
+                                </li>
+                            @endif
+
                         </ul>
                     </div>
                 </div>
@@ -131,7 +172,7 @@
 
                 <div class="col-md-2">
                     <div class="main-logo">
-                        <a href="{{route('index')}}"><img src="{{asset('images/main-logo.png')}}" alt="logo"></a>
+                        <a href="{{route('index')}}"><img src="{{asset("storage/".$sc->logo)}}" alt="logo"></a>
                     </div>
 
                 </div>

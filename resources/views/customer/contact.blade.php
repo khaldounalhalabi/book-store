@@ -23,28 +23,66 @@
 
                     <div class="contact-detail d-flex flex-wrap mt-4">
                         <div class="detail mr-6 mb-4">
-                            <p>We'd love to hear from you! If you have any questions or feedback about our products or
-                                services, please don't hesitate to get in touch. You can reach us by phone, email, or
-                                through the contact form on this page.
-                                Our customer support team is available to assist you with any issues or concerns you may
-                                have. We strive to provide the best possible service to our customers and are committed
-                                to resolving any problems as quickly and efficiently as possible.
-                                Thank you for your interest in our company. We look forward to hearing from you!</p>
+                            <p>{{$sc->contact_content}}</p>
                             <ul class="list-unstyled list-icon">
-                                <li><i class="icon icon-phone"></i>+1650-243-0000</li>
-                                <li><i class="icon icon-envelope-o"></i><a href="mailto:info@yourcompany.com">info@yourcompany.com</a>
-                                </li>
-                                <li><i class="icon icon-location2"></i>North Melbourne VIC 3051, Australia</li>
+                                <li><i class="icon icon-phone"></i>{{$sc->phone_number}}</li>
+                                <li><i class="icon icon-envelope-o"></i>{{$sc->email}}</li>
+                                <li><i class="icon icon-location2"></i>{{$sc->address}}</li>
                             </ul>
                         </div><!--detail-->
                         <div class="detail mb-4">
                             <h3>صفحاتنا على مواقع التواصل الاجتماعي</h3>
                             <div class="social-links flex-container">
-                                <a href="#" class="icon icon-facebook"></a>
-                                <a href="#" class="icon icon-twitter"></a>
-                                <a href="#" class="icon icon-pinterest-p"></a>
-                                <a href="#" class="icon icon-youtube"></a>
-                                <a href="#" class="icon icon-linkedin"></a>
+                                <ul>
+                                    @if(isset($sc->facebook))
+                                        <li>
+                                            <a href="{{url($sc->facebook)}}"><i class="icon icon-facebook"></i></a>
+                                        </li>
+                                    @endif
+
+                                    @if(isset($sc->twitter))
+                                        <li>
+                                            <a href="{{$sc->twitter}}"><i class="icon icon-twitter"></i></a>
+                                        </li>
+                                    @endif
+
+                                    @if(isset($sc->youtube))
+                                        <li>
+                                            <a href="{{$sc->youtube}}"><i class="icon icon-youtube-play"></i></a>
+                                        </li>
+                                    @endif
+
+                                    @if(isset($sc->instgram))
+                                        <li>
+                                            <a href="{{$sc->instgram}}"><i class="bi bi-instagram"></i></a>
+                                        </li>
+                                    @endif
+
+                                    @if(isset($sc->whatsapp))
+                                        <li>
+                                            <a href="{{$sc->whatsapp}}"><i class="bi bi-whatsapp"></i></a>
+                                        </li>
+                                    @endif
+
+                                    @if(isset($sc->telegram))
+                                        <li>
+                                            <a href="{{$sc->telegram}}"><i class="bi bi-telegram"></i></a>
+                                        </li>
+                                    @endif
+
+                                    @if(isset($sc->snapchat))
+                                        <li>
+                                            <a href="{{$sc->snapchat}}"><i class="bi bi-snapchat"></i></a>
+                                        </li>
+                                    @endif
+
+                                    @if(isset($sc->tiktok))
+                                        <li>
+                                            <a href="{{$sc->tiktok}}"><i class="bi bi-tiktok"></i></a>
+                                        </li>
+                                    @endif
+
+                                </ul>
                             </div><!--social-links-->
                         </div><!--detail-->
 

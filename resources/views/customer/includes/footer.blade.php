@@ -30,7 +30,7 @@
                     <div class="company-brand">
                         <a href="{{route('index')}}"><img src="{{asset('images/main-logo.png')}}" alt="logo"
                                                           class="footer-logo"></a>
-                        <p>Lorem ipsum dolor sit amet, consecrate disciplining elite</p>
+                        <p>{{$sc->footer_quot}}</p>
                     </div>
                 </div>
 
