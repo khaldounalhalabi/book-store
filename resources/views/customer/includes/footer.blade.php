@@ -28,7 +28,7 @@
 
                 <div class="footer-item">
                     <div class="company-brand">
-                        <a href="{{route('index')}}"><img src="{{asset('images/main-logo.png')}}" alt="logo"
+                        <a href="{{route('index')}}"><img src="{{asset("storage/".$sc->logo)}}" alt="logo"
                                                           class="footer-logo"></a>
                         <p>{{$sc->footer_quot}}</p>
                     </div>

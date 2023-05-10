@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="single-image col-md-12">
-                    <p>{{$sc->about}}</p>
+                    <p>{!! $sc->about !!}</p>
 
                 </div>
             </div>

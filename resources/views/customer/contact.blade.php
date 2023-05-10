@@ -23,7 +23,7 @@
 
                     <div class="contact-detail d-flex flex-wrap mt-4">
                         <div class="detail mr-6 mb-4">
-                            <p>{{$sc->contact_content}}</p>
+                            <p>{!! $sc->contact_content !!}</p>
                             <ul class="list-unstyled list-icon">
                                 <li><i class="icon icon-phone"></i>{{$sc->phone_number}}</li>
                                 <li><i class="icon icon-envelope-o"></i>{{$sc->email}}</li>

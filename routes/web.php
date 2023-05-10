@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\BookController as AdminBookController;
 use App\Http\Controllers\admin\IndexController;
+use App\Http\Controllers\admin\SiteContentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\customer\AuthController;
 use App\Http\Controllers\customer\BookController;
@@ -50,4 +51,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/dashboard', [IndexController::class, 'index'])->name('index');
     Route::get('/books-table', [AdminBookController::class, 'data'])->name('books.table');
     Route::resource('/books', AdminBookController::class)->names('books');
+    Route::get('/site-content', [SiteContentController::class, 'edit'])->name('site_content.edit');
+    Route::put('/site-content/update', [SiteContentController::class, 'update'])->name('site_content.update');
 });

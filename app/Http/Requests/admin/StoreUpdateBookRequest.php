@@ -41,7 +41,7 @@ class StoreUpdateBookRequest extends FormRequest
             'publisher' => 'string|min:3|max:255',
             'small_description' => 'string|min:3',
             'long_description' => 'string|min:3',
-            'face_image' => 'file|image',
+            'face_image' => 'file|image|required',
             'publish_date' => 'date|date_format:Y-m-d',
             'is_original' => 'boolean',
             'price' => 'numeric',
