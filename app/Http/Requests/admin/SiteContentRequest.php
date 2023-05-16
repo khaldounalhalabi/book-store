@@ -30,7 +30,7 @@ class SiteContentRequest extends FormRequest
             'instgram' => 'nullable|string',
             'snapchat' => 'nullable|string',
             'tiktok' => 'nullable|string',
-            'logo' => 'file|image|required',
+            'logo' => 'file|image|nullable',
             'footer_quot' => 'required|string',
             'phone_number' => 'required|string',
             'about' => 'string|required',

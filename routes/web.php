@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\BookController as AdminBookController;
+use App\Http\Controllers\admin\EmailController;
 use App\Http\Controllers\admin\IndexController;
 use App\Http\Controllers\admin\SiteContentController;
 use App\Http\Controllers\Controller;
@@ -53,4 +54,6 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::resource('/books', AdminBookController::class)->names('books');
     Route::get('/site-content', [SiteContentController::class, 'edit'])->name('site_content.edit');
     Route::put('/site-content/update', [SiteContentController::class, 'update'])->name('site_content.update');
+    Route::get('/emails', [EmailController::class, 'index'])->name('email.index');
+    Route::get('/emails/{id}', [EmailController::class, 'show'])->name('email.show');
 });

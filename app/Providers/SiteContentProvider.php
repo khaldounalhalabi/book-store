@@ -22,7 +22,8 @@ class SiteContentProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $data['sc'] = DB::table('site_contents')->first();
-         View::share($data) ;
+        $data['sc'] = SiteContent::first();
+        $data['sc']->visitsCounter()->increment();
+        View::share($data);
     }
 }

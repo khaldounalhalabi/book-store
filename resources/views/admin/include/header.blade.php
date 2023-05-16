@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 
 <head>
     <meta charset="utf-8">
@@ -38,7 +38,7 @@
     <link href="{{ asset('AdminAssets') }}/css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="font-family: 'Segoe UI',sans-serif ; ">
 
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\admin;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUpdateBookRequest extends FormRequest
@@ -17,7 +18,7 @@ class StoreUpdateBookRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, Rule|array|string>
      */
     public function rules(): array
     {
@@ -41,7 +42,7 @@ class StoreUpdateBookRequest extends FormRequest
             'publisher' => 'string|min:3|max:255',
             'small_description' => 'string|min:3',
             'long_description' => 'string|min:3',
-            'face_image' => 'file|image|required',
+            'face_image' => 'file|image|nullable',
             'publish_date' => 'date|date_format:Y-m-d',
             'is_original' => 'boolean',
             'price' => 'numeric',

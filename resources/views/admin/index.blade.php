@@ -6,10 +6,11 @@
             <div class="col-lg-8">
                 <div class="row">
                     <!-- Revenue Card -->
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-4 col-md-6" dir="rtl">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">Messages <span>| Today</span></h5>
+                                <h5 class="card-title" style="font-family: 'Segoe UI',sans-serif ; ">الرسائل <span>| اليوم</span>
+                                </h5>
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -23,26 +24,26 @@
 
                         </div>
                     </div><!-- End Revenue Card -->
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-4 col-md-6" dir="rtl">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">Total Visitors</h5>
+                                <h5 class="card-title" style="font-family: 'Segoe UI',sans-serif ; ">عدد الزوار</h5>
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-view-list"></i>
                                     </div>
                                     <div class="ps-3">
-                                        <h6></h6>
+                                        <h6>{{$siteVisitors}}</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div><!-- End Revenue Card -->
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-4 col-md-6" dir="rtl">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">Books Count</h5>
+                                <h5 class="card-title" style="font-family: 'Segoe UI',sans-serif ; ">عدد الكتب</h5>
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -55,10 +56,10 @@
                             </div>
                         </div>
                     </div><!-- End Revenue Card -->
-                    <div class="col-xxl-4 col-md-6">
+                    <div class="col-xxl-4 col-md-6" dir="rtl">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">Users Count</h5>
+                                <h5 class="card-title" style="font-family: 'Segoe UI',sans-serif ; ">عدد المستخدمين</h5>
                                 <div class="d-flex align-items-center">
                                     <div
                                         class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -76,11 +77,12 @@
             {{-- End Of Left Side Columns --}}
 
             <!-- Right side columns -->
-            <div class="col-lg-4">
+            <div class="col-lg-4" dir="rtl">
                 <div class="col-12">
                     <div class="card info-card sales-card">
                         <div class="card-body">
-                            <h5 class="card-title">Date <span>| time</span></h5>
+                            <h5 class="card-title" style="font-family: 'Segoe UI',sans-serif ; ">التاريخ
+                                <span>| الوقت</span></h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -112,7 +114,7 @@
                 <div class="col-12">
                     <div class="card info-card revenue-card">
                         <div class="card-body">
-                            <h5 class="card-title">Orders Count</h5>
+                            <h5 class="card-title" style="font-family: 'Segoe UI',sans-serif ; ">عدد الطلبات</h5>
                             <div class="d-flex align-items-center">
                                 <div
                                     class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -127,19 +129,20 @@
                 </div><!-- End Revenue Card -->
             </div>
 
-            <div class="row">
+            <div class="row" dir="rtl">
                 <!-- Top Visited Books Pages -->
                 <div class="col-md-12">
                     <div class="card top-selling overflow-auto">
                         <div class="card-body pb-1">
-                            <h5 class="card-title">Top 5 Visited Books Pages</h5>
+                            <h5 class="card-title" style="font-family: 'Segoe UI',sans-serif ; " dir="rtl">الكتب الأكثر
+                                مشاهدة</h5>
                             <table class="table table-borderless">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Publisher</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Likes</th>
+                                    <th scope="col">الاسم</th>
+                                    <th scope="col">الناشر</th>
+                                    <th scope="col">السعر</th>
+                                    <th scope="col">الإعجابات</th>
                                 </tr>
                                 </thead>
                                 <tbody>

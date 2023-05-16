@@ -5,7 +5,7 @@
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>Monthly Report</title>
+    <title>بريد من : {{$email->name}}</title>
     <meta name="description" content="Reset Password Email Template.">
     <style type="text/css">
         a:hover {
@@ -22,11 +22,6 @@
                 <table style="background-color: #f2f3f8; max-width:670px;  margin:0 auto;" width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
                     <tr>
                         <td style="height:80px;">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:center; font-size: 50px ; ">
-                           {{ $email->subject }}
-                        </td>
                     </tr>
                     <tr>
                         <td style="height:20px;">&nbsp;</td>
@@ -50,7 +45,7 @@
                                             Email : {{ $email->email }}
                                         </p>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                            Date : {{ $email->date }}
+                                            Date : {{ $email->created_at }}
                                         </p>
                                        </div>
                                     </td>
