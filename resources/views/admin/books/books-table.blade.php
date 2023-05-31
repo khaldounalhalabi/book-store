@@ -12,7 +12,8 @@
                         </a>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered pt-2" style="width:100%;margin: -2%;" id="table"
+                <table class="table table-striped table-bordered pt-2 table-responsive" style="width:100%;margin: -2%;"
+                       id="table"
                        dir="rtl">
                     <thead>
                     <tr>
@@ -46,13 +47,13 @@
                         serverSide: true,
                         ajax: '{{ route("admin.books.table") }}',
                         columns: [
-                            {'data': 'id', orderable: false},
-                            {"data": 'name', orderable: false},
-                            {"data": 'is_original', orderable: false},
-                            {"data": 'author_name', orderable: false},
-                            {"data": 'publisher', searchable: true, orderable: false},
-                            {"data": 'price', orderable: false},
-                            {"data": 'action', searchable: false, orderable: false},
+                            {'data': 'id', orderable: true},
+                            {"data": 'name', orderable: true, searchable: true},
+                            {"data": 'is_original', orderable: true, searchable: true},
+                            {"data": 'author_name', orderable: true, searchable: true},
+                            {"data": 'publisher', searchable: true, orderable: true},
+                            {"data": 'price', orderable: true, searchable: true},
+                            {"data": 'action', searchable: true, orderable: true},
                         ]
                     });
 
@@ -76,7 +77,7 @@
                                     "method": "DELETE",
                                     "url": url,
                                     success: function () {
-                                        $this.parent().parent().parent().remove();
+                                        $this.parent().parent().parent().parent().remove();
                                     }
                                 });
                                 Swal.fire('Deleted!', '', 'success')

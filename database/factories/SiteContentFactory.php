@@ -26,7 +26,7 @@ class SiteContentFactory extends Factory
             'snapchat' => 'https://www.snapchat.com',
             'tiktok' => 'https://www.tiktok.com',
             'logo' => fake()->imageUrl(),
-            'footer_quot' => fake()->sentence(30),
+            'footer_quot' => fake()->sentence(5),
             'about' => fake()->realText(5000),
             'phone_number' => fake()->phoneNumber(),
             'email' => fake()->email(),

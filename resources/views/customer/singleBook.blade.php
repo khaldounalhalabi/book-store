@@ -20,7 +20,7 @@
                         <span class="price colored">${{$book->price}}</span>
 
                         <p>
-                            {{$book->long_description}}
+                            {!! $book->long_description !!}
                         </p>
 
                         <a href="{{route('customer.cart.add' , $book->id)}}">

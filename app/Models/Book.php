@@ -44,8 +44,13 @@ class Book extends Model
         return visits($this)->relation();
     }
 
-    public function cart(): HasMany
+    public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

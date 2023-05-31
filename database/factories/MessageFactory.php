@@ -19,8 +19,8 @@ class MessageFactory extends Factory
         return [
             'name' => fake()->name,
             'email' => fake()->email,
-            'body' => fake()->realText ,
-            'read_at' => fake()->boolean ? fake()->date : null
+            'body' => fake()->realText,
+            'read_at' => fake()->boolean ? fake()->date : null,
         ];
     }
 }

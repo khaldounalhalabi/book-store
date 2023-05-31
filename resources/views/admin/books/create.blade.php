@@ -51,21 +51,11 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="small_description" class="col-sm-2 col-form-label">الشرح القصير</label>
+                                <label for="quantity" class="col-sm-2 col-form-label">الكمية</label>
                                 <div class="col-sm-10">
-                                <textarea id="small_description" name="small_description" form="serviceForm"
-                                          class="form-control @error('small_description') is-invalid @enderror"
-                                          style="height: 100px">{{old('small_description')}}</textarea>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="long_description" class="col-sm-2 col-form-label">الشرح الطويل</label>
-                                <div class="col-sm-10">
-                                <textarea dir="rtl" id="long_description" name="long_description"
-                                          form="serviceForm"
-                                          class="form-control @error('long_description') is-invalid @enderror"
-                                          style="height: 100px">{{old('long_description')}}</textarea>
+                                    <input dir="rtl" name="quantity" id="quantity" type="number"
+                                           class="form-control @error('quantity') is-invalid @enderror"
+                                           value="{{old('quantity')}}">
                                 </div>
                             </div>
 
@@ -118,6 +108,35 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <label for="small_description" class="card-title">شرح قصير</label>
+                                            <textarea id="small_description" class="tinymce-editor"
+                                                      name="small_description">
+                                                    {{old('small_description')}}
+                                                </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <label for="long_description" class="card-title">شرح طويل</label>
+                                            <textarea id="long_description" class="tinymce-editor"
+                                                      name="long_description">
+                                                    {{old('long_description')}}
+                                                </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div class="row mb-3 p-4 text-center">
                                 <label class="col-sm-2 col-form-label"></label>

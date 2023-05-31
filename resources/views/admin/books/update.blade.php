@@ -5,7 +5,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-header text-primary" style="font-family: 'Segoe UI',sans-serif">التعديل على كتاب</h3>
+                        <h3 class="card-header text-primary" style="font-family: 'Segoe UI',sans-serif">التعديل على
+                            كتاب</h3>
                         @if($errors->any())
                             <div class="card p-1">
                                 <div class="card-body">
@@ -52,21 +53,11 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="small_description" class="col-sm-2 col-form-label">الشرح القصير</label>
+                                <label for="quantity" class="col-sm-2 col-form-label">الكمية</label>
                                 <div class="col-sm-10">
-                                <textarea id="small_description" name="small_description" form="serviceForm"
-                                          class="form-control @error('small_description') is-invalid @enderror"
-                                          style="height: 100px">{{old('small_description') ?? $book->small_description}}</textarea>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="long_description" class="col-sm-2 col-form-label">الشرح الطويل</label>
-                                <div class="col-sm-10">
-                                <textarea dir="rtl" id="long_description" name="long_description"
-                                          form="serviceForm"
-                                          class="form-control @error('long_description') is-invalid @enderror"
-                                          style="height: 100px">{{old('long_description') ?? $book->long_description}}</textarea>
+                                    <input dir="rtl" name="quantity" id="quantity" type="number"
+                                           class="form-control @error('quantity') is-invalid @enderror"
+                                           value="{{old('quantity')}}">
                                 </div>
                             </div>
 
@@ -108,6 +99,7 @@
                                         </label>
                                     </div>
                                 </div>
+
                                 <div class="col-md-3 border border-primary">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="is_original"
@@ -120,13 +112,43 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <label for="small_description" class="card-title">شرح قصير</label>
+                                            <textarea id="small_description" class="tinymce-editor"
+                                                      name="small_description">
+                                                    {{old('small_description') ?? (isset($book->small_description) ?? $book->small_description)}}
+                                                </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <label for="long_description" class="card-title">شرح طويل</label>
+                                            <textarea id="long_description" class="tinymce-editor"
+                                                      name="long_description">
+                                                    {{old('long_description') ?? (isset($book->long_description) ?? $book->long_description)}}
+                                                </textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row mb-3 p-4 text-center">
                                 <label class="col-sm-2 col-form-label"></label>
                                 <div class="col-sm-10">
                                     <button type="submit" class="btn btn-primary">تعديل</button>
                                 </div>
                             </div>
+
                         </form>
+
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\admin;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SiteContentRequest extends FormRequest
@@ -17,7 +18,7 @@ class SiteContentRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, Rule|array|string>
      */
     public function rules(): array
     {
@@ -31,6 +32,7 @@ class SiteContentRequest extends FormRequest
             'snapchat' => 'nullable|string',
             'tiktok' => 'nullable|string',
             'logo' => 'file|image|nullable',
+            'favicon' => 'file|image|nullable',
             'footer_quot' => 'required|string',
             'phone_number' => 'required|string',
             'about' => 'string|required',

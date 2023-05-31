@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'phone_number' => '0936955531',
             'email' => 'khaldoun1222@hotmail.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('123456789'),
+            'password' => '12345678',
             'remember_token' => Str::random(10),
         ]);
         User::factory(10)->withAddress()->create();

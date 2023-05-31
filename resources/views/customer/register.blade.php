@@ -5,27 +5,27 @@
         <div id="login-form-wrap" class="transparent">
             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
                  class="w-100"
-                 style="border-top-left-radius: .3rem; border-top-right-radius: .3rem; margin-top: -25px;">
+                 style="border-top-left-radius: .3rem; border-top-right-radius: .3rem; margin-top: -25px;" alt="form">
             <h3 style="text-align: center">بيانات التسجيل</h3>
             <form id="login-form" action="{{route('customer.doRegister')}}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-6 mb-4">
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <input type="text" class="form-control border-dark bg-transparent" id="first_name"
                                    name="first_name" placeholder="الاسم الأول" required/>
                         </div>
                     </div>
 
                     <div class="col-md-6 mb-4">
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <input type="text" class="form-control border-dark bg-transparent" id="last_name"
                                    name="last_name" placeholder="الاسم الأخير" required/>
                         </div>
                     </div>
 
                     <div class="col-md-4 mb-4">
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <select type="text" class="form-control border-dark bg-transparent" id="country-code"
                                     name="country_code" required placeholder="رمز الدولة">
                                 <option value="+1">+1(USA)</option>
@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="col-md-8 mb-4">
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <input type="tel" id="phone" class="form-control border-dark bg-transparent"
                                    name="phone_number"
                                    placeholder="رقم الهاتف" required>
@@ -68,7 +68,7 @@
                 <div class="row">
 
                     <div class="col-md-6 mb-4">
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <select type="text" class="form-control border-dark bg-transparent" id="country"
                                     name="country" required>
                                 <option value="Country">Country</option>
@@ -80,7 +80,7 @@
 
                     <div class="col-md-6 mb-4">
 
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <input type="text" class="form-control border-dark bg-transparent" id="city" name="city"
                                    placeholder="المدينة" required/>
                         </div>
@@ -89,7 +89,7 @@
 
                     <div class="col-md-6 mb-4">
 
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <input type="text" class="form-control border-dark bg-transparent" id="street" name="street"
                                    placeholder="الشارع" required/>
                         </div>
@@ -98,7 +98,7 @@
 
                     <div class="col-md-6 mb-4">
 
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <input type="text" class="form-control border-dark bg-transparent" id="house_number"
                                    name="house_number"
                                    placeholder="رقم المنزل" required/>
@@ -108,7 +108,7 @@
 
                     <div class="col-md-6 mb-4">
 
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <input type="text" class="form-control border-dark bg-transparent" id="door_number"
                                    name="door_number"
                                    placeholder="رقم الباب" required/>
@@ -118,7 +118,7 @@
 
                     <div class="col-md-6 mb-4">
 
-                        <div class="form-outline datepicker">
+                        <div class="form-outline">
                             <input type="text" class="form-control border-dark bg-transparent" id="door_number"
                                    name="post_code"
                                    placeholder="الرمز البريدي" required/>

@@ -62,7 +62,7 @@
                                             <h5>€ {{$totalPrice}}</h5>
                                         </div>
 
-                                        <input type="button" value="اشترِ" class="btn">
+                                        <a href="{{route('customer.make-order')}}"><input type="button" value="اشترِ" class="btn"></a>
 
                                     </div>
                                 </div>

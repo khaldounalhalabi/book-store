@@ -159,13 +159,6 @@ input[type="button"]:hover {
     background-position: center center;
 }
 
-::placeholder {
-    color: black;
-    font-size: 1.2rem;
-    font-family: "Sitka Heading", serif;
-    font-weight: bold;
-}
-
 option {
     color: black;
     font-size: 1.2rem;
@@ -209,3 +202,5 @@ option {
         padding-top: 20%;
     }
 }
+
+

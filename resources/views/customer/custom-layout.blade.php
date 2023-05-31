@@ -11,6 +11,9 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
 
+    <link href="{{asset("storage/".$sc->favicon)}}" rel="icon">
+    <link href="{{asset("storage/".$sc->favicon)}}" rel="apple-touch-icon">
+
     <link rel="stylesheet" type="text/css" href="{{asset('css/normalize.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('icomoon/icomoon.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/vendor.css')}}">
@@ -26,15 +29,20 @@
 </head>
 <body class="main-login">
 
-<header id="header">
-    <div style="text-align: center;">
-        <div class="main-logo">
-            <a href="{{route('index')}}"><img src="{{asset('images/main-logo.png')}}" alt="logo"></a>
-        </div>
-    </div>
-</header>
-
 @yield('content')
 
 
-@include('customer.includes.footer')
+<script src="{{asset('js/jquery-1.11.0.min.js')}}"></script>
+<script src="{{asset('js/plugins.js')}}"></script>
+<script src="{{asset("js/script.js")}}"></script>
+<script src="{{asset("js/bootstrap.min.js")}}"></script>
+<script src="{{asset("js/bootstrap.bundle.min.js")}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+        integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.0/jquery-migrate.min.js"
+        integrity="sha512-iJ1SAH2WFRlq6+tSHM2/y3xJiqcSoJeZ4F5c0u0VAON7+azC3IwfHkDORU3RmIv1xB/w7IBiaiRx8FJEk/fLmw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+</html>

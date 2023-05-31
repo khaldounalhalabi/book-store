@@ -17,13 +17,13 @@ class IndexController extends Controller
         $popularBooks = visits(Book::class)->top(5)->sortBy('likes_count', SORT_DESC, true);
         $booksCount = Book::all()->count();
         $usersCount = User::all()->count();
-        $siteVisitors = SiteContent::first()->visits()->count() ;
+        $siteVisitors = SiteContent::first()->visits()->count();
 
         return view('admin.index', compact(
             'recieved_emails_today',
             'popularBooks',
             'booksCount',
-            'usersCount' ,
+            'usersCount',
             'siteVisitors'
         ));
     }

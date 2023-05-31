@@ -21,4 +21,9 @@ class Cart extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    public function order()
+    {
+        return $this->hasOne(Order::class);
+    }
 }

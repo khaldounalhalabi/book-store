@@ -11,7 +11,7 @@ class CartController extends Controller
     public function index()
     {
         if (! auth()->user()) {
-            redirect()->route('customer.login-page');
+            return redirect()->route('customer.login-page');
         }
 
         $user = auth()->user();
@@ -29,7 +29,7 @@ class CartController extends Controller
     public function addToCart($id)
     {
         if (! auth()->user()) {
-            redirect()->route('customer.login-page');
+            return redirect()->route('customer.login-page');
         }
 
         $book = Book::findOrFail($id);
@@ -44,7 +44,7 @@ class CartController extends Controller
     public function remove($id)
     {
         if (! auth()->user()) {
-            redirect()->route('customer.login-page');
+            return redirect()->route('customer.login-page');
         }
 
         $cart = Cart::findOrFail($id);

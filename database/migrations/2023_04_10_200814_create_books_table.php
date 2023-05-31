@@ -24,9 +24,8 @@ return new class extends Migration
             $table->bigInteger('order_number')->default(0);
             $table->date('publish_date')->default(now());
             $table->string('face_image');
-            $table->bigInteger('likes')->default(0);
-            $table->bigInteger('dislikes')->default(0);
             $table->bigInteger('likes_count')->default(0);
+            $table->bigInteger('quantity')->default(0);
             $table->timestamps();
         });
     }

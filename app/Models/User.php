@@ -19,7 +19,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable , HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     protected $guarded = ['id'];
 
@@ -60,5 +60,15 @@ class User extends Authenticatable
     public function cart(): HasManyAlias
     {
         return $this->hasMany(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function cartGroups()
+    {
+        return $this->hasMany(CartGroup::class);
     }
 }

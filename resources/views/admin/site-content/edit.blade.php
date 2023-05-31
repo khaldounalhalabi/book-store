@@ -139,7 +139,16 @@
                                 <div class="col-sm-10">
                                     <input name="logo" id="logo"
                                            class="form-control  @error('logo') is-invalid @enderror"
-                                           type="file" value="{{old('logo') ?? (isset($sc->logo ) ? $sc->logo : null)}}">
+                                           type="file" value="{{old('logo') ?? (isset($sc->logo ) ?? $sc->logo)}}">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="favicon" class="col-sm-2 col-form-label">Favicon</label>
+                                <div class="col-sm-10">
+                                    <input name="favicon" id="favicon"
+                                           class="form-control  @error('favicon') is-invalid @enderror"
+                                           type="file" value="{{old('favicon') ?? (isset($sc->favicon ) ?? $sc->favicon)}}">
                                 </div>
                             </div>
 

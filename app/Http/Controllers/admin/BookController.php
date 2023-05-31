@@ -19,43 +19,23 @@ class BookController extends Controller
      */
     public function data(): \Illuminate\Http\JsonResponse
     {
-        $books = Book::query()->orderBy('name');
+        $books = Book::select(['id', 'name', 'is_original', 'author_name', 'publisher', 'price']);
 
         return DataTables::eloquent($books)
-            ->addColumn('name', function ($book) {
-                return $book->name;
-            })
-            ->filterColumn('name', function ($query, $keyword) {
-                $query->where('name', 'like', "%$keyword%");
-            })
-            ->addColumn('is_original', function ($book) {
-                return $book->is_original ? 'Original' : 'Not Original';
-            })
-            ->addColumn('author_name', function ($book) {
-                return $book->author_name;
-            })
-            ->filterColumn('author_name', function ($query, $keyword) {
-                $query->where('author_name', 'like', "%$keyword%");
-            })
-            ->addColumn('publisher', function ($book) {
-                return $book->publisher;
-            })
-            ->filterColumn('publisher', function ($query, $keyword) {
-                $query->where('publisher', 'like', "%$keyword%");
-            })
-            ->addColumn('price', function ($book) {
-                return $book->price;
-            })
             ->addColumn('action', function ($book) {
                 return "
-                    <div class='d-flex'>
-                        <a href='".route('admin.books.show', $book->id)."' class='btn btn-xs btn-info'>
-                            <i class='bi bi-chevron-bar-right'></i>
-                        </a>
-                        <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn'
-                                data-deleteurl ='".route('admin.books.destroy', $book->id)."' >
-                            <i class='bi bi-trash3-fill'></i>
-                        </button>
+                   <div class='d-flex'>
+                        <div class='p-1'>
+                            <a href='".route('admin.books.show', $book->id)."' class='btn btn-xs btn-info'>
+                                <i class='bi bi-chevron-bar-right'></i>
+                            </a>
+                        </div>
+                        <div class='p-1'>
+                            <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn'
+                                    data-deleteurl ='".route('admin.books.destroy', $book->id)."' >
+                                <i class='bi bi-trash3-fill'></i>
+                            </button>
+                        </div>
                     </div>";
             })
             ->toJson();

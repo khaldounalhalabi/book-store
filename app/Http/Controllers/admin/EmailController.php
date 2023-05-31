@@ -10,6 +10,7 @@ class EmailController extends Controller
     public function index()
     {
         $emails = Message::orderBy('created_at', 'DESC')->paginate(10);
+
         return view('admin.inbox.inbox', compact('emails'));
     }
 
@@ -18,6 +19,7 @@ class EmailController extends Controller
         $email = Message::find($id);
         $email->read_at = now()->format('Y-m-d');
         $email->save();
+
         return view('admin.inbox.show', compact('email'));
     }
 }

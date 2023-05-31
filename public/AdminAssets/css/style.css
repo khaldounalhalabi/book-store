@@ -1330,3 +1330,27 @@ h6 {
     object-fit: cover;
     border-radius: 75%;
 }
+
+
+#table {
+    table-layout: fixed;
+    width: 100% !important;
+}
+
+#table td,
+#table th {
+    width: auto !important;
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
+table.dataTable td {
+    text-align: center;
+}
+
+table.dataTable th {
+    text-align: center;
+}
+

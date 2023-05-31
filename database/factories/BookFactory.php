@@ -36,10 +36,8 @@ class BookFactory extends Factory
 
     /**
      * adding views to the created book
-     *
-     * @return BookFactory
      */
-    public function configure()
+    public function configure(): BookFactory
     {
         return $this->afterCreating(function (Book $book) {
             $rand = fake()->numberBetween(1, 20);
@@ -50,7 +48,7 @@ class BookFactory extends Factory
     }
 
     /**
-     * bookes with likes
+     * books with likes
      */
     public function withLikes(int $count = 0): BookFactory
     {
@@ -62,7 +60,7 @@ class BookFactory extends Factory
     }
 
     /**
-     * bookes with rates
+     * books with rates
      */
     public function withRates(int $count = 0): BookFactory
     {

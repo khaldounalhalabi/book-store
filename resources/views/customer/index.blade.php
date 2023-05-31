@@ -10,7 +10,8 @@
                         <div class="slider-item" dir="rtl">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <img src="{{asset("storage/$firstHero->face_image")}}" alt="banner" class="banner-image">
+                                    <img src="{{asset("storage/$firstHero->face_image")}}" alt="banner"
+                                         class="banner-image">
                                 </div>
                                 <div class="col-md-7">
                                     <div class="banner-content">
@@ -22,7 +23,7 @@
                                             <span
                                                 style="z-index: -1; background-color: black; color: white;">نسخة غير أصلية</span>
                                         @endif
-                                        <p>{{$firstHero->small_description}}</p>
+                                        <p>{!! $firstHero->small_description !!}</p>
                                         <br>
                                         <div class="btn-wrap">
                                             <a href="{{route('customer.show.book' , $firstHero->id)}}"
@@ -35,7 +36,8 @@
                         <div class="slider-item" dir="rtl">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <img src="{{asset("storage/$secondHero->face_image")}}" alt="banner" class="banner-image">
+                                    <img src="{{asset("storage/$secondHero->face_image")}}" alt="banner"
+                                         class="banner-image">
                                 </div>
                                 <div class="col-md-7">
                                     <div class="banner-content">
@@ -137,7 +139,8 @@
                         <div class="col-md-6">
                             <figure class="products-thumb">
                                 <a href="{{route('customer.show.book' , $topSelling->id)}}"><img
-                                        src="{{asset("storage/$topSelling->face_image")}}" alt="book" class="single-image"></a>
+                                        src="{{asset("storage/$topSelling->face_image")}}" alt="book"
+                                        class="single-image"></a>
                             </figure>
                         </div>
 
@@ -159,7 +162,8 @@
                                     <p>{{$topSelling->small_description}}</p>
                                     <div class="item-price">$ {{$topSelling->price}}</div>
                                     <div class="btn-wrap">
-                                        <a href="{{route('customer.cart.add' , $topSelling->id)}}" class="btn-accent-arrow"><i
+                                        <a href="{{route('customer.cart.add' , $topSelling->id)}}"
+                                           class="btn-accent-arrow"><i
                                                 class="icon icon-ns-arrow-right"></i>اطلبه الآن </a>
                                     </div>
                                 </div>

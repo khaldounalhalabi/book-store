@@ -11,6 +11,7 @@ use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\ContactController;
 use App\Http\Controllers\customer\LikeController;
 use App\Http\Controllers\customer\MainPageController;
+use App\Http\Controllers\customer\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,8 @@ Route::name('customer.')->group(function () {
     Route::view('/about', 'customer.about')->name('about');
     Route::post('/messages/send', [ContactController::class, 'send'])->name('messages.send');
     Route::post('/{book_id}/like', [LikeController::class, 'like'])->name('like');
+
+    Route::get('/make-order', [OrderController::class, 'order'])->name('make-order');
 });
 
 Route::name('admin.')->prefix('admin')->group(function () {

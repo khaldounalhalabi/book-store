@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\SiteContent;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
