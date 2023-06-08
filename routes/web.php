@@ -48,7 +48,9 @@ Route::name('customer.')->group(function () {
     Route::post('/messages/send', [ContactController::class, 'send'])->name('messages.send');
     Route::post('/{book_id}/like', [LikeController::class, 'like'])->name('like');
 
-    Route::get('/make-order', [OrderController::class, 'order'])->name('make-order');
+
+    Route::view('delivery-details/{book_id?}', 'customer.delivery-details')->name('delivery-details');
+    Route::get('/make-order/{book_id?}', [OrderController::class, 'order'])->name('make-order');
 });
 
 Route::name('admin.')->prefix('admin')->group(function () {

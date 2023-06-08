@@ -2,7 +2,6 @@
 @section('content')
     <!-- Hero -->
     <section id="billboard" lang="ar">
-
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -66,19 +65,16 @@
     </section>
     <!-- Hero -->
 
-
     <!-- Featured Books -->
     <section id="featured-books" lang="ar" dir="rtl">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-
                     <div class="section-header align-center">
                         <div class="title">
                         </div>
                         <h2 class="section-title">كتب مميزة</h2>
                     </div>
-
                     <div class="product-list" data-aos="fade-up">
                         <div class="row">
                             @foreach($featuredBooks as $featuredBook)
@@ -110,32 +106,25 @@
                     </div><!--grid-->
                 </div><!--inner-content-->
             </div>
-
             <div class="row">
                 <div class="col-md-12">
-
                     <div class="btn-wrap align-right">
                         <a href="{{route('customer.index.books')}}" class="btn-accent-arrow">
                             <i class="icon icon-ns-arrow-right"></i>عرض جميع المنتجات</a>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
     <!-- Featured Books -->
 
-
     <!-- Best Selling Book -->
     <section id="best-selling" lang="ar" dir="rtl" class="leaf-pattern-overlay">
         <div class="corner-pattern-overlay"></div>
         <div class="container">
             <div class="row">
-
                 <div class="col-md-8 col-md-offset-2">
-
                     <div class="row">
-
                         <div class="col-md-6">
                             <figure class="products-thumb">
                                 <a href="{{route('customer.show.book' , $topSelling->id)}}"><img
@@ -143,11 +132,9 @@
                                         class="single-image"></a>
                             </figure>
                         </div>
-
                         <div class="col-md-6">
                             <div class="product-entry">
                                 <h2 class="section-title divider">الأكثر مبيعاً</h2>
-
                                 <div class="products-content">
                                     <div class="author-name">{{$topSelling->author_name}}</div>
                                     <a href="{{route('customer.show.book' , $topSelling->id)}}"><h3
@@ -167,15 +154,10 @@
                                                 class="icon icon-ns-arrow-right"></i>اطلبه الآن </a>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
-                    <!-- / row -->
-
                 </div>
-
             </div>
         </div>
     </section>
@@ -187,13 +169,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-
                     <div class="section-header align-center">
                         <div class="title">
                         </div>
                         <h2 class="section-title">كتب ذات شعبية</h2>
                     </div>
-
                     <div class="tab-content">
                         <div id="all-genre" data-tab-content class="active">
                             <div class="row">
@@ -256,12 +236,9 @@
                                     </div>
                                 @endforeach
                             </div>
-
                         </div>
                     </div>
-
                 </div><!--inner-tabs-->
-
             </div>
         </div>
     </section>

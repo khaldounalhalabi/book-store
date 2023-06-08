@@ -30,7 +30,7 @@
                     <div class="company-brand">
                         <a href="{{route('index')}}"><img src="{{asset("storage/".$sc->logo)}}" alt="logo"
                                                           class="footer-logo"></a>
-                        <p>{{$sc->footer_quot}}</p>
+                        <p class="text-dark">{{$sc->footer_quot}}</p>
                     </div>
                 </div>
 

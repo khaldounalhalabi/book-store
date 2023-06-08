@@ -3,20 +3,30 @@
 namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderRequest;
+use App\Models\Book;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
-    public function order()
+    public function order(OrderRequest $request, $book_id = null)
     {
         $user = auth()->user();
 
-        if (! $user) {
-            abort(404);
+        if (!$user) {
+            if (!$book_id) {
+                abort(404);
+            }
+            $this->orderingWithoutUser($book_id, $request);
         }
+        $this->orderingWithExistUser($user);
+    }
 
+    public function orderingWithExistUser(User $user)
+    {
         $userCart = $user->cart()->get();
 
         $totalPrice = 0;
@@ -52,6 +62,20 @@ class OrderController extends Controller
         $cartItemIds = $userCart->pluck('id');
 
         Cart::destroy($cartItemIds);
+
+        return redirect()->back();
+    }
+
+    public function orderingWithoutUser($book_id, $request)
+    {
+        $book = Book::find($book_id);
+        $deliveryDetails = $request->validated();
+        Order::create([
+            'total_price' => $book->price,
+            'delivery_details' => $deliveryDetails,
+            'order_number' => Str::uuid(),
+            'book_id' => $book_id,
+        ]);
 
         return redirect()->back();
     }
