@@ -19,7 +19,6 @@
                     <tr>
                         <th class="text-center">ID</th>
                         <th class="text-center">اسم الكتاب</th>
-                        <th class="text-center">نوع النسخة</th>
                         <th class="text-center">الكاتب</th>
                         <th class="text-center">الناشر</th>
                         <th class="text-center">السعر</th>
@@ -49,7 +48,6 @@
                         columns: [
                             {'data': 'id', orderable: true},
                             {"data": 'name', orderable: true, searchable: true},
-                            {"data": 'is_original', orderable: true, searchable: true},
                             {"data": 'author_name', orderable: true, searchable: true},
                             {"data": 'publisher', searchable: true, orderable: true},
                             {"data": 'price', orderable: true, searchable: true},

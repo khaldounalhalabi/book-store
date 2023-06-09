@@ -15,13 +15,6 @@
                                 <div class="col-md-7">
                                     <div class="banner-content">
                                         <h2 class="banner-title">{{$firstHero->name}}</h2>
-                                        @if($firstHero->is_original)
-                                            <span
-                                                style="z-index: -1; background-color: #74642F;; color: white;">نسخة أصلية</span>
-                                        @else
-                                            <span
-                                                style="z-index: -1; background-color: black; color: white;">نسخة غير أصلية</span>
-                                        @endif
                                         <p>{!! $firstHero->small_description !!}</p>
                                         <br>
                                         <div class="btn-wrap">
@@ -41,13 +34,6 @@
                                 <div class="col-md-7">
                                     <div class="banner-content">
                                         <h2 class="banner-title">{{$secondHero->name}}</h2>
-                                        @if($secondHero->is_original)
-                                            <span
-                                                style="z-index: -1; background-color: #74642F;; color: white;">نسخة أصلية</span>
-                                        @else
-                                            <span
-                                                style="z-index: -1; background-color: black; color: white;">نسخة غير أصلية</span>
-                                        @endif
                                         <p>{{$secondHero->small_description}}</p>
                                         <br>
                                         <div class="btn-wrap">
@@ -92,11 +78,6 @@
                                             <a href="{{route('customer.show.book' , $featuredBook->id)}}">
                                                 <h3>{{$featuredBook->name}}</h3></a>
                                             <p>{{$featuredBook->author_name}}</p>
-                                            @if($featuredBook->is_original)
-                                                <span style="z-index: -1; background-color: #74642F;; color: white;">نسخة أصلية</span>
-                                            @else
-                                                <span style="z-index: -1; background-color: black; color: white;">نسخة غير أصلية</span>
-                                            @endif
                                             <div class="item-price">$ {{$featuredBook->price}}</div>
                                         </figcaption>
                                     </figure>
@@ -139,13 +120,6 @@
                                     <div class="author-name">{{$topSelling->author_name}}</div>
                                     <a href="{{route('customer.show.book' , $topSelling->id)}}"><h3
                                             class="item-title">{{$topSelling->name}}</h3></a>
-                                    @if($topSelling->is_original)
-                                        <span
-                                            style="z-index: -1; background-color: #74642F;; color: white;">نسخة أصلية</span>
-                                    @else
-                                        <span
-                                            style="z-index: -1; background-color: black; color: white;">نسخة غير أصلية</span>
-                                    @endif
                                     <p>{{$topSelling->small_description}}</p>
                                     <div class="item-price">$ {{$topSelling->price}}</div>
                                     <div class="btn-wrap">
@@ -194,12 +168,6 @@
                                                     <h3>{{$poBook->name}}</h3>
                                                 </a>
                                                 <p>{{$poBook->author_name}}</p>
-                                                @if($poBook->is_original)
-                                                    <span
-                                                        style="z-index: -1; background-color: #74642F;; color: white;">نسخة أصلية</span>
-                                                @else
-                                                    <span style="z-index: -1; background-color: black; color: white;">نسخة غير أصلية</span>
-                                                @endif
                                                 <div class="item-price">$ {{$poBook->price}}</div>
                                             </figcaption>
                                         </figure>
@@ -224,12 +192,6 @@
                                                     <h3>{{$poBook->name}}</h3>
                                                 </a>
                                                 <p>{{$poBook->author_name}}</p>
-                                                @if($poBook->is_original)
-                                                    <span
-                                                        style="z-index: -1; background-color: #74642F;; color: white;">نسخة أصلية</span>
-                                                @else
-                                                    <span style="z-index: -1; background-color: black; color: white;">نسخة غير أصلية</span>
-                                                @endif
                                                 <div class="item-price">$ {{$poBook->price}}</div>
                                             </figcaption>
                                         </figure>

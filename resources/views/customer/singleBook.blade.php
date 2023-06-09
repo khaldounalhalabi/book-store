@@ -12,11 +12,6 @@
                     <div class="product-detail">
                         <h1>{{$book->name}}</h1>
                         <h2>{{$book->author_name}}</h2>
-                        @if($book->is_original)
-                            <span style="z-index: -1; background-color: #74642F;; color: white;">نسخة أصلية</span><br>
-                        @else
-                            <span style="z-index: -1; background-color: black; color: white;">نسخة غير أصلية</span><br>
-                        @endif
                         <span class="price colored">${{$book->price}}</span>
 
                         <p>

@@ -46,12 +46,6 @@
                             </div>
 
                             <div class="row">
-                                <div
-                                    class="col-lg-12 col-md-12 label border border-dark-subtle">{{$book->is_original ? "نسخة أصلية" : "نسخة غير أصلية"}}</div>
-                            </div>
-
-
-                            <div class="row">
                                 <div class="mb-3 p-3 col-lg-12 col-md-12">
                                     <div class="form-group">
                                         <label for="small_description-textarea">شرح قصير</label>

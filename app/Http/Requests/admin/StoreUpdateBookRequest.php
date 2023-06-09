@@ -31,7 +31,6 @@ class StoreUpdateBookRequest extends FormRequest
                 'long_description' => 'required|string|min:3',
                 'face_image' => 'required|file|image',
                 'publish_date' => 'date|date_format:Y-m-d|required',
-                'is_original' => 'required|boolean',
                 'price' => 'required|numeric',
                 'quantity' => 'numeric|required',
             ];
@@ -45,7 +44,6 @@ class StoreUpdateBookRequest extends FormRequest
             'long_description' => 'string|min:3',
             'face_image' => 'file|image|nullable',
             'publish_date' => 'date|date_format:Y-m-d',
-            'is_original' => 'boolean',
             'price' => 'numeric',
             'quantity' => 'numeric|nullable',
         ];

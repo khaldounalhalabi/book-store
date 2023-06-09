@@ -9,6 +9,7 @@ use App\Http\Controllers\customer\AuthController;
 use App\Http\Controllers\customer\BookController;
 use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\ContactController;
+use App\Http\Controllers\customer\DeliveryDetails;
 use App\Http\Controllers\customer\LikeController;
 use App\Http\Controllers\customer\MainPageController;
 use App\Http\Controllers\customer\OrderController;
@@ -49,7 +50,7 @@ Route::name('customer.')->group(function () {
     Route::post('/{book_id}/like', [LikeController::class, 'like'])->name('like');
 
 
-    Route::view('delivery-details/{book_id?}', 'customer.delivery-details')->name('delivery-details');
+    Route::get('delivery-details/{book_id?}', [DeliveryDetails::class , 'deliveryDetailsPage'])->name('delivery-details');
     Route::get('/make-order/{book_id?}', [OrderController::class, 'order'])->name('make-order');
 });
 

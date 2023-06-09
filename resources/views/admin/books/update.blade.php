@@ -89,30 +89,6 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-3 border border-primary">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="is_original"
-                                               id="original"
-                                               value="{{1}}" @checked($book->is_original)>
-                                        <label class="form-check-label" for="original">
-                                            نسخة أصلية
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 border border-primary">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="is_original"
-                                               id="not-original"
-                                               value="{{0}}" @checked(!$book->is_original)>
-                                        <label class="form-check-label" for="not-original">
-                                            نسخة غير أصلية
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card">
                                         <div class="card-body">

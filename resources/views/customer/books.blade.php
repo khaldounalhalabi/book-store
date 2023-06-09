@@ -46,13 +46,6 @@
                             <figcaption>
                                 <a href="{{route('customer.show.book' , $book->id)}}"><h3>{{$book->name}}</h3></a>
                                 <p>{{$book->author_name}}</p>
-                                @if($book->is_original)
-                                    <span
-                                        style="z-index: -1; background-color: #74642F;; color: white;">Original</span>
-                                @else
-                                    <span
-                                        style="z-index: -1; background-color: black; color: white;">Not Original</span>
-                                @endif
                                 <div class="item-price">$ {{$book->price}}</div>
                             </figcaption>
                         </figure>

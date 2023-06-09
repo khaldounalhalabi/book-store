@@ -21,7 +21,6 @@ class BookFactory extends Factory
     {
         return [
             'name' => fake()->firstName(),
-            'is_original' => fake()->boolean(50),
             'author_name' => fake()->name(),
             'publisher' => fake()->name,
             'category' => fake()->name,

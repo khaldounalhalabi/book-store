@@ -56,7 +56,7 @@
                                             <h4>€ {{$totalPrice}}</h4>
                                         </div>
                                         <hr>
-                                        <a href="{{route('customer.make-order')}}">
+                                        <a href="{{route('customer.delivery-details')}}">
                                             <button
                                                 class="btn btn-sm p-4 m-5 w-auto text-center d-flex justify-content-center align-items-center">
                                                 شراء

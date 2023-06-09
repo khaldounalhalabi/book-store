@@ -22,10 +22,10 @@ class OrderController extends Controller
             }
             $this->orderingWithoutUser($book_id, $request);
         }
-        $this->orderingWithExistUser($user);
+        $this->orderingWithExistUser($request, $user);
     }
 
-    public function orderingWithExistUser(User $user)
+    public function orderingWithExistUser($request, User $user)
     {
         $userCart = $user->cart()->get();
 
@@ -37,17 +37,7 @@ class OrderController extends Controller
             $booksIds[] = $item->book->id;
         }
 
-        $deliveryDetails = [
-            'phone_number' => $user->phone_number,
-            'country_code' => $user->country_code,
-            'email' => $user->email,
-            'street' => $user->address->street ?? 'null',
-            'house_number' => $user->address->house_number ?? 'null',
-            'door_number' => $user->address->door_number ?? 'null',
-            'post_code' => $user->address->post_code ?? 'null',
-            'city' => $user->address->city ?? 'null',
-            'country' => $user->address->country ?? 'null',
-        ];
+        $deliveryDetails = $request->validated();
 
         $orderNumber = Str::uuid();
 

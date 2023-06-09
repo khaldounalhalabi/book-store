@@ -23,14 +23,14 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone_number' => ['nullable', 'string', Rule::requiredIf(!auth()->user())],
-            'country_code' => ['nullable', 'string', Rule::requiredIf(!auth()->user())],
-            'street' => ['nullable', 'string', Rule::requiredIf(!auth()->user())],
-            'house_number' => ['nullable', 'string', Rule::requiredIf(!auth()->user())],
-            'door_number' => ['nullable', 'string', Rule::requiredIf(!auth()->user())],
-            'post_code' => ['nullable', 'string', Rule::requiredIf(!auth()->user())],
-            'city' => ['nullable', 'string', Rule::requiredIf(!auth()->user())],
-            'country' => ['nullable', 'string', Rule::requiredIf(!auth()->user())],
+            'phone_number' => ['required', 'string'],
+            'country_code' => ['required', 'string'],
+            'street' => ['required', 'string'],
+            'house_number' => ['required', 'string'],
+            'door_number' => ['required', 'string'],
+            'post_code' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'country' => ['required', 'string'],
         ];
     }
 }
