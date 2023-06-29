@@ -3,6 +3,8 @@
 use App\Http\Controllers\admin\BookController as AdminBookController;
 use App\Http\Controllers\admin\EmailController;
 use App\Http\Controllers\admin\IndexController;
+use App\Http\Controllers\admin\OrderController as AdminOrderController;
+use App\Http\Controllers\admin\PayPalController;
 use App\Http\Controllers\admin\SiteContentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\customer\AuthController;
@@ -42,6 +44,7 @@ Route::name('customer.')->group(function () {
     Route::get('/books', [BookController::class, 'index'])->name('index.books');
     Route::post('/books/search', [BookController::class, 'search'])->name('books.search');
     Route::get('/contact', [ContactController::class, 'contactPage'])->name('contact');
+    Route::view('/terms-conditions', 'customer.terms-conditions')->name('terms-conditions');
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::get('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
@@ -49,9 +52,8 @@ Route::name('customer.')->group(function () {
     Route::post('/messages/send', [ContactController::class, 'send'])->name('messages.send');
     Route::post('/{book_id}/like', [LikeController::class, 'like'])->name('like');
 
-
-    Route::get('delivery-details/{book_id?}', [DeliveryDetails::class , 'deliveryDetailsPage'])->name('delivery-details');
-    Route::get('/make-order/{book_id?}', [OrderController::class, 'order'])->name('make-order');
+    Route::get('delivery-details/{book_id?}', [DeliveryDetails::class, 'deliveryDetailsPage'])->name('delivery-details');
+    Route::post('/make-order/{book_id?}', [OrderController::class, 'order'])->name('make-order');
 });
 
 Route::name('admin.')->prefix('admin')->group(function () {
@@ -62,4 +64,11 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::put('/site-content/update', [SiteContentController::class, 'update'])->name('site_content.update');
     Route::get('/emails', [EmailController::class, 'index'])->name('email.index');
     Route::get('/emails/{id}', [EmailController::class, 'show'])->name('email.show');
+    Route::get('/orders-table', [AdminOrderController::class, 'data'])->name('order.data');
+    Route::view('/orders', 'admin.orders.orders-table')->name('orders.index');
+    Route::view('/orders/create', 'admin.orders.create')->name('orders.create');
+    Route::get('/books-all', [AdminBookController::class, 'allBooks'])->name('book.books-all');
 });
+
+Route::get('success-transaction', [OrderController::class, 'successTransaction'])->name('successTransaction');
+Route::get('cancel-transaction', [OrderController::class, 'cancelTransaction'])->name('cancelTransaction');

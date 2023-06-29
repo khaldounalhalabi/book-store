@@ -4,24 +4,24 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-header card-title">
-                    <h1 style="font-family: 'Segoe UI',sans-serif ; ">جدول الكتب المتوفرة</h1>
+                    <h1 style="font-family: 'Segoe UI',sans-serif ; ">الطلبات</h1>
                     <div class="p-2">
-                        <a href="{{route('admin.books.create')}}" class="btn btn-primary float-end"
+                        <a href="{{route('admin.orders.create')}}" class="btn btn-primary float-end"
                            style="font-family: 'Segoe UI',sans-serif ; ">
-                            إضافة كتاب
+                            إضافة طلب
                         </a>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered pt-2 table-responsive  w-auto h-auto m-auto"
+                <table class="table table-striped table-bordered pt-2 table-responsive w-auto h-auto m-auto"
                        id="table"
                        dir="rtl">
                     <thead>
                     <tr>
                         <th class="text-center">ID</th>
-                        <th class="text-center">اسم الكتاب</th>
-                        <th class="text-center">الكاتب</th>
-                        <th class="text-center">الناشر</th>
-                        <th class="text-center">السعر</th>
+                        <th class="text-center">السعر الإجمالي</th>
+                        <th class="text-center">رقم الطلب</th>
+                        <th class="text-center">الحالة</th>
+                        <th class="text-center">التاريخ</th>
                         <th class="text-center"></th>
                     </tr>
                     </thead>
@@ -44,13 +44,13 @@
                     table = $('#table').DataTable({
                         processing: true,
                         serverSide: true,
-                        ajax: '{{ route("admin.books.table") }}',
+                        ajax: '{{ route("admin.order.data") }}',
                         columns: [
                             {'data': 'id', orderable: true},
-                            {"data": 'name', orderable: true, searchable: true},
-                            {"data": 'author_name', orderable: true, searchable: true},
-                            {"data": 'publisher', searchable: true, orderable: true},
-                            {"data": 'price', orderable: true, searchable: true},
+                            {"data": 'total_price', orderable: true, searchable: true},
+                            {"data": 'order_number', orderable: true, searchable: true},
+                            {"data": 'status', searchable: true, orderable: true},
+                            {"data": 'created_at', orderable: true, searchable: true},
                             {"data": 'action', searchable: true, orderable: true},
                         ]
                     });
@@ -59,11 +59,11 @@
                         let $this = $(this);
                         let url = $this.data('deleteurl');
                         Swal.fire({
-                            title: 'هل تريد حذف هذا الكتاب ؟ ',
+                            title: 'هل تريد حذف هذا الطلب ؟ ',
                             showDenyButton: true,
-                            confirmButtonText: 'Yes',
+                            confirmButtonText: 'نعم',
                             confirmButtonColor: '#0d6efd',
-                            denyButtonText: `No`,
+                            denyButtonText: `لا`,
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 $.ajaxSetup({

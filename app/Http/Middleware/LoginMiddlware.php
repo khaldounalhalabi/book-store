@@ -18,7 +18,7 @@ class LoginMiddlware
         if (auth()->guard('web')->user()) {
             redirect()->route('customer.userDetails');
         } else {
-        redirect()->route('login-page');
+            redirect()->route('login-page');
         }
 
         return $next($request);

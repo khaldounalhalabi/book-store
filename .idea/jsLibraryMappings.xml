@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{baguettebox.js, bootstrap, bootstrap-icons, datatables, jquery-migrate, lightbox2, slick-carousel}" />
+    <file url="PROJECT" libraries="{baguettebox.js, bootstrap, bootstrap-icons, datatables, jquery-3.6.4, jquery-migrate, lightbox2, limonte-sweetalert2, select2, slick-carousel}" />
   </component>
 </project>

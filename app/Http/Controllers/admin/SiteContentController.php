@@ -12,7 +12,7 @@ class SiteContentController extends Controller
 {
     public function edit()
     {
-        $sc = DB::table('site_contents')->first();
+        $sc = SiteContent::first();
 
         return view('admin.site-content.edit', compact('sc'));
     }

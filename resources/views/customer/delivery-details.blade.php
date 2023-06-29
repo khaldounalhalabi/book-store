@@ -5,6 +5,7 @@
             $user = auth()->user();
         }
     @endphp
+    <script src="https://www.paypal.com/sdk/js?client-id={{env('PAYPAL_SANDBOX_CLIENT_ID')}}"></script>
     <main dir="rtl" lang="ar">
         <div class="section-profile">
             <div class="d-flex align-items-center justify-content-center">
@@ -16,7 +17,9 @@
                                     <h3 style="text-align: center">بيانات التوصيل</h3>
                                 </div>
 
-                                <form id="login-form" action="{{route('customer.make-order')}}" method="POST">
+                                <form id="login-form"
+                                      action="@if(auth()->user()){{route('customer.make-order')}}@else{{route('customer.make-order' , $book->id)}}@endif"
+                                      method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12 mb-4">
@@ -110,11 +113,9 @@
 
                                         @include('customer.includes.error')
                                     </div>
-                                    <a href="{{route('customer.make-order')}}">
-                                        <button class="btn btn-sm text-center m-2">
-                                            إرسال
-                                        </button>
-                                    </a>
+                                    <button class="btn text-center m-2 w-auto">
+                                        pay with Paypal
+                                    </button>
                                 </form>
                             </div>
                         </div><!--login-form-wrap-->

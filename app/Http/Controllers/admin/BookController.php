@@ -8,6 +8,7 @@ use App\Models\Book;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Yajra\DataTables\Facades\DataTables;
@@ -26,12 +27,12 @@ class BookController extends Controller
                 return "
                    <div class='d-flex'>
                         <div class='p-1'>
-                            <a href='" . route('admin.books.show', $book->id) . "' class='btn btn-xs btn-info'>
+                            <a href='" . route('admin.books.show', $book->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
                                 <i class='bi bi-chevron-bar-right'></i>
                             </a>
                         </div>
                         <div class='p-1'>
-                            <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn'
+                            <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
                                     data-deleteurl ='" . route('admin.books.destroy', $book->id) . "' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
@@ -128,5 +129,25 @@ class BookController extends Controller
         $img->resize(413, 602, function ($constraint) {
             $constraint->aspectRatio();
         })->save($path);
+    }
+
+    public function allBooks(Request $request)
+    {
+        $search = $request->input('search');
+
+        if ($search == '') {
+            $data = Book::inRandomOrder()->limit(10)->get();
+        } else {
+            $data = Book::where('name', 'like', '%' . $search . '%')->limit(10)->get();;
+        }
+
+        $response = [];
+        foreach ($data as $item) {
+            $response[] = [
+                'id' => $item['id'],
+                'text' => $item['name']
+            ];
+        }
+        return response()->json($response);
     }
 }

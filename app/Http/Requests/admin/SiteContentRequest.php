@@ -39,6 +39,7 @@ class SiteContentRequest extends FormRequest
             'email' => 'string|required|email',
             'address' => 'string',
             'contact_content' => 'string|required',
+            'terms_conditions' => 'string|required',
         ];
     }
 }

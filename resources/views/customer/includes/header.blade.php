@@ -158,6 +158,8 @@
                                                          data-effect="Store">الكتب</a></li>
                                 <li class="menu-item"><a href="{{route('customer.contact')}}" class="nav-link"
                                                          data-effect="Contact">اتصل بنا</a></li>
+                                <li class="menu-item"><a href="{{route('customer.terms-conditions')}}" class="nav-link"
+                                                         data-effect="Contact">البنود و الأحكام</a></li>
                             </ul>
 
                             <div class="hamburger">

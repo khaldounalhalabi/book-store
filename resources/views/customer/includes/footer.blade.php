@@ -53,6 +53,31 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.0/jquery-migrate.min.js"
         integrity="sha512-iJ1SAH2WFRlq6+tSHM2/y3xJiqcSoJeZ4F5c0u0VAON7+azC3IwfHkDORU3RmIv1xB/w7IBiaiRx8FJEk/fLmw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session()->has('error') || session()->has('message'))
+    <script type="module">
+        Swal.fire({
+            title: 'Error!',
+            text: '{{session()->get('error')}}',
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+@endif
+
+@if(session()->has('success'))
+    <script type="module">
+        Swal.fire({
+            title: 'Success!',
+            text: '{{session()->get('message')}}',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+@endif
+
 
 </body>
 </html>

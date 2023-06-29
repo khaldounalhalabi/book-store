@@ -18,11 +18,19 @@
                             {!! $book->long_description !!}
                         </p>
 
-                        <a href="{{route('customer.cart.add' , $book->id)}}">
-                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
-                                إضافة إلى السلة
-                            </button>
-                        </a>
+                        @if(auth()->user())
+                            <a href="{{route('customer.cart.add' , $book->id)}}">
+                                <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                    إضافة إلى السلة
+                                </button>
+                            </a>
+                        @else
+                            <a href="{{route('customer.delivery-details' , $book->id)}}">
+                                <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                    اشتري الآن
+                                </button>
+                            </a>
+                        @endif
                         @if(auth()->user())
                             <div id="like" class="like" data-likeurl="">
                                 <i id="like-icon"
