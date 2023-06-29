@@ -22,7 +22,7 @@
                             </div>
                         @endif
 
-                        <form id="serviceForm" action="{{ route('admin.books.store') }}" method="post"
+                        <form id="serviceForm" action="{{ route('admin.store.order') }}" method="post"
                               enctype="multipart/form-data">
                             @csrf
 
@@ -43,9 +43,9 @@
                                 <div class="col-md-3  m-auto">
                                     <label class="col-form-label" for="country_code">رمز الدولة</label>
                                     <select id="country_code" name="country_code" class="form-select">
-                                        <option>+963 Syria</option>
-                                        <option>+963 Syria</option>
-                                        <option>+963 Syria</option>
+                                        @if(old('country_code') != null)
+                                            <option value="{{old('country_code')}}">{{old('country_code')}}</option>
+                                        @endif
                                     </select>
                                 </div>
 
@@ -58,9 +58,9 @@
                                 <div class="col-md-6  m-auto">
                                     <label class="col-form-label" for="country">الدولة</label>
                                     <select id="country" name="country" class="form-select">
-                                        <option value="syria">Syria</option>
-                                        <option value="syria">Syria</option>
-                                        <option value="syria">Syria</option>
+                                        @if(old('country') != null)
+                                            <option value="{{old('country')}}">{{old('country')}}</option>
+                                        @endif
                                     </select>
                                 </div>
 
@@ -96,10 +96,47 @@
 
                                 <div class="col-md-12">
                                     <label class="col-form-label" for="books">الكتب</label>
-                                    <select class="form-select multiple-select-2" id="books" name="books" multiple
+                                    <select class="form-select multiple-select-2" id="books" name="books[]" multiple
                                             data-placeholder="select a book">
                                     </select>
                                 </div>
+
+                                <div class="col-md-12 m-3">
+                                    <div class="row">
+                                        <div class="form-check col-md-6">
+                                            <input class="form-check-input" type="radio" name="status" id="shipping"
+                                                   value="shipping">
+                                            <label class="form-check-label" for="shipping">
+                                                shipping
+                                            </label>
+                                        </div>
+                                        <div class="form-check col-md-6">
+                                            <input class="form-check-input" type="radio" name="status" id="rejected"
+                                                   value="rejected">
+                                            <label class="form-check-label" for="rejected">
+                                                rejected
+                                            </label>
+                                        </div>
+                                        <div class="form-check col-md-6">
+                                            <input class="form-check-input" type="radio" name="status" id="delivered"
+                                                   value="delivered"
+                                            >
+                                            <label class="form-check-label" for="delivered">
+                                                delivered
+                                            </label>
+                                        </div>
+                                        <div class="form-check col-md-6">
+                                            <input class="form-check-input" type="radio" name="status" id="pending"
+                                                   value="pending"
+                                                   checked>
+                                            <label class="form-check-label" for="pending">
+                                                pending
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary m-5 p-auto w-auto">إضافة</button>
 
                             </div>
 
@@ -113,16 +150,55 @@
     @push('scripts')
         <script type="module">
             $('#country_code').select2({
-                theme: 'bootstrap-5'
+                theme: 'bootstrap-5',
+                placeholder: $(this).data('placeholder'),
+                ajax: {
+                    url: '{{route('admin.get-countries-codes')}}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            _token: "{{csrf_token()}}",
+                            search: params.term,// search term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data,
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0,
+                closeOnSelect: false,
             });
 
             $('#country').select2({
-                theme: 'bootstrap-5'
+                theme: 'bootstrap-5',
+                placeholder: $(this).data('placeholder'),
+                ajax: {
+                    url: '{{route('admin.get-countries')}}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            _token: "{{csrf_token()}}",
+                            search: params.term,// search term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data,
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0,
+                closeOnSelect: false,
             });
 
             $("#books").select2({
                 theme: 'bootstrap-5',
-                // width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
                 placeholder: $(this).data('placeholder'),
                 ajax: {
                     url: '{{route('admin.book.books-all')}}',

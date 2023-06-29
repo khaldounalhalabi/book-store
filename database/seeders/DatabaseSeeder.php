@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SiteContentSeeder::class,
             MessageSeeder::class,
+            ShippingSeeder::class,
         ]);
     }
 }

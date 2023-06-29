@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\EmailController;
 use App\Http\Controllers\admin\IndexController;
 use App\Http\Controllers\admin\OrderController as AdminOrderController;
 use App\Http\Controllers\admin\PayPalController;
+use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\SiteContentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\customer\AuthController;
@@ -67,7 +68,13 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/orders-table', [AdminOrderController::class, 'data'])->name('order.data');
     Route::view('/orders', 'admin.orders.orders-table')->name('orders.index');
     Route::view('/orders/create', 'admin.orders.create')->name('orders.create');
+    Route::get('/orders/show/{order_id}', [AdminOrderController::class, 'show'])->name('order.show');
+    Route::get('orders/edit/{order_id}', [AdminOrderController::class, 'edit'])->name('order.edit');
+    Route::post('/orders/update/{order_id}', [AdminOrderController::class, 'update'])->name('order.update');
     Route::get('/books-all', [AdminBookController::class, 'allBooks'])->name('book.books-all');
+    Route::post('books/store', [AdminOrderController::class, 'create'])->name('store.order');
+    Route::get('/get-countries', [ShippingController::class, 'getCountries'])->name('get-countries');
+    Route::get('get-countries-codes', [ShippingController::class, 'getCountryCodes'])->name('get-countries-codes');
 });
 
 Route::get('success-transaction', [OrderController::class, 'successTransaction'])->name('successTransaction');

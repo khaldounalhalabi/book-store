@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\StoreUpdateBookRequest;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -136,18 +137,12 @@ class BookController extends Controller
         $search = $request->input('search');
 
         if ($search == '') {
-            $data = Book::inRandomOrder()->limit(10)->get();
+            $data = Book::inRandomOrder()->get();
         } else {
-            $data = Book::where('name', 'like', '%' . $search . '%')->limit(10)->get();;
+            $data = Book::where('name', 'like', '%' . $search . '%')->get();;
         }
+        $response = BookResource::collection($data);
 
-        $response = [];
-        foreach ($data as $item) {
-            $response[] = [
-                'id' => $item['id'],
-                'text' => $item['name']
-            ];
-        }
         return response()->json($response);
     }
 }
