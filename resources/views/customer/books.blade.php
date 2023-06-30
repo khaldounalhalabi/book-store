@@ -37,11 +37,14 @@
                         <figure class="product-style">
                             <img src="{{asset("storage/$book->face_image")}}" alt="Books"
                                  class="product-item">
-                            @if(auth()->user())
+                            @if($book->quantity <= 0)
+                                <button type="button" class="add-to-cart" data-product-tile="add-to-cart" disabled>
+                                    انتهت الكمية
+                                </button>
+                            @elseif(auth()->user())
                                 <a href="{{route('customer.cart.add' , $book->id)}}">
                                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
-                                        Add to
-                                        Cart
+                                        إضافة إلى السلة
                                     </button>
                                 </a>
                             @else

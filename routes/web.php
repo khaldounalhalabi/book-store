@@ -16,6 +16,7 @@ use App\Http\Controllers\customer\DeliveryDetails;
 use App\Http\Controllers\customer\LikeController;
 use App\Http\Controllers\customer\MainPageController;
 use App\Http\Controllers\customer\OrderController;
+use App\Http\Controllers\customer\SendInvoiceEmail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/test', [Controller::class, 'test']);
+Route::view('/test', 'emails.invoice');
 
 Route::view('/login', 'customer.login')->name('login-page');
 Route::view('/register', 'customer.register')->name('register-page');
@@ -52,9 +53,9 @@ Route::name('customer.')->group(function () {
     Route::view('/about', 'customer.about')->name('about');
     Route::post('/messages/send', [ContactController::class, 'send'])->name('messages.send');
     Route::post('/{book_id}/like', [LikeController::class, 'like'])->name('like');
-
     Route::get('delivery-details/{book_id?}', [DeliveryDetails::class, 'deliveryDetailsPage'])->name('delivery-details');
     Route::post('/make-order/{book_id?}', [OrderController::class, 'order'])->name('make-order');
+    Route::get('send-invoice-email', [SendInvoiceEmail::class, 'send'])->name('email-invoice-send');
 });
 
 Route::name('admin.')->prefix('admin')->group(function () {
@@ -75,7 +76,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::post('books/store', [AdminOrderController::class, 'create'])->name('store.order');
     Route::get('/get-countries', [ShippingController::class, 'getCountries'])->name('get-countries');
     Route::get('get-countries-codes', [ShippingController::class, 'getCountryCodes'])->name('get-countries-codes');
+    Route::post('get-shipping-cost', [ShippingController::class, 'getShippingCostByCountryName'])->name('get-shipping-cost-by-country-name');
 });
 
 Route::get('success-transaction', [OrderController::class, 'successTransaction'])->name('successTransaction');
-Route::get('cancel-transaction', [OrderController::class, 'cancelTransaction'])->name('cancelTransaction');
+Route::get('cancel-transaction/{order_id}', [OrderController::class, 'cancelTransaction'])->name('cancelTransaction');

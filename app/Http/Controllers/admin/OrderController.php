@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\StoreOrUpdateOrderRequest;
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\OrderDeliveryDetailsRequest;
 use App\Models\Book;
 use App\Models\Order;
 use Illuminate\Contracts\View\Factory;
@@ -45,7 +45,7 @@ class OrderController extends Controller
         return view('admin.orders.orders-table');
     }
 
-    public function create(StoreOrUpdateOrderRequest $orderRequest, OrderRequest $deliveryDetails)
+    public function create(StoreOrUpdateOrderRequest $orderRequest, OrderDeliveryDetailsRequest $deliveryDetails)
     {
         $orderNumber = Str::uuid();
         $status = $orderRequest->status;
@@ -81,7 +81,7 @@ class OrderController extends Controller
         return \view('admin.orders.edit', compact('order'));
     }
 
-    public function update($order_id, StoreOrUpdateOrderRequest $orderRequest, OrderRequest $deliveryDetails)
+    public function update($order_id, StoreOrUpdateOrderRequest $orderRequest, OrderDeliveryDetailsRequest $deliveryDetails)
     {
         $orderNumber = Str::uuid();
         $status = $orderRequest->status;

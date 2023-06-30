@@ -17,7 +17,7 @@ class AuthController extends Controller
         try {
             $credentials = $request->validated();
 
-            if (! auth()->guard('web')->attempt($credentials)) {
+            if (!auth()->guard('web')->attempt($credentials)) {
                 $error = 'Invalid Credentials';
 
                 return view('customer.login')->with('error', $error);
@@ -96,15 +96,13 @@ class AuthController extends Controller
             return redirect()->route('customer.userDetails');
 
         } catch (Exception $e) {
-            $data['error'] = $e->getMessage();
-
-            return view('customer.serverError')->with($data);
+            abort(500);
         }
     }
 
     public function logout(): \Illuminate\Http\RedirectResponse
     {
-        if (! auth()->guard('web')->user()) {
+        if (!auth()->guard('web')->user()) {
             return redirect()->route('index');
         }
 

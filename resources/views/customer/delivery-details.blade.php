@@ -16,10 +16,7 @@
                                 <div class="card-title">
                                     <h3 style="text-align: center">بيانات التوصيل</h3>
                                 </div>
-
-                                <form id="login-form"
-                                      action="@if(auth()->user()){{route('customer.make-order')}}@else{{route('customer.make-order' , $book->id)}}@endif"
-                                      method="POST">
+                                <form id="order-form" method="POST">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12 mb-4">
@@ -37,14 +34,24 @@
                                                    value="{{($user->last_name ?? old('last_name')) ?? null}}"
                                                    required/>
                                         </div>
-                                        {{--TODO::dont forgot to configure this--}}
+                                        <div class="col-md-12 col-sm-12 mb-4">
+                                            <input type="text" class="form-control border-dark bg-transparent"
+                                                   id="email"
+                                                   name="email" placeholder="البريد الالكتروني"
+                                                   value="{{($user->email ?? old('email')) ?? null}}"
+                                                   required/>
+                                        </div>
                                         <div class="col-md-4 mb-4 col-sm-3">
-                                            <select type="text" class="form-control border-dark bg-transparent"
-                                                    id="country-code"
-                                                    name="country_code" required placeholder="رمز الدولة">
-                                                <option value="+1">+1(USA)</option>
-                                                <option value="+44">+44(UK)</option>
-                                                <option value="+33">+33(France)</option>
+                                            <select id="country_code" name="country_code"
+                                                    class="form-control border-dark bg-transparent" required
+                                                    placeholder="رمز الدولة">
+                                                @if(old('country_code') != null)
+                                                    <option
+                                                        value="{{old('country_code')}}">{{old('country_code')}}</option>
+                                                @elseif(isset($user->country_code))
+                                                    <option
+                                                        value="{{$user->country_code}}">{{$user->country_code}}</option>
+                                                @endif
                                             </select>
                                         </div>
 
@@ -58,14 +65,19 @@
                                                        required>
                                             </div>
                                         </div>
-                                        {{--TODO::dont forgot to configure this--}}
                                         <div class="col-md-6 mb-4 col-sm-12">
                                             <select type="text" class="form-control border-dark bg-transparent"
                                                     id="country"
                                                     name="country" required>
-                                                <option value="Country">Country</option>
-                                                <option value="Country">Country</option>
-                                                <option value="Country">Country</option>
+                                                @if(old('country') != null)
+                                                    <option value="{{old('country')}}">
+                                                        {{old('country')}}
+                                                    </option>
+                                                @elseif(isset($user->address->country))
+                                                    <option value="{{$user->address->country}}">
+                                                        {{$user->address->country}}
+                                                    </option>
+                                                @endif
                                             </select>
                                         </div>
 
@@ -111,10 +123,34 @@
                                                    required/>
                                         </div>
 
+                                        <div class="col-md-12">
+                                            <p>By Submit You're Accepting <span>
+                                                    <a style="color: black"
+                                                       href="{{route('customer.terms-conditions')}}" target="_blank">Terms & Conditions</a></span>
+                                            </p>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="row m-3 bg-black" style="border-radius: 15px;">
+                                                <div class="col-md-6" style="color: white">التكلفة مع سعر الشحن :</div>
+                                                <div class="col-md-6" id="cost-container" style="color: white"></div>
+                                            </div>
+                                        </div>
+
                                         @include('customer.includes.error')
                                     </div>
-                                    <button class="btn text-center m-2 w-auto">
+                                    <button class=" btn text-center m-2 w-auto h-auto
+                                                "
+                                            data-route="@if(auth()->user())
+                                                    {{route('customer.make-order')}}
+                                                @else
+                                                    {{route('customer.make-order' , $book->id)}}
+                                                @endif">
                                         pay with Paypal
+                                    </button>
+                                    <button class="btn text-center m-2 w-auto h-auto"
+                                            data-route="@if(auth()->user()){{route('customer.make-order')}}@else{{route('customer.make-order' , $book->id)}}@endif">
+                                        pay with Klarna
                                     </button>
                                 </form>
                             </div>
@@ -124,4 +160,117 @@
             </div>
         </div>
     </main>
+    <script type="module">
+        $(document).ready(function () {
+            $(function () {
+                // Handle button click
+                $('button').click(function (e) {
+                    e.preventDefault();
+                    const route = $(this).data('route');
+                    const form = $('#order-form');
+                    form.attr('action', route);
+                    form.submit();
+                });
+            });
+
+            $('#country_code').select2({
+                theme: 'bootstrap-5',
+                placeholder: "رمز الدولة",
+                containerCss: {
+                    background: "transparent",
+                    border: "1px solid black",
+                },
+                ajax: {
+                    url: '{{route('admin.get-countries-codes')}}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            _token: "{{csrf_token()}}",
+                            search: params.term,// search term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data,
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0,
+                closeOnSelect: false,
+            });
+
+            const countrySelector = $("#country");
+            countrySelector.select2({
+                theme: 'bootstrap-5',
+                placeholder: "الدولة",
+                containerCss: {
+                    background: "transparent",
+                    border: "1px solid black",
+                },
+                ajax: {
+                    url: '{{route('admin.get-countries')}}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            _token: "{{csrf_token()}}",
+                            search: params.term,// search term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data,
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0,
+                closeOnSelect: false,
+            });
+
+            let selectedCountry = countrySelector.val();
+            $.ajax({
+                url: "{{route('admin.get-shipping-cost-by-country-name')}}",
+                type: 'POST',
+                data: {
+                    countryName: selectedCountry,
+                    @if(!auth()->user())
+                    book_id: "{{$book->id}}",
+                    @endif
+                    _token: "{{csrf_token()}}"
+                },
+                success: function (data) {
+                    console.log('Received data:', data); // debug information
+                    $('#cost-container').text(data + " €"); // use text() method to set the text content
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown); // error handling
+                }
+            });
+
+            countrySelector.on('change', function (e) {
+                let selectedCountry = $(this).val();
+                $.ajax({
+                    url: "{{route('admin.get-shipping-cost-by-country-name')}}",
+                    type: 'POST',
+                    data: {
+                        countryName: selectedCountry,
+                        @if(!auth()->user())
+                        book_id: "{{$book->id}}",
+                        @endif
+                        _token: "{{csrf_token()}}"
+                    },
+                    success: function (data) {
+                        console.log('Received data:', data); // debug information
+                        $('#cost-container').text(data + " €"); // use text() method to set the text content
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.error('Error:', textStatus, errorThrown); // error handling
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

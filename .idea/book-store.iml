@@ -150,5 +150,6 @@
     <orderEntry type="library" name="jquery-3.6.4" level="application" />
     <orderEntry type="library" name="select2" level="application" />
     <orderEntry type="library" name="limonte-sweetalert2" level="application" />
+    <orderEntry type="library" name="select2-bootstrap-5-theme" level="application" />
   </component>
 </module>

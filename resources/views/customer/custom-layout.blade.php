@@ -16,6 +16,9 @@
 
     <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>
 
 
     <!-- script
@@ -81,6 +84,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.0/jquery-migrate.min.js"
         integrity="sha512-iJ1SAH2WFRlq6+tSHM2/y3xJiqcSoJeZ4F5c0u0VAON7+azC3IwfHkDORU3RmIv1xB/w7IBiaiRx8FJEk/fLmw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
 </body>
 </html>

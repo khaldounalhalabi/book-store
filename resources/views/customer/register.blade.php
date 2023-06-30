@@ -31,12 +31,13 @@
                                         </div>
 
                                         <div class="col-md-4  col-sm-3">
-                                            <select type="text" class="form-control border-dark bg-transparent"
-                                                    id="country-code"
-                                                    name="country_code" required placeholder="رمز الدولة">
-                                                <option value="+1">+1(USA)</option>
-                                                <option value="+44">+44(UK)</option>
-                                                <option value="+33">+33(France)</option>
+                                            <select id="country_code" name="country_code"
+                                                    class="form-control border-dark bg-transparent" required
+                                                    placeholder="رمز الدولة">
+                                                @if(old('country_code') != null)
+                                                    <option
+                                                        value="{{old('country_code')}}">{{old('country_code')}}</option>
+                                                @endif
                                             </select>
                                         </div>
 
@@ -77,9 +78,10 @@
                                             <select type="text" class="form-control border-dark bg-transparent"
                                                     id="country"
                                                     name="country" required>
-                                                <option value="Country">Country</option>
-                                                <option value="Country">Country</option>
-                                                <option value="Country">Country</option>
+                                                @if(old('country') != null)
+                                                    <option
+                                                        value="{{old('country')}}">{{old('country')}}</option>
+                                                @endif
                                             </select>
                                         </div>
 
@@ -132,4 +134,61 @@
             </div>
         </div>
     </main>
+    <script type="module">
+        $('#country_code').select2({
+            theme: 'bootstrap-5',
+            placeholder: "رمز الدولة",
+            containerCss: {
+                background: "transparent",
+                border: "1px solid black",
+            },
+            ajax: {
+                url: '{{route('admin.get-countries-codes')}}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        _token: "{{csrf_token()}}",
+                        search: params.term,// search term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data,
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 0,
+            closeOnSelect: false,
+        });
+
+        $('#country').select2({
+            theme: 'bootstrap-5',
+            placeholder: "الدولة",
+            containerCss: {
+                background: "transparent",
+                border: "1px solid black",
+            },
+            ajax: {
+                url: '{{route('admin.get-countries')}}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        _token: "{{csrf_token()}}",
+                        search: params.term,// search term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data,
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 0,
+            closeOnSelect: false,
+        });
+    </script>
 @endsection

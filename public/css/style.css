@@ -2244,3 +2244,7 @@ select option {
     border-radius: 50px;
 }
 
+.select2-selection__placeholder {
+    color: black !important;
+    font-weight: bold !important;
+}

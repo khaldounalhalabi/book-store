@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\OrderDeliveryDetailsRequest;
 use App\Models\Book;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Shipping;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
+use Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Throwable;
 
@@ -19,7 +23,7 @@ class OrderController extends Controller
     /**
      * @throws Throwable
      */
-    public function order(OrderRequest $request, $book_id = null)
+    public function order(OrderDeliveryDetailsRequest $request, $book_id = null)
     {
         $user = auth()->user();
 
@@ -41,23 +45,26 @@ class OrderController extends Controller
 
         $totalPrice = 0;
         $booksIds = [];
+        $shippingCost = 0;
+        $deliveryDetails = $request->validated();
+        $shippingInfo = Shipping::where('country', $deliveryDetails['country'])->first();
 
         foreach ($userCart as $item) {
             $book = $item->book;
             $totalPrice += $book->price;
             $booksIds[] = $book->id;
+            $shippingCost += $shippingInfo->shipping_cost;
         }
 
+        if ($totalPrice >= 65) {
+            $shippingCost = 0;
+        }
 
-        $deliveryDetails = $request->validated();
-
-        $orderNumber = Str::uuid();
-
-        DB::beginTransaction();
-        Order::create([
+        $order = Order::create([
             'total_price' => $totalPrice,
+            'shipping_cost' => $shippingCost,
             'delivery_details' => json_encode($deliveryDetails),
-            'order_number' => $orderNumber,
+            'order_number' => Str::uuid(),
             'user_id' => $user->id,
             'ordered_books_ids' => json_encode($booksIds),
         ]);
@@ -65,15 +72,17 @@ class OrderController extends Controller
         $paypalData = [
             'amount' => [
                 'currency_code' => 'EUR',
-                'value' => $totalPrice
+                'value' => $totalPrice + $shippingCost
             ],
             'description' => 'a pay for buying books from Wardibooks Store',
         ];
 
 
         $cartItemIds = $userCart->pluck('id');
+
         Cart::destroy($cartItemIds);
-        return $this->processTransaction($paypalData);
+
+        return $this->processTransaction($paypalData, $order);
     }
 
     /**
@@ -83,9 +92,17 @@ class OrderController extends Controller
     {
         $book = Book::findOrFail($book_id);
         $deliveryDetails = $request->validated();
-        DB::beginTransaction();
-        Order::create([
+
+        if ($book->price >= 65) {
+            $shippingCost = 0;
+        } else {
+            $shippingInfo = Shipping::where('country', $deliveryDetails['country'])->first();
+            $shippingCost = $shippingInfo->shipping_cost;
+        }
+
+        $order = Order::create([
             'total_price' => $book->price,
+            'shipping_cost' => $shippingCost,
             'delivery_details' => json_encode($deliveryDetails),
             'order_number' => Str::uuid(),
             'book_id' => $book_id,
@@ -94,29 +111,30 @@ class OrderController extends Controller
         $paypalData = [
             'amount' => [
                 'currency_code' => 'EUR',
-                'value' => $book->price,
+                'value' => $book->price + $shippingCost,
             ],
             'description' => 'a pay for buying books from Wardibooks Store',
         ];
 
-        return $this->processTransaction($paypalData);
+        return $this->processTransaction($paypalData, $order);
     }
 
 
     /**
      * @throws Throwable
      */
-    public function processTransaction(array $data)
+    public function processTransaction(array $data, Order $order)
     {
         try {
             $provider = new PayPalClient;
             $provider->setApiCredentials(config('paypal'));
-            $paypalToken = $provider->getAccessToken();
+            $provider->getAccessToken();
+            Session::put('order-'.session()->getId(), $order);
             $response = $provider->createOrder([
                 "intent" => "CAPTURE",
                 "application_context" => [
                     "return_url" => route('successTransaction'),
-                    "cancel_url" => route('cancelTransaction'),
+                    "cancel_url" => route('cancelTransaction', $order->id),
                 ],
                 "purchase_units" => [
                     0 => $data
@@ -129,19 +147,17 @@ class OrderController extends Controller
                         return redirect()->away($links['href']);
                     }
                 }
-                DB::rollBack();
                 return redirect()
                     ->route('index')
                     ->with('error', 'Something went wrong.');
             } else {
-                DB::rollBack();
                 return redirect()
                     ->route('index')
                     ->with('error', $response['message'] ?? 'Something went wrong.');
             }
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             abort(403);
-        } catch (\Exception $e) {
+        } catch (Exception) {
             abort(500);
         }
     }
@@ -157,8 +173,7 @@ class OrderController extends Controller
         $response = $provider->capturePaymentOrder($request['token']);
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
             return redirect()
-                ->route('index')
-                ->with('success', 'Transaction complete.');
+                ->route('customer.email-invoice-send');
         } else {
             return redirect()
                 ->route('index')
@@ -166,8 +181,9 @@ class OrderController extends Controller
         }
     }
 
-    public function cancelTransaction(Request $request)
+    public function cancelTransaction($order_id)
     {
+        Order::destroy($order_id);
         return redirect()
             ->route('index')
             ->with('error', $response['message'] ?? 'You have canceled the transaction.');

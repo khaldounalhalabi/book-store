@@ -5,12 +5,14 @@ namespace App\Http\Controllers\customer;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Cart;
+use Cache;
+use PhpParser\Builder;
 
 class CartController extends Controller
 {
     public function index()
     {
-        if (! auth()->user()) {
+        if (!auth()->user()) {
             return redirect()->route('customer.login-page');
         }
 
@@ -28,7 +30,7 @@ class CartController extends Controller
 
     public function addToCart($id)
     {
-        if (! auth()->user()) {
+        if (!auth()->user()) {
             return redirect()->route('customer.login-page');
         }
 
@@ -38,12 +40,12 @@ class CartController extends Controller
             'book_id' => $book->id,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('message' , 'Item added to cart');
     }
 
     public function remove($id)
     {
-        if (! auth()->user()) {
+        if (!auth()->user()) {
             return redirect()->route('customer.login-page');
         }
 

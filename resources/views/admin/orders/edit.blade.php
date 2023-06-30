@@ -227,11 +227,18 @@
                         return {
                             _token: "{{csrf_token()}}",
                             search: params.term,// search term
+                            page: params.page || 1 // current page
                         };
                     },
-                    processResults: function (data) {
+                    processResults: function (data, params) {
+                        params.page = params.page || 1;
                         return {
-                            results: data,
+                            results:data.data.map(function(book) {
+                                return {id: book.id, text: book.name};
+                            }),
+                            pagination: {
+                                more: data.current_page < data.last_page
+                            }
                         };
                     },
                     cache: true
@@ -240,6 +247,9 @@
                 multiple: true,
                 closeOnSelect: false,
                 allowClear: true,
+                escapeMarkup: function(markup) {
+                    return markup;
+                }
             });
 
         </script>

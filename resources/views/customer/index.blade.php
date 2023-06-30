@@ -68,7 +68,12 @@
                                     <figure class="product-style">
                                         <img src="{{asset("storage/$featuredBook->face_image")}}" alt="Books"
                                              class="product-item">
-                                        @if(auth()->user())
+                                        @if($featuredBook->quantity <= 0)
+                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart"
+                                                    disabled>
+                                                انتهت الكمية
+                                            </button>
+                                        @elseif(auth()->user())
                                             <a href="{{route('customer.cart.add' , $featuredBook->id)}}">
                                                 <button type="button" class="add-to-cart"
                                                         data-product-tile="add-to-cart">
@@ -133,11 +138,11 @@
                                     <p>{{$topSelling->small_description}}</p>
                                     <div class="item-price">$ {{$topSelling->price}}</div>
                                     <div class="btn-wrap">
-                                        @if(auth()->user())
+                                        @if(auth()->user() && $topSelling->quantity >= 0)
                                             <a href="{{route('customer.cart.add' , $topSelling->id)}}"
                                                class="btn-accent-arrow"><i
                                                     class="icon icon-ns-arrow-right"></i>اطلبه الآن </a>
-                                        @else
+                                        @elseif($topSelling->quantity >= 0)
                                             <a href="{{route('customer.delivery-details' , $topSelling->id)}}" class="
                                                btn-accent-arrow"><i
                                                     class="icon icon-ns-arrow-right"></i>اطلبه الآن </a>
@@ -172,7 +177,12 @@
                                         <figure class="product-style">
                                             <img src="{{asset("storage/$poBook->face_image")}}" alt="Books"
                                                  class="product-item">
-                                            @if(auth()->user())
+                                            @if($poBook->quantity <= 0)
+                                                <button type="button" class="add-to-cart"
+                                                        data-product-tile="add-to-cart" disabled>
+                                                    انتهت الكمية
+                                                </button>
+                                            @elseif(auth()->user())
                                                 <a href="{{route('customer.cart.add' , $poBook->id)}}">
                                                     <button type="button" class="add-to-cart"
                                                             data-product-tile="add-to-cart">
@@ -205,7 +215,12 @@
                                         <figure class="product-style">
                                             <img src="{{asset("storage/$poBook->face_image")}}" alt="Books"
                                                  class="product-item">
-                                            @if(auth()->user())
+                                            @if($poBook->quantity <= 0)
+                                                <button type="button" class="add-to-cart"
+                                                        data-product-tile="add-to-cart" disabled>
+                                                    انتهت الكمية
+                                                </button>
+                                            @elseif(auth()->user())
                                                 <a href="{{route('customer.cart.add' , $poBook->id)}}">
                                                     <button type="button" class="add-to-cart"
                                                             data-product-tile="add-to-cart">
