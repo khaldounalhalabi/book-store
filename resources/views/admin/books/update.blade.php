@@ -57,7 +57,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="quantity" id="quantity" type="number"
                                            class="form-control @error('quantity') is-invalid @enderror"
-                                           value="{{old('quantity')}}">
+                                           value="{{old('quantity') ?? ($book->quantity ?? null)}}">
                                 </div>
                             </div>
 

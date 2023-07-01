@@ -3,6 +3,13 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item" dir="rtl">
+            <a class="nav-link collapsed" href="{{ route('index') }}">
+                <i class="bi bi-diagram-2"></i>
+                <span class="p-1" style="font-size: 22px">الموقع</span>
+            </a>
+        </li>
+
+        <li class="nav-item" dir="rtl">
             <a class="nav-link collapsed" href="{{ route('admin.index') }}">
                 <i class="bi bi-diagram-2"></i>
                 <span class="p-1" style="font-size: 22px">الصفحة الرئيسية</span>

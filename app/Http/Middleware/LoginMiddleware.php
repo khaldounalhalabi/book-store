@@ -10,11 +10,9 @@ class LoginMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->guard('web')->user() && auth()->guard('web')->user()->hasRole('customer')) {
-            return $next($request);
-        } else {
+        if (!auth()->user()) {
             return redirect()->route('login-page');
         }
-
+        return $next($request);
     }
 }

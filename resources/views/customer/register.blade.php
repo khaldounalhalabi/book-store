@@ -21,13 +21,15 @@
                                         <div class="col-md-6 col-sm-12 ">
                                             <input type="text" class="form-control border-dark bg-transparent"
                                                    id="first_name"
-                                                   name="first_name" placeholder="الاسم الأول" required/>
+                                                   name="first_name" placeholder="الاسم الأول"
+                                                   value="{{old('first_name')}}" required/>
                                         </div>
 
                                         <div class="col-md-6 col-sm-12 ">
                                             <input type="text" class="form-control border-dark bg-transparent"
                                                    id="last_name"
-                                                   name="last_name" placeholder="الاسم الأخير" required/>
+                                                   name="last_name" placeholder="الاسم الأخير"
+                                                   value="{{old('last_name')}}" required/>
                                         </div>
 
                                         <div class="col-md-4  col-sm-3">
@@ -46,14 +48,15 @@
                                                 <input type="tel" id="phone"
                                                        class="form-control border-dark bg-transparent"
                                                        name="phone_number"
-                                                       placeholder="رقم الهاتف" required>
+                                                       placeholder="رقم الهاتف" value="{{old('phone_number')}}"
+                                                       required>
                                             </div>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 ">
                                             <input class="form-control border-dark bg-transparent" type="email"
                                                    id="email" name="email"
-                                                   placeholder="البريد الاكتروني" required>
+                                                   placeholder="البريد الاكتروني" value="{{old('email')}}" required>
                                         </div>
 
                                         <div class="col-md-12 col-sm-12 ">
@@ -88,34 +91,34 @@
                                         <div class="col-md-6  col-sm-12">
                                             <input type="text" class="form-control border-dark bg-transparent"
                                                    id="city" name="city"
-                                                   placeholder="المدينة" required/>
+                                                   placeholder="المدينة" required value="{{old('city')}}"/>
                                         </div>
 
                                         <div class="col-md-6  col-sm-12">
                                             <input type="text" class="form-control border-dark bg-transparent"
                                                    id="street" name="street"
-                                                   placeholder="الشارع" required/>
+                                                   placeholder="الشارع" value="{{old('street')}}" required/>
                                         </div>
 
                                         <div class="col-md-6  col-sm-12">
                                             <input type="text" class="form-control border-dark bg-transparent"
                                                    id="house_number"
                                                    name="house_number"
-                                                   placeholder="رقم المنزل" required/>
+                                                   placeholder="رقم المنزل" value="{{old('house_number')}}" required/>
                                         </div>
 
                                         <div class="col-md-6  col-sm-12">
                                             <input type="text" class="form-control border-dark bg-transparent"
                                                    id="door_number"
                                                    name="door_number"
-                                                   placeholder="رقم الباب" required/>
+                                                   placeholder="رقم الباب" value="{{old('door_number')}}" required/>
                                         </div>
 
                                         <div class="col-md-6  col-sm-12">
                                             <input type="text" class="form-control border-dark bg-transparent"
                                                    id="post_code"
                                                    name="post_code"
-                                                   placeholder="الرمز البريدي" required/>
+                                                   placeholder="الرمز البريدي" value="{{old('post_code')}}" required/>
                                         </div>
 
                                         @include('customer.includes.error')

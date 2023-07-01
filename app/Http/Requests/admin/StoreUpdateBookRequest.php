@@ -26,30 +26,16 @@ class StoreUpdateBookRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (request()->method() == 'POST') {
-            return [
-                'name' => 'required|string|min:3|max:255',
-                'author_name' => 'required|string|min:3|max:255',
-                'publisher' => 'required|string|min:3|max:255',
-                'small_description' => 'required|string|min:3',
-                'long_description' => 'required|string|min:3',
-                'face_image' => 'required|file|image',
-                'publish_date' => 'date|date_format:Y-m-d|required',
-                'price' => 'required|numeric',
-                'quantity' => 'numeric|required',
-            ];
-        }
-
         return [
-            'name' => 'string|min:3|max:255',
-            'author_name' => 'string|min:3|max:255',
-            'publisher' => 'string|min:3|max:255',
-            'small_description' => 'string|min:3',
-            'long_description' => 'string|min:3',
-            'face_image' => 'file|image|nullable',
-            'publish_date' => 'date|date_format:Y-m-d',
-            'price' => 'numeric',
-            'quantity' => 'numeric|nullable',
+            'name' => 'required|string|min:3|max:255',
+            'author_name' => 'required|string|min:3|max:255',
+            'publisher' => 'required|string|min:3|max:255',
+            'small_description' => 'required|string|min:3',
+            'long_description' => 'required|string|min:3',
+            'face_image' => 'required|file|image',
+            'publish_date' => 'date|date_format:Y-m-d|required',
+            'price' => 'required|numeric',
+            'quantity' => 'numeric|required',
         ];
     }
 }
