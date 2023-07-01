@@ -7,6 +7,7 @@ use App\Http\Requests\admin\StoreOrUpdateOrderRequest;
 use App\Http\Requests\OrderDeliveryDetailsRequest;
 use App\Models\Book;
 use App\Models\Order;
+use App\Models\Shipping;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -18,7 +19,7 @@ class OrderController extends Controller
 {
     public function data(): JsonResponse
     {
-        $orders = Order::select(['id', 'total_price', 'order_number', 'status', 'created_at']);
+        $orders = Order::select(['id', 'total_price', 'order_number', 'status', 'created_at', 'shipping_cost']);
 
         return DataTables::eloquent($orders)
             ->addColumn('action', function ($order) {
@@ -31,7 +32,7 @@ class OrderController extends Controller
                         </div>
                         <div class='p-1'>
                             <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
-                                    data-deleteurl ='" . route('admin.books.destroy', $order->id) . "' >
+                                    data-deleteurl ='" . route('admin.order.delete', $order->id) . "' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
                         </div>
@@ -45,8 +46,9 @@ class OrderController extends Controller
         return view('admin.orders.orders-table');
     }
 
-    public function create(StoreOrUpdateOrderRequest $orderRequest, OrderDeliveryDetailsRequest $deliveryDetails)
+    public function create(StoreOrUpdateOrderRequest $orderRequest, OrderDeliveryDetailsRequest $deliveryDetailsRequest)
     {
+        $deliveryDetails = $deliveryDetailsRequest->validated();
         $orderNumber = Str::uuid();
         $status = $orderRequest->status;
         $orderedBooksIds = $orderRequest->books;
@@ -55,12 +57,22 @@ class OrderController extends Controller
 
         foreach ($orderedBooksIds as $id) {
             $book = Book::findOrFail($id);
+            $book->quantity -= 1;
+            $book->save();
             $totalPrice += $book->price;
+        }
+
+        if ($totalPrice >= 65) {
+            $totalShippingCost = 0;
+        } else {
+            $shippingCostPerBook = Shipping::where('country', $deliveryDetails['country'])->first()->shipping_cost;
+            $totalShippingCost = $shippingCostPerBook * count($orderedBooksIds);
         }
 
         Order::create([
             'total_price' => $totalPrice,
-            'delivery_details' => json_encode($deliveryDetails->validated()),
+            'delivery_details' => json_encode($deliveryDetails),
+            'shipping_cost' => $totalShippingCost,
             'order_number' => $orderNumber,
             'status' => $status,
             'ordered_books_ids' => json_encode($orderedBooksIds),
@@ -89,20 +101,64 @@ class OrderController extends Controller
 
         $totalPrice = 0;
 
+        $order = Order::findOrFail($order_id);
+
+        foreach (json_decode($order->ordered_books_ids, true) as $book_id) {
+            $book = Book::findOrFail($book_id);
+            $book->quantity += 1;
+            $book->save();
+        }
+
         foreach ($orderedBooksIds as $id) {
             $book = Book::findOrFail($id);
             $totalPrice += $book->price;
+            $book->quantity -= 1;
+            $book->save();
         }
 
-        $order = Order::findOrFail($order_id);
+        if ($totalPrice >= 65) {
+            $totalShippingCost = 0;
+        } else {
+            $shippingCostPerBook = Shipping::where('country', $deliveryDetails['country'])->first()->shipping_cost;
+            $totalShippingCost = $shippingCostPerBook * count($orderedBooksIds);
+        }
+
         $order->update([
             'total_price' => $totalPrice,
             'delivery_details' => json_encode($deliveryDetails->validated()),
+            'shipping_cost' => $totalShippingCost,
             'order_number' => $orderNumber,
             'status' => $status,
             'ordered_books_ids' => json_encode($orderedBooksIds),
         ]);
 
         return redirect()->route('admin.orders.index');
+    }
+
+    public function delete($order_id)
+    {
+        $order = Order::findOrFail($order_id);
+        if ($order->status == 'delivered') {
+            $order->delete();
+            return response()->json('success');
+        }
+
+        if ($order->book_id) {
+            $book = $order->book;
+            $book->quantity += 1;
+            $book->save();
+            $order->delete();
+        } elseif ($order->ordered_books_ids) {
+            $booksIds = json_decode($order->ordered_books_ids, true);
+            foreach ($booksIds as $id) {
+                $book = Book::findOrFail($id);
+                $book->quantity += 1;
+                $book->save();
+            }
+
+            $order->delete();
+        }
+
+        return response()->json('success');
     }
 }

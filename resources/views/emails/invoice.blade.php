@@ -42,16 +42,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="invoice-title">
-                        <h4 class="float-end font-size-15">{{$orderNumber}}<span
+                        <h4 class="float-end font-size-15">Order Number : {{$orderNumber}}<span
                                 class="badge bg-success font-size-12 ms-2">Paid</span></h4>
                         <div class="mb-4">
                             {{--                            TODO:dont forgot--}}
                             <h2 class="mb-1 text-muted">domainName</h2>
                         </div>
                         <div class="text-muted">
-                            <p class="mb-1">{{$sitecontent->address}}</p>
-                            <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i>{{$sitecontent->email}}</p>
-                            <p><i class="uil uil-phone me-1"></i>{{$sitecontent->phone_number}}</p>
+                            <p class="mb-1">Our Address : {{$sitecontent->address}}</p>
+                            <p class="mb-1"><i class="uil uil-envelope-alt me-1"></i>Our Email : {{$sitecontent->email}}
+                            </p>
+                            <p><i class="uil uil-phone me-1"></i>Our Phone Number : {{$sitecontent->phone_number}}</p>
                         </div>
                     </div>
 
@@ -62,12 +63,14 @@
                             <div class="text-muted">
                                 <h5 class="font-size-16 mb-3">Billed To:</h5>
                                 <h5 class="font-size-15 mb-2">{{$deliveryDetails['first_name']}}</h5>
-                                <p class="mb-1">{{$deliveryDetails['country']}} - {{$deliveryDetails['city']}}
-                                    - {{$deliveryDetails['street']}}</p>
-                                <p class="mb-1">{{$deliveryDetails['house_number']}}
-                                    - {{$deliveryDetails['door_number']}} - {{$deliveryDetails['post_code']}}</p>
-                                <p class="mb-1">{{$deliveryDetails['email']}}</p>
-                                <p>{{$deliveryDetails['phone_number']}}</p>
+                                <p class="mb-1">Country : {{$deliveryDetails['country']}}</p>
+                                <p class="mb-1">City : {{$deliveryDetails['city']}}</p>
+                                <p class="mb-1">Street : {{$deliveryDetails['street']}}</p>
+                                <p class="mb-1">House Number : {{$deliveryDetails['house_number']}}</p>
+                                <p class="mb-1">Door Number : {{$deliveryDetails['door_number']}} </p>
+                                <p class="mb-1">Post Code : {{$deliveryDetails['post_code']}}</p>
+                                <p class="mb-1">Email : {{$deliveryDetails['email']}}</p>
+                                <p class="mb-1">Phone Number : {{$deliveryDetails['phone_number']}}</p>
                             </div>
                         </div>
                         <!-- end col -->

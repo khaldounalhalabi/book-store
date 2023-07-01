@@ -4,33 +4,32 @@
         <div class="card">
             <div class="card-body">
                 <div class="card-header card-title">
-                    <h1 style="font-family: 'Segoe UI',sans-serif ; ">جدول الكتب المتوفرة</h1>
+                    <h1 style="font-family: 'Segoe UI',sans-serif ; ">Admins</h1>
                 </div>
-            </div>
-            <table class="table table-striped table-bordered pt-2 table-responsive  w-auto h-auto m-auto"
-                   id="table"
-                   dir="rtl">
-                <thead>
-                <tr>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">اسم الكتاب</th>
-                    <th class="text-center">الكاتب</th>
-                    <th class="text-center">الناشر</th>
-                    <th class="text-center">السعر</th>
-                    <th class="text-center"></th>
-                </tr>
-                </thead>
-            </table>
-            <style>
-                table.dataTable td {
-                    text-align: center;
-                }
+                <table class="table table-striped table-bordered pt-2 table-responsive w-auto h-auto m-auto"
+                       id="table"
+                       dir="rtl">
+                    <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">الاسم</th>
+                        <th class="text-center">البريد الالكتروني</th>
+                        @if(auth()->user()->hasRole('super-admin'))
+                            <th class="text-center"></th>
+                        @endif
+                    </tr>
+                    </thead>
+                </table>
+                <style>
+                    table.dataTable td {
+                        text-align: center;
+                    }
 
-                table.dataTable th {
-                    text-align: center;
-                }
-            </style>
-        </div>
+                    table.dataTable th {
+                        text-align: center;
+                    }
+                </style>
+            </div>
         </div>
         <script type="module">
             $(document).ready(function () {
@@ -39,7 +38,7 @@
                     table = $('#table').DataTable({
                         processing: true,
                         serverSide: true,
-                        ajax: '{{ route("admin.books.table") }}',
+                        ajax: '{{ route("admin.admins.data") }}',
                         dom: 'Blfrtip',
                         buttons: [
                             {
@@ -52,9 +51,9 @@
                                 }
                             },
                             {
-                                text: 'إضافة كتاب',
+                                text: 'Add Admin',
                                 action: function (e, dt, node, config) {
-                                    window.location.href = '{{route('admin.books.create')}}';
+                                    window.location.href = '{{route('admin.shipping.create')}}';
                                 },
                                 className: 'btn-primary mt-2 mb-2',
                                 init: function (api, node, config) {
@@ -68,10 +67,13 @@
                         columns: [
                             {'data': 'id', orderable: true},
                             {"data": 'name', orderable: true, searchable: true},
-                            {"data": 'author_name', orderable: true, searchable: true},
-                            {"data": 'publisher', searchable: true, orderable: true},
-                            {"data": 'price', orderable: true, searchable: true},
-                            {"data": 'action', searchable: true, orderable: true},
+                            {"data": 'email', orderable: true, searchable: true},
+                                @if(auth()->user()->hasRole('super-admin'))
+                            {
+                                "data": 'action', searchable: true, orderable: true
+                            },
+                            @endif
+
                         ]
                     }).on('init.dt', function () {
                         const lengthMenu = $('#table_length');
@@ -85,11 +87,11 @@
                         let $this = $(this);
                         let url = $this.data('deleteurl');
                         Swal.fire({
-                            title: 'هل تريد حذف هذا الكتاب ؟ ',
+                            title: 'هل تريد حذف هذا العنصر ؟ ',
                             showDenyButton: true,
-                            confirmButtonText: 'Yes',
+                            confirmButtonText: 'نعم',
                             confirmButtonColor: '#0d6efd',
-                            denyButtonText: `No`,
+                            denyButtonText: `لا`,
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 $.ajaxSetup({

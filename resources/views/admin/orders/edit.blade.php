@@ -45,6 +45,12 @@
                                            value="{{old('last_name') ?? ($deliveryDetails['last_name'] ?? null)}}">
                                 </div>
 
+                                <div class="col-md-12  m-auto">
+                                    <label class="col-form-label" for="email">الاسم الأخير</label>
+                                    <input id="email" name="email" type="email" class="form-control"
+                                           value="{{old('email') ?? ($deliveryDetails['email'] ?? null)}}">
+                                </div>
+
                                 <div class="col-md-3  m-auto">
                                     <label class="col-form-label" for="country_code">رمز الدولة</label>
                                     <select id="country_code" name="country_code" class="form-select">
@@ -233,7 +239,7 @@
                     processResults: function (data, params) {
                         params.page = params.page || 1;
                         return {
-                            results:data.data.map(function(book) {
+                            results: data.data.map(function (book) {
                                 return {id: book.id, text: book.name};
                             }),
                             pagination: {
@@ -247,7 +253,7 @@
                 multiple: true,
                 closeOnSelect: false,
                 allowClear: true,
-                escapeMarkup: function(markup) {
+                escapeMarkup: function (markup) {
                     return markup;
                 }
             });

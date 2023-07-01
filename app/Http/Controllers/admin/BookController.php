@@ -136,9 +136,11 @@ class BookController extends Controller
         $search = $request->input('search');
 
         if ($search == '') {
-            $data = Book::paginate(7);
+            $data = Book::where('quantity', '>', 0)->paginate(7);
         } else {
-            $data = Book::where('name', 'like', '%' . $search . '%')->paginate(7);
+            $data = Book::where('name', 'like', '%' . $search . '%')
+                ->where('quantity', '>', 0)
+                ->paginate(7);
         }
         return response()->json($data);
     }

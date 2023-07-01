@@ -9,10 +9,15 @@ use App\Http\Requests\UserRequests\UserRegisterRequest;
 use App\Models\Address;
 use App\Models\User;
 use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class AuthController extends Controller
 {
-    public function login(UserLoginRequest $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+    public function login(UserLoginRequest $request): Factory|Application|View|Redirector|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         try {
             $credentials = $request->validated();
@@ -31,7 +36,7 @@ class AuthController extends Controller
         }
     }
 
-    public function register(UserRegisterRequest $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function register(UserRegisterRequest $request): Factory|Application|View|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
 
@@ -45,6 +50,8 @@ class AuthController extends Controller
                 'password' => $userData['password'],
             ]);
 
+            $user->assignRole('customer');
+
             Address::create([
                 'country' => $userData['country'],
                 'city' => $userData['city'],
@@ -57,7 +64,7 @@ class AuthController extends Controller
 
             auth()->guard('web')->login($user);
 
-            return redirect()->route('userDetails');
+            return redirect()->route('customer.userDetails');
         } catch (Exception $e) {
             $data['error'] = $e->getMessage();
 
@@ -65,14 +72,14 @@ class AuthController extends Controller
         }
     }
 
-    public function userDetails(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function userDetails(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
         $user = auth()->user();
 
         return view('customer.userDetails', compact('user'));
     }
 
-    public function editUserDetails(EditUserDataRequest $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function editUserDetails(EditUserDataRequest $request): Factory|Application|View|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
             $userData = $request->validated();
@@ -95,12 +102,12 @@ class AuthController extends Controller
 
             return redirect()->route('customer.userDetails');
 
-        } catch (Exception $e) {
+        } catch (Exception) {
             abort(500);
         }
     }
 
-    public function logout(): \Illuminate\Http\RedirectResponse
+    public function logout(): RedirectResponse
     {
         if (!auth()->guard('web')->user()) {
             return redirect()->route('index');

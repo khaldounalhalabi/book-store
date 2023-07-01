@@ -32,6 +32,12 @@
                             </div>
 
                             <div class="row">
+                                <div class="col-lg-3 col-md-4 label border border-dark-subtle"> البريد الالكتروني :</div>
+                                <div
+                                    class="col-lg-9 col-md-8 label border border-dark-subtle">{{$deliveryDetails['email'] ?? ''}}</div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-lg-3 col-md-4 label border border-dark-subtle">رقم الهاتف :</div>
                                 <div
                                     class="col-lg-9 col-md-8 label border border-dark-subtle">{{$deliveryDetails['country_code'] ?? ''}}  {{$deliveryDetails['phone_number'] ?? ''}}</div>
@@ -74,6 +80,12 @@
                                 <div class="col-lg-3 col-md-4 label border border-dark-subtle">السعر الإجمالي :</div>
                                 <div
                                     class="col-lg-9 col-md-8 label border border-dark-subtle">{{$order->total_price}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label border border-dark-subtle">السعر الشحن :</div>
+                                <div
+                                    class="col-lg-9 col-md-8 label border border-dark-subtle">{{$order->shipping_cost}}</div>
                             </div>
 
                             <div class="row">

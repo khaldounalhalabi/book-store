@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\BookController as AdminBookController;
 use App\Http\Controllers\admin\EmailController;
 use App\Http\Controllers\admin\IndexController;
@@ -72,11 +73,21 @@ Route::name('admin.')->prefix('admin')->group(function () {
     Route::get('/orders/show/{order_id}', [AdminOrderController::class, 'show'])->name('order.show');
     Route::get('orders/edit/{order_id}', [AdminOrderController::class, 'edit'])->name('order.edit');
     Route::post('/orders/update/{order_id}', [AdminOrderController::class, 'update'])->name('order.update');
+    Route::delete('/orders/delete/{order_id}', [AdminOrderController::class, 'delete'])->name('order.delete');
     Route::get('/books-all', [AdminBookController::class, 'allBooks'])->name('book.books-all');
     Route::post('books/store', [AdminOrderController::class, 'create'])->name('store.order');
     Route::get('/get-countries', [ShippingController::class, 'getCountries'])->name('get-countries');
     Route::get('get-countries-codes', [ShippingController::class, 'getCountryCodes'])->name('get-countries-codes');
     Route::post('get-shipping-cost', [ShippingController::class, 'getShippingCostByCountryName'])->name('get-shipping-cost-by-country-name');
+    Route::view('/shipping/create', 'admin.shipping.create')->name('shipping.create');
+    Route::post('/shipping/store', [ShippingController::class, 'store'])->name('shipping.store');
+    Route::get('shipping/data', [ShippingController::class, 'data'])->name('shipping.data');
+    Route::view('shipping/index', 'admin.shipping.table')->name('shipping.index');
+    Route::get('shipping/show/{shipping_id}', [ShippingController::class, 'show'])->name('shipping.show');
+    Route::get('shipping/edit/{shipping_id}', [ShippingController::class, 'edit'])->name('shipping.edit');
+    Route::post('shipping/update/{shipping_id}', [ShippingController::class, 'update'])->name('shipping.update');
+    Route::get('admins/data' , [AdminController::class , 'data'])->name('admins.data');
+    Route::view('admins' , 'admin.admins.admins')->name('admins');
 });
 
 Route::get('success-transaction', [OrderController::class, 'successTransaction'])->name('successTransaction');

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\ShippingRequest;
 use App\Http\Resources\CountryCodeResource;
 use App\Http\Resources\CountryResource;
 use App\Models\Book;
 use App\Models\Shipping;
 use Cache;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ShippingController extends Controller
 {
@@ -71,5 +73,56 @@ class ShippingController extends Controller
         }
 
         return response()->json($costWithShipping);
+    }
+
+    public function store(ShippingRequest $request)
+    {
+        $data = $request->validated();
+        Shipping::create($data);
+        return redirect()->back();
+    }
+
+    public function data(): \Illuminate\Http\JsonResponse
+    {
+        $shipping = Shipping::select(['id', 'country', 'country_code', 'shipping_cost']);
+
+        return DataTables::eloquent($shipping)
+            ->addColumn('action', function ($info) {
+                return "
+                   <div class='d-flex'>
+                        <div class='p-1'>
+                            <a href='" . route('admin.shipping.show', $info->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
+                                <i class='bi bi-chevron-bar-right'></i>
+                            </a>
+                        </div>
+                        <div class='p-1'>
+                            <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
+                                    data-deleteurl ='" . route('admin.books.destroy', $info->id) . "' >
+                                <i class='bi bi-trash3-fill'></i>
+                            </button>
+                        </div>
+                    </div>";
+            })
+            ->toJson();
+    }
+
+    public function show($shipping_id)
+    {
+        $shipping = Shipping::findOrFail($shipping_id);
+        return view('admin.shipping.show', compact('shipping'));
+    }
+
+    public function edit($shipping_id)
+    {
+        $shipping = Shipping::findOrFail($shipping_id);
+        return view('admin.shipping.edit', compact('shipping'));
+    }
+
+    public function update(ShippingRequest $request ,$shipping_id)
+    {
+        $shipping = Shipping::findOrFail($shipping_id);
+        $data = $request->validated();
+        $shipping->update($data);
+        return view('admin.shipping.show' , compact('shipping'));
     }
 }

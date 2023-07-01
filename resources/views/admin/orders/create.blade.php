@@ -40,6 +40,12 @@
                                            value="{{old('last_name')}}">
                                 </div>
 
+                                <div class="col-md-12  m-auto">
+                                    <label class="col-form-label" for="email">البريد الالكتروني</label>
+                                    <input id="email" name="email" type="email" class="form-control"
+                                           value="{{old('email')}}">
+                                </div>
+
                                 <div class="col-md-3  m-auto">
                                     <label class="col-form-label" for="country_code">رمز الدولة</label>
                                     <select id="country_code" name="country_code" class="form-select">

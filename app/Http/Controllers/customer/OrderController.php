@@ -53,6 +53,8 @@ class OrderController extends Controller
             $book = $item->book;
             $totalPrice += $book->price;
             $booksIds[] = $book->id;
+            $book->quantity -= 1;
+            $book->save();
             $shippingCost += $shippingInfo->shipping_cost;
         }
 
@@ -91,6 +93,10 @@ class OrderController extends Controller
     public function orderingWithoutUser($book_id, $request)
     {
         $book = Book::findOrFail($book_id);
+        $book->quantity -= 1;
+        $book->save();
+        $book->refresh();
+
         $deliveryDetails = $request->validated();
 
         if ($book->price >= 65) {
@@ -129,7 +135,7 @@ class OrderController extends Controller
             $provider = new PayPalClient;
             $provider->setApiCredentials(config('paypal'));
             $provider->getAccessToken();
-            Session::put('order-'.session()->getId(), $order);
+            Session::put('order-' . session()->getId(), $order);
             $response = $provider->createOrder([
                 "intent" => "CAPTURE",
                 "application_context" => [
@@ -183,6 +189,21 @@ class OrderController extends Controller
 
     public function cancelTransaction($order_id)
     {
+        $order = Order::findOrFail($order_id);
+        if (isset($order->book_id)) {
+            $book = $order->book;
+            $book->quantity += 1;
+            $book->save();
+        } elseif ($order->ordered_books_ids) {
+            $booksIds = json_decode($order->ordered_books_ids, true);
+            foreach ($booksIds as $id) {
+                $book = Book::findOrFail($id);
+                $book->quantity += 1;
+                $book->save();
+            }
+        } else {
+            abort(500);
+        }
         Order::destroy($order_id);
         return redirect()
             ->route('index')
