@@ -11,7 +11,6 @@ use App\Models\Shipping;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Session;
@@ -27,12 +26,14 @@ class OrderController extends Controller
     {
         $user = auth()->user();
 
-        if (!$user) {
-            if (!$book_id) {
+        if (! $user) {
+            if (! $book_id) {
                 abort(404);
             }
+
             return $this->orderingWithoutUser($book_id, $request);
         }
+
         return $this->orderingWithExistUser($request, $user);
     }
 
@@ -74,11 +75,10 @@ class OrderController extends Controller
         $paypalData = [
             'amount' => [
                 'currency_code' => 'EUR',
-                'value' => $totalPrice + $shippingCost
+                'value' => $totalPrice + $shippingCost,
             ],
             'description' => 'a pay for buying books from Wardibooks Store',
         ];
-
 
         $cartItemIds = $userCart->pluck('id');
 
@@ -125,7 +125,6 @@ class OrderController extends Controller
         return $this->processTransaction($paypalData, $order);
     }
 
-
     /**
      * @throws Throwable
      */
@@ -135,15 +134,15 @@ class OrderController extends Controller
             $provider = new PayPalClient;
             $provider->setApiCredentials(config('paypal'));
             $provider->getAccessToken();
-            Session::put('order-' . session()->getId(), $order);
+            Session::put('order-'.session()->getId(), $order);
             $response = $provider->createOrder([
-                "intent" => "CAPTURE",
-                "application_context" => [
-                    "return_url" => route('successTransaction'),
-                    "cancel_url" => route('cancelTransaction', $order->id),
+                'intent' => 'CAPTURE',
+                'application_context' => [
+                    'return_url' => route('successTransaction'),
+                    'cancel_url' => route('cancelTransaction', $order->id),
                 ],
-                "purchase_units" => [
-                    0 => $data
+                'purchase_units' => [
+                    0 => $data,
                 ],
             ]);
             if (isset($response['id']) && $response['id'] != null) {
@@ -153,6 +152,7 @@ class OrderController extends Controller
                         return redirect()->away($links['href']);
                     }
                 }
+
                 return redirect()
                     ->route('index')
                     ->with('error', 'Something went wrong.');
@@ -205,6 +205,7 @@ class OrderController extends Controller
             abort(500);
         }
         Order::destroy($order_id);
+
         return redirect()
             ->route('index')
             ->with('error', $response['message'] ?? 'You have canceled the transaction.');

@@ -28,7 +28,7 @@ class BookFactory extends Factory
             'long_description' => fake()->realText,
             'price' => fake()->numberBetween(10, 100),
             'order_number' => fake()->numberBetween(10, 1000),
-            'face_image' => 'books/images/' . fake()->numberBetween(1, 18) . '.jpg',
+            'face_image' => 'books/images/'.fake()->numberBetween(1, 18).'.jpg',
             'likes_count' => fake()->numberBetween(1, 1000),
             'quantity' => random_int(0, 10),
         ];

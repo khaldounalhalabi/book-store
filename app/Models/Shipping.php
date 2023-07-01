@@ -12,6 +12,6 @@ class Shipping extends Model
     protected $fillable = [
         'country',
         'country_code',
-        'shipping_cost'
+        'shipping_cost',
     ];
 }

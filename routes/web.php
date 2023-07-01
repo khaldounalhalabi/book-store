@@ -5,10 +5,8 @@ use App\Http\Controllers\admin\BookController as AdminBookController;
 use App\Http\Controllers\admin\EmailController;
 use App\Http\Controllers\admin\IndexController;
 use App\Http\Controllers\admin\OrderController as AdminOrderController;
-use App\Http\Controllers\admin\PayPalController;
 use App\Http\Controllers\admin\ShippingController;
 use App\Http\Controllers\admin\SiteContentController;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\customer\AuthController;
 use App\Http\Controllers\customer\BookController;
 use App\Http\Controllers\customer\CartController;
@@ -31,13 +29,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::view('/login', 'customer.login')->name('login-page');
 Route::view('/register', 'customer.register')->name('register-page');
 Route::get('logout', [AuthController::class, 'logout'])->middleware('login-required')->name('logout');
 Route::get('/', [MainPageController::class, 'index'])->name('index');
 Route::view('admin/login', 'admin.login')->name('admin.login-page');
-Route::post('admin/do-login' , [AdminController::class , 'login'])->name('admin.do-login');
+Route::post('admin/do-login', [AdminController::class, 'login'])->name('admin.do-login');
 
 Route::name('customer.')->group(function () {
     Route::post('/doLogin', [AuthController::class, 'login'])->name('doLogin');
@@ -65,11 +62,11 @@ Route::name('admin.')->prefix('admin')->middleware('dashboard-middleware')->grou
     Route::resource('/books', AdminBookController::class)->names('books');
     Route::get('/site-content', [SiteContentController::class, 'edit'])->name('site_content.edit');
     Route::put('/site-content/update', [SiteContentController::class, 'update'])->name('site_content.update');
-    Route::get('/emails/data' , [EmailController::class , 'data'])->name('email.data');
+    Route::get('/emails/data', [EmailController::class, 'data'])->name('email.data');
     Route::get('/emails', [EmailController::class, 'index'])->name('email.index');
     Route::get('/emails/{id}', [EmailController::class, 'show'])->name('email.show');
     Route::get('/orders-table', [AdminOrderController::class, 'data'])->name('order.data');
-    Route::get('/orders', [AdminOrderController::class , 'index'])->name('orders.index');
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
     Route::view('/orders/create', 'admin.orders.create')->name('orders.create');
     Route::get('/orders/show/{order_id}', [AdminOrderController::class, 'show'])->name('order.show');
     Route::get('orders/edit/{order_id}', [AdminOrderController::class, 'edit'])->name('order.edit');
@@ -88,7 +85,7 @@ Route::name('admin.')->prefix('admin')->middleware('dashboard-middleware')->grou
     Route::view('admins', 'admin.admins.admins')->middleware('super-admin')->name('admins');
     Route::view('admins/create', 'admin.admins.create')->middleware('super-admin')->name('admins.create');
     Route::post('admins/store', [AdminController::class, 'store'])->middleware('super-admin')->name('admin.store');
-    Route::get('admin/logout' , [AdminController::class , 'logout'])->name('admin.logout');
+    Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 });
 
 Route::get('/get-countries', [ShippingController::class, 'getCountries'])->name('get-countries');

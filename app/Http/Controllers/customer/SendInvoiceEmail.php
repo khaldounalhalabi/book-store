@@ -12,7 +12,7 @@ class SendInvoiceEmail extends Controller
 {
     public function send()
     {
-        if (!Session::has('order-'.session()->getId())) {
+        if (! Session::has('order-'.session()->getId())) {
             abort(500);
         } else {
             $order = Session::get('order-'.session()->getId());
@@ -35,6 +35,7 @@ class SendInvoiceEmail extends Controller
 
             Mail::to($deliveryDetails['email'])->send(new InvoiceMail($shippingCost, $books, $orderNumber, $totalPrice, $deliveryDetails));
             Session::remove('order-'.session()->getId());
+
             return redirect()->route('index')->with('success', 'Transaction complete.');
         }
     }

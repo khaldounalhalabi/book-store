@@ -2,10 +2,8 @@
 
 namespace App\Mail;
 
-use App\Models\Order;
 use App\Models\SiteContent;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
@@ -17,10 +15,15 @@ class InvoiceMail extends Mailable
     use Queueable, SerializesModels;
 
     public $shippingCost;
+
     public $books;
+
     public $sitecontent;
+
     public $orderNumber;
+
     public $deliveryDetails;
+
     public $totalPrice;
 
     /**

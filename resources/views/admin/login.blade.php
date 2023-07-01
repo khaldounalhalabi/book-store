@@ -16,8 +16,10 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="{{asset('AdminAssets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('AdminAssets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+          integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link href="{{asset('AdminAssets/css/style.css')}}" rel="stylesheet">
 </head>
 
@@ -44,7 +46,8 @@
                                     <p class="text-center small">Enter your email & password to login</p>
                                 </div>
 
-                                <form class="row g-3 needs-validation" action="{{route('admin.do-login')}}" method="POST">
+                                <form class="row g-3 needs-validation" action="{{route('admin.do-login')}}"
+                                      method="POST">
                                     @csrf
                                     <div class="col-12">
                                         <label for="Email" class="form-label">Email</label>
@@ -63,7 +66,6 @@
                                     </div>
 
                                     @include('admin.include.error')
-                                    @include('admin.include.internalError')
 
                                     <div class="col-12">
                                         <button class="btn btn-primary w-100" type="submit">Login</button>
@@ -85,7 +87,9 @@
 
     </div>
 </main><!-- End #main -->
-<script src="{{asset('AdminAssets/vendor')}}/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

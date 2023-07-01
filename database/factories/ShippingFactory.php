@@ -19,7 +19,7 @@ class ShippingFactory extends Factory
         return [
             'country' => fake()->country,
             'country_code' => fake()->countryCode,
-            'shipping_cost' => random_int(1, 10)
+            'shipping_cost' => random_int(1, 10),
         ];
     }
 }

@@ -19,7 +19,7 @@ class IndexController extends Controller
         $booksCount = Book::all()->count();
         $usersCount = User::all()->count();
         $siteVisitors = SiteContent::first()->visits()->count();
-        $ordersCount = Order::where('status' , 'pending')->count();
+        $ordersCount = Order::where('status', 'pending')->count();
 
         return view('admin.index', compact(
             'recieved_emails_today',

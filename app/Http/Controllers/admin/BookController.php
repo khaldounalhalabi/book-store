@@ -27,13 +27,13 @@ class BookController extends Controller
                 return "
                    <div class='d-flex'>
                         <div class='p-1'>
-                            <a href='" . route('admin.books.show', $book->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
+                            <a href='".route('admin.books.show', $book->id)."' class='btn btn-xs btn-info w-auto h-auto m-auto'>
                                 <i class='bi bi-chevron-bar-right'></i>
                             </a>
                         </div>
                         <div class='p-1'>
                             <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
-                                    data-deleteurl ='" . route('admin.books.destroy', $book->id) . "' >
+                                    data-deleteurl ='".route('admin.books.destroy', $book->id)."' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
                         </div>
@@ -120,11 +120,11 @@ class BookController extends Controller
     public function handleImage(StoreUpdateBookRequest $request, $book): void
     {
         $destenation_path = 'books/images';
-        $image_name = time() . '_' . $request->file('face_image')->getClientOriginalName();
-        $book->face_image = $destenation_path . '/' . $image_name;
+        $image_name = time().'_'.$request->file('face_image')->getClientOriginalName();
+        $book->face_image = $destenation_path.'/'.$image_name;
         $book->save();
-        $request->file('face_image')->storeAs('public/' . $destenation_path, $image_name);
-        $path = storage_path('app/public/' . $book->face_image);
+        $request->file('face_image')->storeAs('public/'.$destenation_path, $image_name);
+        $path = storage_path('app/public/'.$book->face_image);
         $img = Image::make($path);
         $img->resize(413, 602, function ($constraint) {
             $constraint->aspectRatio();
@@ -138,10 +138,11 @@ class BookController extends Controller
         if ($search == '') {
             $data = Book::where('quantity', '>', 0)->paginate(7);
         } else {
-            $data = Book::where('name', 'like', '%' . $search . '%')
+            $data = Book::where('name', 'like', '%'.$search.'%')
                 ->where('quantity', '>', 0)
                 ->paginate(7);
         }
+
         return response()->json($data);
     }
 }

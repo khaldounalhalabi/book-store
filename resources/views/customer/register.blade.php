@@ -113,7 +113,7 @@
 
                                         <div class="col-md-6  col-sm-12">
                                             <input type="text" class="form-control border-dark bg-transparent"
-                                                   id="door_number"
+                                                   id="post_code"
                                                    name="post_code"
                                                    placeholder="الرمز البريدي" required/>
                                         </div>

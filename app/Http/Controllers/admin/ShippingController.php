@@ -21,12 +21,13 @@ class ShippingController extends Controller
         if ($search == '') {
             $data = Shipping::inRandomOrder()->get();
         } else {
-            $data = Shipping::where('country', 'like', '%' . $search . '%')
-                ->orWhere('country_code', 'like', "%" . $search . "%")
+            $data = Shipping::where('country', 'like', '%'.$search.'%')
+                ->orWhere('country_code', 'like', '%'.$search.'%')
                 ->get();
         }
 
         $response = CountryResource::collection($data);
+
         return response()->json($response);
     }
 
@@ -37,21 +38,22 @@ class ShippingController extends Controller
         if ($search == '') {
             $data = Shipping::inRandomOrder()->get();
         } else {
-            $data = Shipping::where('country', 'like', '%' . $search . '%')->get();
+            $data = Shipping::where('country', 'like', '%'.$search.'%')->get();
         }
         $response = CountryCodeResource::collection($data);
+
         return response()->json($response);
     }
 
     public function getShippingCostByCountryName(Request $request)
     {
         $countryName = $request->countryName;
-        $shippingInfo = Cache::get('shipping-' . $countryName);
+        $shippingInfo = Cache::get('shipping-'.$countryName);
 
-        if (!$shippingInfo) {
+        if (! $shippingInfo) {
             $shippingInfo = Shipping::where('country', $countryName)->first();
             // Cache the shipping cost information for 24 hours
-            Cache::put('shipping-' . $countryName, $shippingInfo, 1440 * 7);
+            Cache::put('shipping-'.$countryName, $shippingInfo, 1440 * 7);
         }
 
         if (auth()->user()) {
@@ -79,6 +81,7 @@ class ShippingController extends Controller
     {
         $data = $request->validated();
         Shipping::create($data);
+
         return redirect()->back();
     }
 
@@ -91,13 +94,13 @@ class ShippingController extends Controller
                 return "
                    <div class='d-flex'>
                         <div class='p-1'>
-                            <a href='" . route('admin.shipping.show', $info->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
+                            <a href='".route('admin.shipping.show', $info->id)."' class='btn btn-xs btn-info w-auto h-auto m-auto'>
                                 <i class='bi bi-chevron-bar-right'></i>
                             </a>
                         </div>
                         <div class='p-1'>
                             <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
-                                    data-deleteurl ='" . route('admin.books.destroy', $info->id) . "' >
+                                    data-deleteurl ='".route('admin.books.destroy', $info->id)."' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
                         </div>
@@ -109,20 +112,23 @@ class ShippingController extends Controller
     public function show($shipping_id)
     {
         $shipping = Shipping::findOrFail($shipping_id);
+
         return view('admin.shipping.show', compact('shipping'));
     }
 
     public function edit($shipping_id)
     {
         $shipping = Shipping::findOrFail($shipping_id);
+
         return view('admin.shipping.edit', compact('shipping'));
     }
 
-    public function update(ShippingRequest $request ,$shipping_id)
+    public function update(ShippingRequest $request, $shipping_id)
     {
         $shipping = Shipping::findOrFail($shipping_id);
         $data = $request->validated();
         $shipping->update($data);
-        return view('admin.shipping.show' , compact('shipping'));
+
+        return view('admin.shipping.show', compact('shipping'));
     }
 }

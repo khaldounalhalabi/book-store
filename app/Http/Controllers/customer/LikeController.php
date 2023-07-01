@@ -13,7 +13,7 @@ class LikeController extends Controller
     {
         $book = Book::find($book_id);
 
-        if (!$book || !auth()->user()) {
+        if (! $book || ! auth()->user()) {
             return response()->json([
                 'failed',
             ], 403);

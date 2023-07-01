@@ -26,13 +26,13 @@ class OrderController extends Controller
                 return "
                    <div class='d-flex'>
                         <div class='p-1'>
-                            <a href='" . route('admin.order.show', $order->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
+                            <a href='".route('admin.order.show', $order->id)."' class='btn btn-xs btn-info w-auto h-auto m-auto'>
                                 <i class='bi bi-chevron-bar-right'></i>
                             </a>
                         </div>
                         <div class='p-1'>
                             <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
-                                    data-deleteurl ='" . route('admin.order.delete', $order->id) . "' >
+                                    data-deleteurl ='".route('admin.order.delete', $order->id)."' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
                         </div>
@@ -95,12 +95,14 @@ class OrderController extends Controller
     public function show($order_id)
     {
         $order = Order::findOrFail($order_id);
+
         return \view('admin.orders.show', compact('order'));
     }
 
     public function edit($order_id)
     {
         $order = Order::findOrFail($order_id);
+
         return \view('admin.orders.edit', compact('order'));
     }
 
@@ -151,6 +153,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($order_id);
         if ($order->status == 'delivered') {
             $order->delete();
+
             return response()->json('success');
         }
 

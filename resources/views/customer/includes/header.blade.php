@@ -25,7 +25,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('icomoon/icomoon.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/vendor.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('AdminAssets/vendor/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css"/>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>

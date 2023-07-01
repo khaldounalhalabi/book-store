@@ -27,7 +27,7 @@ class OrderDeliveryDetailsRequest extends FormRequest
             'last_name' => ['required', 'string', 'min:3'],
             'email' => 'required|email|min:3|string',
             'phone_number' => ['required', 'string', 'min:3'],
-            'country_code' => ['required', 'string',],
+            'country_code' => ['required', 'string'],
             'street' => ['required', 'string'],
             'house_number' => ['required', 'string'],
             'door_number' => ['required', 'string'],

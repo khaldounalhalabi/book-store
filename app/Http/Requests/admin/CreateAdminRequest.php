@@ -31,7 +31,7 @@ class CreateAdminRequest extends FormRequest
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
             'email' => 'required|email|string|unique:users,email',
-            'password' => ['required', 'string', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()]
+            'password' => ['required', 'string', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()],
         ];
     }
 }

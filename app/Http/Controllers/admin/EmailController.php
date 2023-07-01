@@ -21,7 +21,7 @@ class EmailController extends Controller
                 return "
                    <div class='d-flex'>
                         <div class='p-1'>
-                            <a href='" . route('admin.email.show', $message->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
+                            <a href='".route('admin.email.show', $message->id)."' class='btn btn-xs btn-info w-auto h-auto m-auto'>
                                 <i class='bi bi-chevron-bar-right'></i>
                             </a>
                         </div>
