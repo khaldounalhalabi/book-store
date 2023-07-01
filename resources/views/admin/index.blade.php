@@ -114,14 +114,15 @@
                 <div class="col-12">
                     <div class="card info-card revenue-card">
                         <div class="card-body">
-                            <h5 class="card-title" style="font-family: 'Segoe UI',sans-serif ; ">عدد الطلبات</h5>
+                            <h5 class="card-title" style="font-family: 'Segoe UI',sans-serif ; ">عدد الطلبات التي لم يتم
+                                معالجتها</h5>
                             <div class="d-flex align-items-center">
                                 <div
                                     class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                     <i class="bi-cart-check"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6></h6>
+                                    <h6>{{$ordersCount}}</h6>
                                 </div>
                             </div>
                         </div>

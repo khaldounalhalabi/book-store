@@ -27,12 +27,14 @@ class AuthController extends Controller
 
                 return view('customer.login')->with('error', $error);
             } else {
+                if (auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+                    auth()->logout();
+                    return redirect()->back()->with('message', 'Process Cannot Be done');
+                }
                 return redirect('/');
             }
-        } catch (Exception $e) {
-            $data['error'] = $e->getMessage();
-
-            return view('customer.serverError')->with($data);
+        } catch (Exception) {
+            abort(500);
         }
     }
 
@@ -65,10 +67,8 @@ class AuthController extends Controller
             auth()->guard('web')->login($user);
 
             return redirect()->route('customer.userDetails');
-        } catch (Exception $e) {
-            $data['error'] = $e->getMessage();
-
-            return view('customer.serverError')->with($data);
+        } catch (Exception) {
+            abort(500);
         }
     }
 

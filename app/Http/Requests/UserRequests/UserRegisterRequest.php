@@ -28,7 +28,7 @@ class UserRegisterRequest extends FormRequest
             'last_name' => 'required|max:255|min:3|string',
             'country_code' => 'required|string',
             'phone_number' => 'required|string',
-            'email' => 'required|email|string',
+            'email' => 'required|email|string|unique:users,email',
             'password' => ['required', 'string', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()],
             'street' => 'required|string',
             'house_number' => 'string|required',

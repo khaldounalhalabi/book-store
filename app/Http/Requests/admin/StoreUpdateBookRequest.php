@@ -12,7 +12,11 @@ class StoreUpdateBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if (auth()->user()->hasRole('super-admin') || auth()->user()->hasRole('admin')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

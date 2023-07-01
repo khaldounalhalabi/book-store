@@ -181,7 +181,7 @@
                     border: "1px solid black",
                 },
                 ajax: {
-                    url: '{{route('admin.get-countries-codes')}}',
+                    url: '{{route('get-countries-codes')}}',
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
@@ -210,7 +210,7 @@
                     border: "1px solid black",
                 },
                 ajax: {
-                    url: '{{route('admin.get-countries')}}',
+                    url: '{{route('get-countries')}}',
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
@@ -232,7 +232,7 @@
 
             let selectedCountry = countrySelector.val();
             $.ajax({
-                url: "{{route('admin.get-shipping-cost-by-country-name')}}",
+                url: "{{route('get-shipping-cost-by-country-name')}}",
                 type: 'POST',
                 data: {
                     countryName: selectedCountry,
@@ -253,7 +253,7 @@
             countrySelector.on('change', function (e) {
                 let selectedCountry = $(this).val();
                 $.ajax({
-                    url: "{{route('admin.get-shipping-cost-by-country-name')}}",
+                    url: "{{route('get-shipping-cost-by-country-name')}}",
                     type: 'POST',
                     data: {
                         countryName: selectedCountry,

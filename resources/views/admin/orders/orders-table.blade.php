@@ -6,6 +6,11 @@
                 <div class="card-header card-title">
                     <h1 style="font-family: 'Segoe UI',sans-serif ; ">الطلبات</h1>
                 </div>
+                <div class="card-header">
+                    <h5 class="col-md-4">الإجمالي : {{$total}}</h5>
+                    <h5 class="col-md-4">إجمالي الأسعار : {{$totalPrices}}</h5>
+                    <h5 class="col-md-4">إجمالي كلف الشحن : {{$totalShipping}}</h5>
+                </div>
                 <table class="table table-striped table-bordered pt-2 table-responsive w-auto h-auto m-auto"
                        id="table"
                        dir="rtl">

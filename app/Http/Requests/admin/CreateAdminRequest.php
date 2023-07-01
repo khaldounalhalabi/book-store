@@ -4,6 +4,7 @@ namespace App\Http\Requests\admin;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class CreateAdminRequest extends FormRequest
 {
@@ -27,9 +28,10 @@ class CreateAdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3',
-            'email' => 'required|email|min:3',
-            'password' => 'required|string|min:3|confirmed'
+            'first_name' => 'required|string|min:3',
+            'last_name' => 'required|string|min:3',
+            'email' => 'required|email|string|unique:users,email',
+            'password' => ['required', 'string', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()]
         ];
     }
 }

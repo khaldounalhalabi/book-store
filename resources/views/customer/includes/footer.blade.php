@@ -79,7 +79,7 @@
     </script>
 @endif
 
-    @if(session()->has('message'))
+@if(session()->has('message'))
         <script type="module">
             Swal.fire({
                 title: 'Info !',

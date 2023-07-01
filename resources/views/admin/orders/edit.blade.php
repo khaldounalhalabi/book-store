@@ -178,7 +178,7 @@
                 theme: 'bootstrap-5',
                 placeholder: $(this).data('placeholder'),
                 ajax: {
-                    url: '{{route('admin.get-countries-codes')}}',
+                    url: '{{route(get-countries-codes')}}',
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
@@ -202,7 +202,7 @@
                 theme: 'bootstrap-5',
                 placeholder: $(this).data('placeholder'),
                 ajax: {
-                    url: '{{route('admin.get-countries')}}',
+                    url: '{{route('get-countries')}}',
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {

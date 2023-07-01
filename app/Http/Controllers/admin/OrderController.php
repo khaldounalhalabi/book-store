@@ -43,7 +43,18 @@ class OrderController extends Controller
 
     public function index(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
-        return view('admin.orders.orders-table');
+        $orders = Order::where('status', '!=', 'rejected')->get();
+        $totalPrices = $orders->sum(function ($order) {
+            return $order->total_price;
+        });
+
+        $totalShipping = $orders->sum(function ($order) {
+            return $order->shipping_cost;
+        });
+
+        $total = $totalPrices + $totalShipping;
+
+        return view('admin.orders.orders-table', compact('total', 'totalShipping', 'totalPrices'));
     }
 
     public function create(StoreOrUpdateOrderRequest $orderRequest, OrderDeliveryDetailsRequest $deliveryDetailsRequest)

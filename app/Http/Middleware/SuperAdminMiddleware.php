@@ -6,21 +6,21 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginMiddlware
+class SuperAdminMiddleware
 {
     /**
      * Handle an incoming request.
      *
+     * @param Request $request
      * @param Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @return Response
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->guard('web')->user()) {
-            redirect()->route('customer.userDetails');
+        if (auth()->user() && auth()->user()->hasRole('super-admin')) {
+            return $next($request);
         } else {
-            redirect()->route('login-page');
+            abort(403);
         }
-
-        return $next($request);
     }
 }

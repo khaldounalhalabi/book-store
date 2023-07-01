@@ -33,6 +33,42 @@
 
 @stack('scripts')
 
+@if(session()->has('error'))
+    <script type="module">
+        Swal.fire({
+            title: 'Error!',
+            text: '{{session()->get('error')}}',
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+@endif
+
+@if(session()->has('success'))
+    <script type="module">
+        Swal.fire({
+            title: 'Success!',
+            text: '{{session()->get('success')}}',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+@endif
+
+@if(session()->has('message'))
+    <script type="module">
+        Swal.fire({
+            title: 'Info !',
+            text: '{{session()->get('message')}}',
+            icon: 'info',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+    @endif
+
 </body>
 
 </html>

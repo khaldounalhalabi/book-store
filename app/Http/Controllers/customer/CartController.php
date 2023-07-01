@@ -52,6 +52,6 @@ class CartController extends Controller
         $cart = Cart::findOrFail($id);
         $cart->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('message' , 'Item removed from cart');
     }
 }

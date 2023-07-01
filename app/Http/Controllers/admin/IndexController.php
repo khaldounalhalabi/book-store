@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Message;
+use App\Models\Order;
 use App\Models\SiteContent;
 use App\Models\User;
 use Carbon\Carbon;
@@ -18,13 +19,15 @@ class IndexController extends Controller
         $booksCount = Book::all()->count();
         $usersCount = User::all()->count();
         $siteVisitors = SiteContent::first()->visits()->count();
+        $ordersCount = Order::where('status' , 'pending')->count();
 
         return view('admin.index', compact(
             'recieved_emails_today',
             'popularBooks',
             'booksCount',
             'usersCount',
-            'siteVisitors'
+            'siteVisitors',
+            'ordersCount',
         ));
     }
 }

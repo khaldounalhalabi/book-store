@@ -12,7 +12,8 @@
                     <thead>
                     <tr>
                         <th class="text-center">ID</th>
-                        <th class="text-center">الاسم</th>
+                        <th class="text-center">الاسم الأول</th>
+                        <th class="text-center">الاسم الأخير</th>
                         <th class="text-center">البريد الالكتروني</th>
                         @if(auth()->user()->hasRole('super-admin'))
                             <th class="text-center"></th>
@@ -53,7 +54,7 @@
                             {
                                 text: 'Add Admin',
                                 action: function (e, dt, node, config) {
-                                    window.location.href = '{{route('admin.shipping.create')}}';
+                                    window.location.href = '{{route('admin.admins.create')}}';
                                 },
                                 className: 'btn-primary mt-2 mb-2',
                                 init: function (api, node, config) {
@@ -66,7 +67,8 @@
                         ],
                         columns: [
                             {'data': 'id', orderable: true},
-                            {"data": 'name', orderable: true, searchable: true},
+                            {"data": 'first_name', orderable: true, searchable: true},
+                            {"data": 'last_name', orderable: true, searchable: true},
                             {"data": 'email', orderable: true, searchable: true},
                                 @if(auth()->user()->hasRole('super-admin'))
                             {
