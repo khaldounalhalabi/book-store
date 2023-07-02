@@ -73,19 +73,18 @@
                                                     disabled>
                                                 انتهت الكمية
                                             </button>
-                                        @elseif(auth()->user())
+                                        @elseif(auth()->user() && auth()->user()->hasRole('customer'))
                                             <a href="{{route('customer.cart.add' , $featuredBook->id)}}">
                                                 <button type="button" class="add-to-cart"
                                                         data-product-tile="add-to-cart">
-                                                    Add to
-                                                    Cart
+                                                    إضافة إلى السلة
                                                 </button>
                                             </a>
-                                        @else
+                                        @elseif(!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer')))
                                             <a href="{{route('customer.delivery-details' , $featuredBook->id)}}">
                                                 <button type="button" class="add-to-cart"
                                                         data-product-tile="add-to-cart">
-                                                    Order Now
+                                                    اطلبه الآن
                                                 </button>
                                             </a>
                                         @endif
@@ -138,11 +137,11 @@
                                     <p>{{$topSelling->small_description}}</p>
                                     <div class="item-price">$ {{$topSelling->price}}</div>
                                     <div class="btn-wrap">
-                                        @if(auth()->user() && $topSelling->quantity >= 0)
+                                        @if(auth()->user() && auth()->user()->hasRole('customer') && $topSelling->quantity >= 0)
                                             <a href="{{route('customer.cart.add' , $topSelling->id)}}"
                                                class="btn-accent-arrow"><i
                                                     class="icon icon-ns-arrow-right"></i>اطلبه الآن </a>
-                                        @elseif($topSelling->quantity >= 0)
+                                        @elseif((!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) && $topSelling->quantity >= 0)
                                             <a href="{{route('customer.delivery-details' , $topSelling->id)}}" class="
                                                btn-accent-arrow"><i
                                                     class="icon icon-ns-arrow-right"></i>اطلبه الآن </a>
@@ -182,19 +181,18 @@
                                                         data-product-tile="add-to-cart" disabled>
                                                     انتهت الكمية
                                                 </button>
-                                            @elseif(auth()->user())
+                                            @elseif(auth()->user() && auth()->user()->hasRole('customer'))
                                                 <a href="{{route('customer.cart.add' , $poBook->id)}}">
                                                     <button type="button" class="add-to-cart"
                                                             data-product-tile="add-to-cart">
-                                                        Add to
-                                                        Cart
+                                                        إضافة إلى السلة
                                                     </button>
                                                 </a>
-                                            @else
+                                            @elseif(!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer')))
                                                 <a href="{{route('customer.delivery-details' , $poBook->id)}}">
                                                     <button type="button" class="add-to-cart"
                                                             data-product-tile="add-to-cart">
-                                                        Order Now
+                                                        اطلبه الآن
                                                     </button>
                                                 </a>
                                             @endif
@@ -220,19 +218,16 @@
                                                         data-product-tile="add-to-cart" disabled>
                                                     انتهت الكمية
                                                 </button>
-                                            @elseif(auth()->user())
+                                            @elseif(auth()->user() && auth()->user()->hasRole('customer'))
                                                 <a href="{{route('customer.cart.add' , $poBook->id)}}">
-                                                    <button type="button" class="add-to-cart"
-                                                            data-product-tile="add-to-cart">
-                                                        Add to
-                                                        Cart
+                                                    <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                                        إضافة إلى السلة
                                                     </button>
                                                 </a>
-                                            @else
+                                            @elseif(!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer')))
                                                 <a href="{{route('customer.delivery-details' , $poBook->id)}}">
-                                                    <button type="button" class="add-to-cart"
-                                                            data-product-tile="add-to-cart">
-                                                        Order Now
+                                                    <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                                        اطلبه الآن
                                                     </button>
                                                 </a>
                                             @endif

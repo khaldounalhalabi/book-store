@@ -120,6 +120,7 @@ class OrderController extends Controller
                 'value' => $book->price + $shippingCost,
             ],
             'description' => 'a pay for buying books from Wardibooks Store',
+            "reference_id"=> $order->order_number,
         ];
 
         return $this->processTransaction($paypalData, $order);

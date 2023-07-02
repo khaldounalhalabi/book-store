@@ -18,20 +18,24 @@
                             {!! $book->long_description !!}
                         </p>
 
-                        @if(auth()->user() && $book->quantity > 0)
+                        @if($book->quantity <= 0)
+                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart" disabled>
+                               انتهت الكمية
+                            </button>
+                        @elseif(auth()->user() && auth()->user()->hasRole('customer'))
                             <a href="{{route('customer.cart.add' , $book->id)}}">
                                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
                                     إضافة إلى السلة
                                 </button>
                             </a>
-                        @elseif($book->quantity > 0)
+                        @elseif(!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer')))
                             <a href="{{route('customer.delivery-details' , $book->id)}}">
                                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
-                                    اشتري الآن
+                                    اطلبه الآن
                                 </button>
                             </a>
                         @endif
-                        @if(auth()->user())
+                        @if(auth()->user() && auth()->user()->hasRole('customer'))
                             <div id="like" class="like" data-likeurl="">
                                 <i id="like-icon"
                                    class="@if($liking == 'liked') bi bi-hand-thumbs-up-fill @else bi bi-hand-thumbs-up @endif"></i>

@@ -41,16 +41,16 @@
                                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart" disabled>
                                     انتهت الكمية
                                 </button>
-                            @elseif(auth()->user())
+                            @elseif(auth()->user() && auth()->user()->hasRole('customer'))
                                 <a href="{{route('customer.cart.add' , $book->id)}}">
                                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
                                         إضافة إلى السلة
                                     </button>
                                 </a>
-                            @else
+                            @elseif(!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer')))
                                 <a href="{{route('customer.delivery-details' , $book->id)}}">
                                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
-                                        Order Now
+                                        اطلبه الآن
                                     </button>
                                 </a>
                             @endif

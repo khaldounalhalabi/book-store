@@ -10,7 +10,7 @@ class LoginMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->user()) {
+        if (!auth()->user() || !auth()->user()->hasRole('customer')) {
             return redirect()->route('login-page');
         }
         return $next($request);

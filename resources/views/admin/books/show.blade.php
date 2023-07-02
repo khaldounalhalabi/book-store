@@ -41,6 +41,12 @@
                             </div>
 
                             <div class="row">
+                                <div class="col-lg-3 col-md-4 label border border-dark-subtle"> الكمية :</div>
+                                <div
+                                    class="col-lg-9 col-md-8 label border border-dark-subtle">{{$book->quantity}}</div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-lg-3 col-md-4 label border border-dark-subtle"> السعر :</div>
                                 <div class="col-lg-9 col-md-8 label border border-dark-subtle">{{$book->price}}</div>
                             </div>
