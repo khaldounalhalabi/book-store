@@ -100,7 +100,7 @@
                 <!--top-right-->
                 <div class="col-md-6">
                     <div class="right-element">
-                        @if(auth()->user())
+                        @if(auth()->user() && auth()->user()->hasRole('customer'))
                             <a href="{{route('customer.userDetails')}}" class="user-account for-buy"><i
                                     class="icon icon-user"></i><span>{{auth()->user()->first_name}}</span></a>
                         @else
@@ -108,14 +108,14 @@
                                     class="icon icon-user"></i><span>تسجيل الدخول</span></a>
                         @endif
 
-                        @if(auth()->user())
+                        @if(auth()->user() && auth()->user()->hasRole('customer'))
                             <a href="{{route('logout')}}" class="cart for-buy"><i
                                     class="icon icon-arrow-right-circle"></i><span>تسجيل الخروج</span></a>
                         @endif
 
                         <a href="{{route('register-page')}}" class="user-account for-buy"><i
                                 class="icon icon-user"></i><span>التسجيل</span></a>
-                        @if(auth()->user())
+                        @if(auth()->user() && auth()->user()->hasRole('customer'))
                             <a href="{{route('customer.cart')}}" class="cart for-buy"><i
                                     class="icon icon-clipboard"></i><span>السلة</span></a>
                         @endif
