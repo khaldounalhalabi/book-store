@@ -18,13 +18,13 @@
                             {!! $book->long_description !!}
                         </p>
 
-                        @if(auth()->user())
+                        @if(auth()->user() && $book->quantity > 0)
                             <a href="{{route('customer.cart.add' , $book->id)}}">
                                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
                                     إضافة إلى السلة
                                 </button>
                             </a>
-                        @else
+                        @elseif($book->quantity > 0)
                             <a href="{{route('customer.delivery-details' , $book->id)}}">
                                 <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
                                     اشتري الآن
