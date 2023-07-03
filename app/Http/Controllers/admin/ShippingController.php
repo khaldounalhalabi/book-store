@@ -21,8 +21,8 @@ class ShippingController extends Controller
         if ($search == '') {
             $data = Shipping::inRandomOrder()->get();
         } else {
-            $data = Shipping::where('country', 'like', '%'.$search.'%')
-                ->orWhere('country_code', 'like', '%'.$search.'%')
+            $data = Shipping::where('country', 'like', '%' . $search . '%')
+                ->orWhere('country_code', 'like', '%' . $search . '%')
                 ->get();
         }
 
@@ -38,7 +38,7 @@ class ShippingController extends Controller
         if ($search == '') {
             $data = Shipping::inRandomOrder()->get();
         } else {
-            $data = Shipping::where('country', 'like', '%'.$search.'%')->get();
+            $data = Shipping::where('country', 'like', '%' . $search . '%')->get();
         }
         $response = CountryCodeResource::collection($data);
 
@@ -47,34 +47,42 @@ class ShippingController extends Controller
 
     public function getShippingCostByCountryName(Request $request)
     {
-        $countryName = $request->countryName;
-        $shippingInfo = Cache::get('shipping-'.$countryName);
+        try {
+            if ($request->countryName) {
+                $countryName = $request->countryName;
+                $shippingInfo = Cache::get('shipping-' . $countryName);
 
-        if (! $shippingInfo) {
-            $shippingInfo = Shipping::where('country', $countryName)->first();
-            // Cache the shipping cost information for 24 hours
-            Cache::put('shipping-'.$countryName, $shippingInfo, 1440 * 7);
+                if (!$shippingInfo) {
+                    $shippingInfo = Shipping::where('country', $countryName)->first();
+                    // Cache the shipping cost information for 24 hours
+                    Cache::put('shipping-' . $countryName, $shippingInfo, 1440 * 7);
+                }
+
+                if (auth()->user() && auth()->user()->hasRole('customer')) {
+                    $user = auth()->user();
+
+                    $userCart = $user->cart()->with('book')->get();
+
+                    $costWithoutShipping = $userCart->sum(function ($item) {
+                        return $item->book->price;
+                    });
+                    $orderedBooksCount = $userCart->count();
+
+                    $costWithShipping = $costWithoutShipping >= 65 ? $costWithoutShipping : $costWithoutShipping + $shippingInfo->shipping_cost * $orderedBooksCount;
+
+                } else {
+                    $book = Book::findOrFail($request->book_id);
+
+                    $costWithShipping = $book->price >= 65 ? $book->price : $book->price + $shippingInfo->shipping_cost;
+                }
+
+                return response()->json($costWithShipping);
+            }
+
+            return response()->json("0");
+        } catch (\Exception) {
+            abort(500);
         }
-
-        if (auth()->user()) {
-            $user = auth()->user();
-
-            $userCart = $user->cart()->with('book')->get();
-
-            $costWithoutShipping = $userCart->sum(function ($item) {
-                return $item->book->price;
-            });
-            $orderedBooksCount = $userCart->count();
-
-            $costWithShipping = $costWithoutShipping >= 65 ? $costWithoutShipping : $costWithoutShipping + $shippingInfo->shipping_cost * $orderedBooksCount;
-
-        } else {
-            $book = Book::findOrFail($request->book_id);
-
-            $costWithShipping = $book->price >= 65 ? $book->price : $book->price + $shippingInfo->shipping_cost;
-        }
-
-        return response()->json($costWithShipping);
     }
 
     public function store(ShippingRequest $request)
@@ -94,13 +102,13 @@ class ShippingController extends Controller
                 return "
                    <div class='d-flex'>
                         <div class='p-1'>
-                            <a href='".route('admin.shipping.show', $info->id)."' class='btn btn-xs btn-info w-auto h-auto m-auto'>
+                            <a href='" . route('admin.shipping.show', $info->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
                                 <i class='bi bi-chevron-bar-right'></i>
                             </a>
                         </div>
                         <div class='p-1'>
                             <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
-                                    data-deleteurl ='".route('admin.books.destroy', $info->id)."' >
+                                    data-deleteurl ='" . route('admin.books.destroy', $info->id) . "' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
                         </div>

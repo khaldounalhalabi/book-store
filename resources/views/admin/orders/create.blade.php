@@ -50,7 +50,7 @@
                                     <label class="col-form-label" for="country_code">رمز الدولة</label>
                                     <select id="country_code" name="country_code" class="form-select">
                                         @if(old('country_code') != null)
-                                            <option value="{{old('country_code')}}">{{old('country_code')}}</option>
+                                            <option value="{{old('country_code')}}"></option>
                                         @endif
                                     </select>
                                 </div>
@@ -220,7 +220,7 @@
                     processResults: function (data, params) {
                         params.page = params.page || 1;
                         return {
-                            results:data.data.map(function(book) {
+                            results: data.data.map(function (book) {
                                 return {id: book.id, text: book.name};
                             }),
                             pagination: {
@@ -234,7 +234,7 @@
                 multiple: true,
                 closeOnSelect: false,
                 allowClear: true,
-                escapeMarkup: function(markup) {
+                escapeMarkup: function (markup) {
                     return markup;
                 }
             });

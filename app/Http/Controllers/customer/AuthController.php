@@ -22,7 +22,7 @@ class AuthController extends Controller
         try {
             $credentials = $request->validated();
 
-            if (! auth()->guard('web')->attempt($credentials)) {
+            if (!auth()->guard('web')->attempt($credentials)) {
                 $error = 'Invalid Credentials';
 
                 return view('customer.login')->with('error', $error);
@@ -76,6 +76,10 @@ class AuthController extends Controller
 
     public function userDetails(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
+        if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
+            abort(404);
+        }
+
         $user = auth()->user();
 
         return view('customer.userDetails', compact('user'));
@@ -84,6 +88,10 @@ class AuthController extends Controller
     public function editUserDetails(EditUserDataRequest $request): Factory|Application|View|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
+            if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
+                abort(404);
+            }
+
             $userData = $request->validated();
             auth()->guard('web')->user()->update([
                 'first_name' => $userData['first_name'],
@@ -111,7 +119,7 @@ class AuthController extends Controller
 
     public function logout(): RedirectResponse
     {
-        if (! auth()->guard('web')->user()) {
+        if (!auth()->guard('web')->user()) {
             return redirect()->route('index');
         }
 

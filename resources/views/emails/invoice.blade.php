@@ -45,8 +45,7 @@
                         <h4 class="float-end font-size-15">Order Number : {{$orderNumber}}<span
                                 class="badge bg-success font-size-12 ms-2">Paid</span></h4>
                         <div class="mb-4">
-                            {{--                            TODO:dont forgot--}}
-                            <h2 class="mb-1 text-muted">domainName</h2>
+                            <h2 class="mb-1 text-muted">WardBook Store</h2>
                         </div>
                         <div class="text-muted">
                             <p class="mb-1">Our Address : {{$sitecontent->address}}</p>

@@ -17,6 +17,8 @@
                     <th class="text-center">الكاتب</th>
                     <th class="text-center">الناشر</th>
                     <th class="text-center">السعر</th>
+                    <th class="text-center">الكمية</th>
+                    <th class="text-center">عدد الطلبات</th>
                     <th class="text-center"></th>
                 </tr>
                 </thead>
@@ -30,7 +32,6 @@
                     text-align: center;
                 }
             </style>
-        </div>
         </div>
         <script type="module">
             $(document).ready(function () {
@@ -47,17 +48,17 @@
                                 className: 'btn btn-primary mt-2 mb-2',
                                 charset: 'UTF-8',
                                 direction: 'rtl',// for RTL support
-                                init: function (api, node, config) {
+                                init: function (api, node) {
                                     $(node).removeClass('btn-secondary')
                                 }
                             },
                             {
                                 text: 'إضافة كتاب',
-                                action: function (e, dt, node, config) {
+                                action: function () {
                                     window.location.href = '{{route('admin.books.create')}}';
                                 },
                                 className: 'btn-primary mt-2 mb-2',
-                                init: function (api, node, config) {
+                                init: function (api, node) {
                                     $(node).removeClass('btn-secondary')
                                 }
                             }
@@ -71,6 +72,8 @@
                             {"data": 'author_name', orderable: true, searchable: true},
                             {"data": 'publisher', searchable: true, orderable: true},
                             {"data": 'price', orderable: true, searchable: true},
+                            {"data": 'quantity', orderable: true, searchable: true},
+                            {"data": 'order_number', orderable: true, searchable: true},
                             {"data": 'action', searchable: true, orderable: true},
                         ]
                     }).on('init.dt', function () {

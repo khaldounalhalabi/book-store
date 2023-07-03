@@ -9,9 +9,9 @@ class MainPageController extends Controller
 {
     public function index()
     {
-        $topOrdered = Book::orderByDesc('order_number')->take(20);
-        $data['firstHero'] = $topOrdered->inRandomOrder()->take(1)->first();
-        $data['secondHero'] = $topOrdered->inRandomOrder()->take(2)->skip(1)->first();
+        $topOrdered = Book::orderByDesc('order_number')->take(20)->get();
+        $data['firstHero'] = $topOrdered->random()->take(1)->first();
+        $data['secondHero'] = $topOrdered->random()->take(2)->skip(1)->first();
 
         $mostLiked = Book::orderByDesc('likes_count')->get();
         $data['featuredBooks'] = $mostLiked->take(4);

@@ -9,11 +9,10 @@ class DeliveryDetails extends Controller
 {
     public function deliveryDetailsPage($book_id = null)
     {
-        if (auth()->user()) {
+        if (auth()->user() && auth()->user()->hasRole('customer')) {
             return view('customer.delivery-details')->with(['user' => auth()->user()]);
         } elseif (isset($book_id)) {
             $book = Book::findOrFail($book_id);
-
             return view('customer.delivery-details', compact('book'));
         } else {
             abort(404);

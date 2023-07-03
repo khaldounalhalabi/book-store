@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\SiteContentRequest;
 use App\Models\SiteContent;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class SiteContentController extends Controller
 {
@@ -34,6 +35,9 @@ class SiteContentController extends Controller
             $sc->logo = $destination_path.'/'.$image_name;
             $sc->save();
             $request->file('logo')->storeAs('public/'.$destination_path, $image_name);
+            $path = storage_path('app/public/'.$sc->logo);
+            $img = Image::make($path);
+            $img->resize(216, 31)->save($path);
         }
 
         if ($request->hasFile('favicon') != null) {

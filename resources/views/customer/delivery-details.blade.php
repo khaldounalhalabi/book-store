@@ -1,10 +1,5 @@
 @extends('customer.custom-layout')
 @section('content')
-    @php
-        if (auth()->user()){
-            $user = auth()->user();
-        }
-    @endphp
     <script src="https://www.paypal.com/sdk/js?client-id={{env('PAYPAL_SANDBOX_CLIENT_ID')}}"></script>
     <main dir="rtl" lang="ar">
         <div class="section-profile">
@@ -139,17 +134,23 @@
 
                                         @include('customer.includes.error')
                                     </div>
-                                    <button class=" btn text-center m-2 w-auto h-auto
-                                                "
-                                            data-route="@if(auth()->user())
-                                                    {{route('customer.make-order')}}
-                                                @else
-                                                    {{route('customer.make-order' , $book->id)}}
-                                                @endif">
+                                    <button class=" btn text-center m-2 w-auto h-auto"
+                                            data-route="
+                                            @if(auth()->user() && auth()->user()->hasRole('customer'))
+                                                {{route('customer.make-order')}}
+                                            @elseif((!auth()->user() || (auth()->user() && auth()->user()->hasAnyRole(['admin' , 'super-admin']))) && isset($book))
+                                                {{route('customer.make-order' , $book->id)}}
+                                            @endif">
                                         pay with Paypal
                                     </button>
+
                                     <button class="btn text-center m-2 w-auto h-auto"
-                                            data-route="@if(auth()->user()){{route('customer.make-order')}}@else{{route('customer.make-order' , $book->id)}}@endif">
+                                            data-route="
+                                            @if(auth()->user() && auth()->user()->hasRole('customer'))
+                                                {{route('customer.make-order')}}
+                                            @elseif((!auth()->user() || (auth()->user() && auth()->user()->hasAnyRole(['admin' , 'super-admin']))) && isset($book))
+                                                {{route('customer.make-order' , $book->id)}}
+                                            @endif">
                                         pay with Klarna
                                     </button>
                                 </form>
@@ -229,26 +230,23 @@
                 minimumInputLength: 0,
                 closeOnSelect: false,
             });
-
             let selectedCountry = countrySelector.val();
-            $.ajax({
-                url: "{{route('get-shipping-cost-by-country-name')}}",
-                type: 'POST',
-                data: {
-                    countryName: selectedCountry,
-                    @if(!auth()->user())
-                    book_id: "{{$book->id}}",
-                    @endif
-                    _token: "{{csrf_token()}}"
-                },
-                success: function (data) {
-                    console.log('Received data:', data); // debug information
-                    $('#cost-container').text(data + " €"); // use text() method to set the text content
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.error('Error:', textStatus, errorThrown); // error handling
-                }
-            });
+            if (selectedCountry) {
+                $.ajax({
+                    url: "{{route('get-shipping-cost-by-country-name')}}",
+                    type: 'POST',
+                    data: {
+                        countryName: selectedCountry,
+                        @if(isset($book))
+                        book_id: "{{$book->id}}",
+                        @endif
+                        _token: "{{csrf_token()}}"
+                    },
+                    success: function (data) {
+                        $('#cost-container').text(data + " €"); // use text() method to set the text content
+                    },
+                });
+            }
 
             countrySelector.on('change', function (e) {
                 let selectedCountry = $(this).val();
@@ -257,17 +255,13 @@
                     type: 'POST',
                     data: {
                         countryName: selectedCountry,
-                        @if(!auth()->user())
+                        @if(isset($book))
                         book_id: "{{$book->id}}",
                         @endif
                         _token: "{{csrf_token()}}"
                     },
                     success: function (data) {
-                        console.log('Received data:', data); // debug information
                         $('#cost-container').text(data + " €"); // use text() method to set the text content
-                    },
-                    error: function (xhr, textStatus, errorThrown) {
-                        console.error('Error:', textStatus, errorThrown); // error handling
                     }
                 });
             });

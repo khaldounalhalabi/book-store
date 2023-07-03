@@ -15,7 +15,6 @@ use App\Http\Controllers\customer\DeliveryDetails;
 use App\Http\Controllers\customer\LikeController;
 use App\Http\Controllers\customer\MainPageController;
 use App\Http\Controllers\customer\OrderController;
-use App\Http\Controllers\customer\SendInvoiceEmail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +32,7 @@ Route::view('/login', 'customer.login')->name('login-page');
 Route::view('/register', 'customer.register')->name('register-page');
 Route::get('logout', [AuthController::class, 'logout'])->middleware('login-required')->name('logout');
 Route::get('/', [MainPageController::class, 'index'])->name('index');
-Route::view('admin/login', 'admin.login')->name('admin.login-page');
+Route::get('admin/login', [AdminController::class, 'loginPage'])->name('admin.login-page');
 Route::post('admin/do-login', [AdminController::class, 'login'])->name('admin.do-login');
 
 Route::name('customer.')->group(function () {
@@ -54,7 +53,6 @@ Route::name('customer.')->group(function () {
     Route::post('/{book_id}/like', [LikeController::class, 'like'])->middleware('login-required')->name('like');
     Route::get('delivery-details/{book_id?}', [DeliveryDetails::class, 'deliveryDetailsPage'])->name('delivery-details');
     Route::post('/make-order/{book_id?}', [OrderController::class, 'order'])->name('make-order');
-    Route::get('send-invoice-email', [SendInvoiceEmail::class, 'send'])->name('email-invoice-send');
 });
 Route::name('admin.')->prefix('admin')->middleware('dashboard-middleware')->group(function () {
     Route::get('/dashboard', [IndexController::class, 'index'])->name('index');

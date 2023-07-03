@@ -16,6 +16,14 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
 {
+    public function loginPage()
+    {
+        if (auth()->user() && auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+            redirect()->route('admin.index');
+        }
+        return view('admin.login');
+    }
+
     public function data()
     {
         $books = User::role(['admin', 'super-admin'])->select(['id', 'first_name', 'last_name', 'email']);
@@ -27,7 +35,7 @@ class AdminController extends Controller
                    <div class='d-flex'>
                         <div class='p-1'>
                             <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
-                                    data-deleteurl ='".route('admin.books.destroy', $user->id)."' >
+                                    data-deleteurl ='" . route('admin.books.destroy', $user->id) . "' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
                         </div>
@@ -43,7 +51,7 @@ class AdminController extends Controller
         try {
             $credentials = $request->validated();
 
-            if (! auth()->guard('web')->attempt($credentials) && (! auth()->user()->hasRole('super-admin') || ! auth()->user()->hasRole('admin'))) {
+            if (!auth()->guard('web')->attempt($credentials) && (!auth()->user()->hasRole('super-admin') || !auth()->user()->hasRole('admin'))) {
                 $error = 'Invalid Credentials';
 
                 return view('admin.login')->with('error', $error);
@@ -57,7 +65,7 @@ class AdminController extends Controller
 
     public function store(CreateAdminRequest $request)
     {
-        if (! auth()->user()->hasRole('super-admin')) {
+        if (!auth()->user()->hasRole('super-admin')) {
             abort(403);
         }
         $data = $request->validated();
@@ -70,7 +78,7 @@ class AdminController extends Controller
 
     public function logout()
     {
-        if (! auth()->user() && ! auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+        if (!auth()->user() && !auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
             abort(403);
         }
         auth()->guard('web')->logout();

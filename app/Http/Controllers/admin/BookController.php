@@ -20,7 +20,7 @@ class BookController extends Controller
      */
     public function data(): \Illuminate\Http\JsonResponse
     {
-        $books = Book::select(['id', 'name', 'author_name', 'publisher', 'price']);
+        $books = Book::select(['id', 'name', 'author_name', 'publisher', 'price' , 'quantity' , 'order_number']);
 
         return DataTables::eloquent($books)
             ->addColumn('action', function ($book) {
@@ -126,9 +126,7 @@ class BookController extends Controller
         $request->file('face_image')->storeAs('public/'.$destenation_path, $image_name);
         $path = storage_path('app/public/'.$book->face_image);
         $img = Image::make($path);
-        $img->resize(413, 602, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($path);
+        $img->resize(443, 632)->save($path);
     }
 
     public function allBooks(Request $request)
