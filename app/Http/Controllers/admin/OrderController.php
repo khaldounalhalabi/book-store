@@ -26,13 +26,13 @@ class OrderController extends Controller
                 return "
                    <div class='d-flex'>
                         <div class='p-1'>
-                            <a href='".route('admin.order.show', $order->id)."' class='btn btn-xs btn-info w-auto h-auto m-auto'>
+                            <a href='" . route('admin.order.show', $order->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
                                 <i class='bi bi-chevron-bar-right'></i>
                             </a>
                         </div>
                         <div class='p-1'>
                             <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
-                                    data-deleteurl ='".route('admin.order.delete', $order->id)."' >
+                                    data-deleteurl ='" . route('admin.order.delete', $order->id) . "' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
                         </div>
@@ -89,7 +89,7 @@ class OrderController extends Controller
             'ordered_books_ids' => json_encode($orderedBooksIds),
         ]);
 
-        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders.index')->with('success' , 'Order Has Been Created Successfully');
     }
 
     public function show($order_id)
@@ -116,10 +116,17 @@ class OrderController extends Controller
 
         $order = Order::findOrFail($order_id);
 
-        foreach (json_decode($order->ordered_books_ids, true) as $book_id) {
-            $book = Book::findOrFail($book_id);
-            $book->quantity += 1;
-            $book->save();
+        if (isset($order->book_id)) {
+            $order->book->quantity += 1;
+            $order->book->save();
+            $order->book_id = null;
+            $order->save();
+        } elseif (isset($order->ordered_books_ids)) {
+            foreach (json_decode($order->ordered_books_ids, true) as $book_id) {
+                $book = Book::findOrFail($book_id);
+                $book->quantity += 1;
+                $book->save();
+            }
         }
 
         foreach ($orderedBooksIds as $id) {
@@ -145,7 +152,7 @@ class OrderController extends Controller
             'ordered_books_ids' => json_encode($orderedBooksIds),
         ]);
 
-        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders.index')->with('success' , 'Order Has Been Updated');
     }
 
     public function delete($order_id)

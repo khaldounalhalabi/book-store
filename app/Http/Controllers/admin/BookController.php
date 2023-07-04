@@ -20,20 +20,20 @@ class BookController extends Controller
      */
     public function data(): \Illuminate\Http\JsonResponse
     {
-        $books = Book::select(['id', 'name', 'author_name', 'publisher', 'price' , 'quantity' , 'order_number']);
+        $books = Book::select(['id', 'name', 'author_name', 'publisher', 'price', 'quantity', 'order_number']);
 
         return DataTables::eloquent($books)
             ->addColumn('action', function ($book) {
                 return "
                    <div class='d-flex'>
                         <div class='p-1'>
-                            <a href='".route('admin.books.show', $book->id)."' class='btn btn-xs btn-info w-auto h-auto m-auto'>
+                            <a href='" . route('admin.books.show', $book->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
                                 <i class='bi bi-chevron-bar-right'></i>
                             </a>
                         </div>
                         <div class='p-1'>
                             <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
-                                    data-deleteurl ='".route('admin.books.destroy', $book->id)."' >
+                                    data-deleteurl ='" . route('admin.books.destroy', $book->id) . "' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
                         </div>
@@ -66,7 +66,7 @@ class BookController extends Controller
             $this->handleImage($request, $book);
         }
 
-        return redirect()->route('admin.books.show', $book->id);
+        return redirect()->route('admin.books.index', $book->id)->with('success', 'Book Has Been Added Successfully');
     }
 
     /**
@@ -103,7 +103,7 @@ class BookController extends Controller
             $this->handleImage($request, $book);
         }
 
-        return redirect()->route('admin.books.show', $book->id);
+        return redirect()->route('admin.books.index', $book->id)->with('success' , 'Book Data Has Been Updated');
     }
 
     /**
@@ -120,11 +120,11 @@ class BookController extends Controller
     public function handleImage(StoreUpdateBookRequest $request, $book): void
     {
         $destenation_path = 'books/images';
-        $image_name = time().'_'.$request->file('face_image')->getClientOriginalName();
-        $book->face_image = $destenation_path.'/'.$image_name;
+        $image_name = time() . '_' . $request->file('face_image')->getClientOriginalName();
+        $book->face_image = $destenation_path . '/' . $image_name;
         $book->save();
-        $request->file('face_image')->storeAs('public/'.$destenation_path, $image_name);
-        $path = storage_path('app/public/'.$book->face_image);
+        $request->file('face_image')->storeAs('public/' . $destenation_path, $image_name);
+        $path = storage_path('app/public/' . $book->face_image);
         $img = Image::make($path);
         $img->resize(443, 632)->save($path);
     }
@@ -136,7 +136,7 @@ class BookController extends Controller
         if ($search == '') {
             $data = Book::where('quantity', '>', 0)->paginate(7);
         } else {
-            $data = Book::where('name', 'like', '%'.$search.'%')
+            $data = Book::where('name', 'like', '%' . $search . '%')
                 ->where('quantity', '>', 0)
                 ->paginate(7);
         }

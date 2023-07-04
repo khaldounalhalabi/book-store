@@ -11,7 +11,7 @@ class BookController extends Controller
     public function show($id)
     {
         $data['book'] = Book::findOrFail($id);
-        if (auth()->user()) {
+        if (auth()->user() && auth()->user()->hasRole('customer')) {
             $like = $data['book']->likes()->where('user_id', auth()->user()->id)->first();
         }
 

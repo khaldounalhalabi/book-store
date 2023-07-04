@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -34,7 +33,7 @@
                     <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                         <div class="d-flex justify-content-center py-4">
-                            <span class="d-none d-lg-block">WardBook Backdoor</span>
+                            <h3 class="d-none d-lg-block">WardBook Backdoor</h3>
                         </div><!-- End Logo -->
 
                         <div class="card mb-3">
@@ -68,17 +67,12 @@
                                     @include('admin.include.error')
 
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100" type="submit">Login</button>
+                                        <button class="btn btn-primary w-100 mt-3" type="submit">Login</button>
                                     </div>
                                 </form>
 
                             </div>
                         </div>
-
-                        <div class="credits">
-
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -90,6 +84,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.8/sweetalert2.min.js"
+        integrity="sha512-ySDkgzoUz5V9hQAlAg0uMRJXZPfZjE8QiW0fFMW7Jm15pBfNn3kbGsOis5lPxswtpxyY3wF5hFKHi+R/XitalA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session()->has('error'))
+    <script type="module">
+        Swal.fire({
+            title: 'Error!',
+            text: '{{session()->get('error')}}',
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+@endif
 </body>
 
 </html>

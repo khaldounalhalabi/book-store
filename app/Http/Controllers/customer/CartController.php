@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     public function index()
     {
-        if (! auth()->user()) {
+        if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
             return redirect()->route('customer.login-page');
         }
 
@@ -28,7 +28,7 @@ class CartController extends Controller
 
     public function addToCart($id)
     {
-        if (! auth()->user()) {
+        if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
             return redirect()->route('customer.login-page');
         }
 
@@ -43,7 +43,7 @@ class CartController extends Controller
 
     public function remove($id)
     {
-        if (! auth()->user()) {
+        if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
             return redirect()->route('customer.login-page');
         }
 

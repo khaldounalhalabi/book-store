@@ -90,7 +90,7 @@ class ShippingController extends Controller
         $data = $request->validated();
         Shipping::create($data);
 
-        return redirect()->back();
+        return redirect()->route('admin.shipping.index')->with('success', 'Item Has Been Added Successfully');
     }
 
     public function data(): \Illuminate\Http\JsonResponse
@@ -137,6 +137,6 @@ class ShippingController extends Controller
         $data = $request->validated();
         $shipping->update($data);
 
-        return view('admin.shipping.show', compact('shipping'));
+        return redirect()->route('admin.shipping.index')->with('success', 'Item Updated Successfully');
     }
 }

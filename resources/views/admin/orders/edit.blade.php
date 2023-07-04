@@ -74,10 +74,12 @@
                                     <label class="col-form-label" for="country">الدولة</label>
                                     <select id="country" name="country" class="form-select">
                                         @if(old('country') != null)
-                                            <option value="{{old('country')}}">{{old('country')}}</option>
+                                            <option value="{{old('country')}}">
+                                                {{old('country')}}
+                                            </option>
                                         @elseif(isset($deliveryDetails['country']))
-                                            <option
-                                                value="{{$deliveryDetails['country']}}">{{$deliveryDetails['country']}}
+                                            <option value="{{$deliveryDetails['country']}}">
+                                                {{$deliveryDetails['country']}}
                                             </option>
                                         @endif
                                     </select>
@@ -113,17 +115,29 @@
                                            value="{{old('post_code') ?? ($deliveryDetails['post_code'] ?? null)}}">
                                 </div>
 
-                                <div class="col-md-12">
-                                    <label class="col-form-label" for="books">الكتب</label>
-                                    <select class="form-select multiple-select-2" id="books" name="books[]" multiple
-                                            data-placeholder="select a book">
-                                        @foreach($orderedBooks as $book_id)
-                                            <option value="{{$book_id}}" selected>
-                                                {{\App\Models\Book::findOrFail($book_id)->name}}
+                                @if(isset($order->book_id))
+                                    <div class="col-md-12">
+                                        <label class="col-form-label" for="books">الكتب</label>
+                                        <select class="form-select multiple-select-2" id="books" name="books[]" multiple
+                                                data-placeholder="select a book">
+                                            <option value="{{$order->book_id}}" selected>
+                                                {{$order->book->name}}
                                             </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                        </select>
+                                    </div>
+                                @elseif($order->ordered_books_ids)
+                                    <div class="col-md-12">
+                                        <label class="col-form-label" for="books">الكتب</label>
+                                        <select class="form-select multiple-select-2" id="books" name="books[]" multiple
+                                                data-placeholder="select a book">
+                                            @foreach(json_decode($order->ordered_books_ids , true) as $book_id)
+                                                <option value="{{$book_id}}" selected>
+                                                    {{\App\Models\Book::findOrFail($book_id)->name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
 
                                 <div class="col-md-12 m-3">
                                     <div class="row">
@@ -178,7 +192,7 @@
                 theme: 'bootstrap-5',
                 placeholder: $(this).data('placeholder'),
                 ajax: {
-                    url: '{{route(get-countries-codes')}}',
+                    url: '{{route('get-countries-codes')}}',
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {

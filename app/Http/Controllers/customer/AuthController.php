@@ -101,14 +101,27 @@ class AuthController extends Controller
                 'email' => $userData['email'],
             ]);
 
-            Address::where('user_id', auth()->user()->id)->update([
-                'country' => $userData['country'],
-                'city' => $userData['city'],
-                'street' => $userData['street'],
-                'house_number' => $userData['house_number'],
-                'door_number' => $userData['door_number'],
-                'post_code' => $userData['post_code'],
-            ]);
+            $address = Address::where('user_id', auth()->user()->id)->first();
+            if (isset($address)) {
+                $address->update([
+                    'country' => $userData['country'],
+                    'city' => $userData['city'],
+                    'street' => $userData['street'],
+                    'house_number' => $userData['house_number'],
+                    'door_number' => $userData['door_number'],
+                    'post_code' => $userData['post_code'],
+                ]);
+            } else {
+                Address::create([
+                    'country' => $userData['country'],
+                    'city' => $userData['city'],
+                    'street' => $userData['street'],
+                    'house_number' => $userData['house_number'],
+                    'door_number' => $userData['door_number'],
+                    'post_code' => $userData['post_code'],
+                    'user_id' => auth()->user()->id,
+                ]);
+            }
 
             return redirect()->route('customer.userDetails');
 
@@ -120,6 +133,10 @@ class AuthController extends Controller
     public function logout(): RedirectResponse
     {
         if (!auth()->guard('web')->user()) {
+            return redirect()->route('index');
+        }
+
+        if (auth()->user() && auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
             return redirect()->route('index');
         }
 

@@ -31,11 +31,11 @@ class SiteContentController extends Controller
             }
 
             $destination_path = 'site-content/images';
-            $image_name = time().'_'.$request->file('logo')->getClientOriginalName();
-            $sc->logo = $destination_path.'/'.$image_name;
+            $image_name = time() . '_' . $request->file('logo')->getClientOriginalName();
+            $sc->logo = $destination_path . '/' . $image_name;
             $sc->save();
-            $request->file('logo')->storeAs('public/'.$destination_path, $image_name);
-            $path = storage_path('app/public/'.$sc->logo);
+            $request->file('logo')->storeAs('public/' . $destination_path, $image_name);
+            $path = storage_path('app/public/' . $sc->logo);
             $img = Image::make($path);
             $img->resize(216, 31)->save($path);
         }
@@ -47,12 +47,12 @@ class SiteContentController extends Controller
             }
 
             $destination_path = 'site-content/images';
-            $image_name = time().'_'.$request->file('favicon')->getClientOriginalName();
-            $sc->favicon = $destination_path.'/'.$image_name;
+            $image_name = time() . '_' . $request->file('favicon')->getClientOriginalName();
+            $sc->favicon = $destination_path . '/' . $image_name;
             $sc->save();
-            $request->file('favicon')->storeAs('public/'.$destination_path, $image_name);
+            $request->file('favicon')->storeAs('public/' . $destination_path, $image_name);
         }
 
-        return redirect()->route('admin.site_content.edit');
+        return redirect()->route('admin.site_content.edit')->with('success', 'Edited Successfully');
     }
 }

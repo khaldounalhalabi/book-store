@@ -80,17 +80,17 @@
 @endif
 
 @if(session()->has('message'))
-        <script type="module">
-            Swal.fire({
-                title: 'Info !',
-                text: '{{session()->get('message')}}',
-                icon: 'info',
-                confirmButtonText: 'Ok',
-                confirmButtonColor: '#000000',
-            })
-        </script>
-@endif
+    <script type="module">
+        Swal.fire({
+            title: 'Info !',
+            text: '{{session()->get('message')}}',
+            icon: 'info',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+    @endif
 
 
-</body>
-</html>
+    </body>
+    </html>

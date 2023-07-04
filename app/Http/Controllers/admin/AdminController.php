@@ -19,7 +19,7 @@ class AdminController extends Controller
     public function loginPage()
     {
         if (auth()->user() && auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
-            redirect()->route('admin.index');
+            return redirect()->route('admin.index');
         }
         return view('admin.login');
     }
@@ -54,7 +54,7 @@ class AdminController extends Controller
             if (!auth()->guard('web')->attempt($credentials) && (!auth()->user()->hasRole('super-admin') || !auth()->user()->hasRole('admin'))) {
                 $error = 'Invalid Credentials';
 
-                return view('admin.login')->with('error', $error);
+                return redirect()->route('admin.login-page')->with('error', $error);
             } else {
                 return redirect()->route('admin.index');
             }
@@ -73,7 +73,7 @@ class AdminController extends Controller
         $user = User::create($data);
         $user->assignRole('admin');
 
-        return redirect()->route('admin.admins');
+        return redirect()->route('admin.admins')->with('success', 'Admin Has Been Added Successfully');
     }
 
     public function logout()

@@ -32,7 +32,8 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-3 col-md-4 label border border-dark-subtle"> البريد الالكتروني :</div>
+                                <div class="col-lg-3 col-md-4 label border border-dark-subtle"> البريد الالكتروني :
+                                </div>
                                 <div
                                     class="col-lg-9 col-md-8 label border border-dark-subtle">{{$deliveryDetails['email'] ?? ''}}</div>
                             </div>
@@ -123,11 +124,9 @@
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label border border-dark-subtle">الكتاب المطلوب :
                                     </div>
-                                    @php
-                                        $book = \App\Models\Book::findOrFail($order->book_id) ?? '';
-                                    @endphp
-                                    <div
-                                        class="col-lg-9 col-md-8 label border border-dark-subtle">{{$book->name}}</div>
+                                    <div class="col-lg-9 col-md-8 label border border-dark-subtle">
+                                        {{$order->book->name}}
+                                    </div>
                                 </div>
                             @endif
                         </div>
