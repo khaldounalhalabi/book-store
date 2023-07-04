@@ -56,12 +56,14 @@
                                             <h4>€ {{$totalPrice}}</h4>
                                         </div>
                                         <hr>
-                                        <a href="{{route('customer.delivery-details')}}">
-                                            <button
-                                                class="btn btn-sm p-4 m-5 w-auto text-center d-flex justify-content-center align-items-center">
-                                                شراء
-                                            </button>
-                                        </a>
+                                        @if(count(auth()->user()->cart()->get()) > 0)
+                                            <a href="{{route('customer.delivery-details')}}">
+                                                <button
+                                                    class="btn btn-sm p-4 m-5 w-auto text-center d-flex justify-content-center align-items-center">
+                                                    شراء
+                                                </button>
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

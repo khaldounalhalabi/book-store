@@ -57,7 +57,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="quantity" id="quantity" type="number"
                                            class="form-control @error('quantity') is-invalid @enderror"
-                                           value="{{old('quantity')}}">
+                                           value="{{old('quantity') ?? ($book->quantity ?? null)}}">
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@
                                             <label for="small_description" class="card-title">شرح قصير</label>
                                             <textarea id="small_description" class="tinymce-editor"
                                                       name="small_description">
-                                                    {{old('small_description') ?? (isset($book->small_description) ?? $book->small_description)}}
+                                                    {{old('small_description') ?? ($book->small_description ?? null)}}
                                                 </textarea>
                                         </div>
                                     </div>
@@ -109,7 +109,7 @@
                                             <label for="long_description" class="card-title">شرح طويل</label>
                                             <textarea id="long_description" class="tinymce-editor"
                                                       name="long_description">
-                                                    {{old('long_description') ?? (isset($book->long_description) ?? $book->long_description)}}
+                                                    {{old('long_description') ?? ($book->long_description ?? null)}}
                                                 </textarea>
                                         </div>
                                     </div>

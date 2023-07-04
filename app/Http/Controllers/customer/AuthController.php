@@ -9,10 +9,15 @@ use App\Http\Requests\UserRequests\UserRegisterRequest;
 use App\Models\Address;
 use App\Models\User;
 use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class AuthController extends Controller
 {
-    public function login(UserLoginRequest $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Routing\Redirector|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
+    public function login(UserLoginRequest $request): Factory|Application|View|Redirector|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         try {
             $credentials = $request->validated();
@@ -22,16 +27,20 @@ class AuthController extends Controller
 
                 return view('customer.login')->with('error', $error);
             } else {
+                if (auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+                    auth()->logout();
+
+                    return redirect()->back()->with('message', 'Process Cannot Be done');
+                }
+
                 return redirect('/');
             }
-        } catch (Exception $e) {
-            $data['error'] = $e->getMessage();
-
-            return view('customer.serverError')->with($data);
+        } catch (Exception) {
+            abort(500);
         }
     }
 
-    public function register(UserRegisterRequest $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function register(UserRegisterRequest $request): Factory|Application|View|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
 
@@ -45,6 +54,8 @@ class AuthController extends Controller
                 'password' => $userData['password'],
             ]);
 
+            $user->assignRole('customer');
+
             Address::create([
                 'country' => $userData['country'],
                 'city' => $userData['city'],
@@ -57,24 +68,30 @@ class AuthController extends Controller
 
             auth()->guard('web')->login($user);
 
-            return redirect()->route('userDetails');
-        } catch (Exception $e) {
-            $data['error'] = $e->getMessage();
-
-            return view('customer.serverError')->with($data);
+            return redirect()->route('customer.userDetails');
+        } catch (Exception) {
+            abort(500);
         }
     }
 
-    public function userDetails(): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    public function userDetails(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application
     {
+        if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
+            abort(404);
+        }
+
         $user = auth()->user();
 
         return view('customer.userDetails', compact('user'));
     }
 
-    public function editUserDetails(EditUserDataRequest $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    public function editUserDetails(EditUserDataRequest $request): Factory|Application|View|RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
         try {
+            if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
+                abort(404);
+            }
+
             $userData = $request->validated();
             auth()->guard('web')->user()->update([
                 'first_name' => $userData['first_name'],
@@ -84,27 +101,42 @@ class AuthController extends Controller
                 'email' => $userData['email'],
             ]);
 
-            Address::where('user_id', auth()->user()->id)->update([
-                'country' => $userData['country'],
-                'city' => $userData['city'],
-                'street' => $userData['street'],
-                'house_number' => $userData['house_number'],
-                'door_number' => $userData['door_number'],
-                'post_code' => $userData['post_code'],
-            ]);
+            $address = Address::where('user_id', auth()->user()->id)->first();
+            if (isset($address)) {
+                $address->update([
+                    'country' => $userData['country'],
+                    'city' => $userData['city'],
+                    'street' => $userData['street'],
+                    'house_number' => $userData['house_number'],
+                    'door_number' => $userData['door_number'],
+                    'post_code' => $userData['post_code'],
+                ]);
+            } else {
+                Address::create([
+                    'country' => $userData['country'],
+                    'city' => $userData['city'],
+                    'street' => $userData['street'],
+                    'house_number' => $userData['house_number'],
+                    'door_number' => $userData['door_number'],
+                    'post_code' => $userData['post_code'],
+                    'user_id' => auth()->user()->id,
+                ]);
+            }
 
             return redirect()->route('customer.userDetails');
 
-        } catch (Exception $e) {
-            $data['error'] = $e->getMessage();
-
-            return view('customer.serverError')->with($data);
+        } catch (Exception) {
+            abort(500);
         }
     }
 
-    public function logout(): \Illuminate\Http\RedirectResponse
+    public function logout(): RedirectResponse
     {
         if (!auth()->guard('web')->user()) {
+            return redirect()->route('index');
+        }
+
+        if (auth()->user() && auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
             return redirect()->route('index');
         }
 

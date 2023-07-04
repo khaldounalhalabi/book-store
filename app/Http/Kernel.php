@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\LoginMiddlware;
+use App\Http\Middleware\DashboardMiddleware;
+use App\Http\Middleware\LoginMiddleware;
+use App\Http\Middleware\SuperAdminMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -37,6 +39,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
         ],
 
         'api' => [
@@ -64,6 +67,8 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'redirectUserDetails' => LoginMiddlware::class,
+        'login-required' => LoginMiddleware::class,
+        'dashboard-middleware' => DashboardMiddleware::class,
+        'super-admin' => SuperAdminMiddleware::class,
     ];
 }

@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->float('total_price')->default(0);
+            $table->float('shipping_cost')->default(0);
             $table->json('delivery_details')->nullable();
             $table->uuid('order_number')->unique();
             $table->enum('status', ['shipping', 'rejected', 'delivered', 'pending'])->default('pending');

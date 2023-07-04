@@ -30,7 +30,7 @@
                                 <div class="col-sm-10">
                                     <input name="facebook" id="facebook" type="text"
                                            class="form-control @error('facebook') is-invalid @enderror"
-                                           value="{{old('facebook') ?? (isset($sc->facebook ) ? $sc->facebook : null)}}">
+                                           value="{{old('facebook') ?? ($sc->facebook ?? null)}}">
                                 </div>
                             </div>
 
@@ -39,7 +39,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="twitter" id="twitter" type="text"
                                            class="form-control @error('twitter') is-invalid @enderror"
-                                           value="{{old('twitter') ?? (isset($sc->twitter ) ? $sc->twitter : null)}}">
+                                           value="{{old('twitter') ?? ($sc->twitter ?? null)}}">
                                 </div>
                             </div>
 
@@ -48,7 +48,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="youtube" id="youtube" type="text"
                                            class="form-control @error('youtube') is-invalid @enderror"
-                                           value="{{old('youtube') ?? (isset($sc->youtube ) ? $sc->youtube : null)}}">
+                                           value="{{old('youtube') ?? ($sc->youtube ?? null)}}">
                                 </div>
                             </div>
 
@@ -57,7 +57,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="whatsapp" id="whatsapp" type="text"
                                            class="form-control @error('whatsapp') is-invalid @enderror"
-                                           value="{{old('whatsapp') ?? (isset($sc->whatsapp ) ? $sc->whatsapp : null)}}">
+                                           value="{{old('whatsapp') ?? ($sc->whatsapp ?? null)}}">
                                 </div>
                             </div>
 
@@ -66,7 +66,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="telegram" id="telegram" type="text"
                                            class="form-control @error('telegram') is-invalid @enderror"
-                                           value="{{old('telegram') ?? (isset($sc->telegram ) ? $sc->telegram : null)}}">
+                                           value="{{old('telegram') ?? ($sc->telegram ?? null)}}">
                                 </div>
                             </div>
 
@@ -75,7 +75,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="instgram" id="instgram" type="text"
                                            class="form-control @error('instgram') is-invalid @enderror"
-                                           value="{{old('instgram') ?? (isset($sc->instgram ) ? $sc->instgram : null)}}">
+                                           value="{{old('instgram') ?? ($sc->instgram ?? null)}}">
                                 </div>
                             </div>
 
@@ -84,7 +84,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="snapchat" id="snapchat" type="text"
                                            class="form-control @error('snapchat') is-invalid @enderror"
-                                           value="{{old('snapchat') ?? (isset($sc->snapchat ) ? $sc->snapchat : null)}}">
+                                           value="{{old('snapchat') ?? ($sc->snapchat ?? null)}}">
                                 </div>
                             </div>
 
@@ -93,7 +93,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="tiktok" id="tiktok" type="text"
                                            class="form-control @error('tiktok') is-invalid @enderror"
-                                           value="{{old('tiktok') ?? (isset($sc->tiktok ) ? $sc->tiktok : null)}}">
+                                           value="{{old('tiktok') ?? ($sc->tiktok ?? null)}}">
                                 </div>
                             </div>
 
@@ -103,7 +103,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="footer_quot" id="footer_quot" type="text"
                                            class="form-control @error('footer_quot') is-invalid @enderror"
-                                           value="{{old('footer_quot') ?? (isset($sc->footer_quot ) ? $sc->footer_quot : null)}}">
+                                           value="{{old('footer_quot') ?? ($sc->footer_quot ?? null)}}">
                                 </div>
                             </div>
 
@@ -112,7 +112,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="phone_number" id="phone_number" type="text"
                                            class="form-control @error('phone_number') is-invalid @enderror"
-                                           value="{{old('phone_number') ?? (isset($sc->phone_number ) ? $sc->phone_number : null)}}">
+                                           value="{{old('phone_number') ?? ($sc->phone_number ?? null)}}">
                                 </div>
                             </div>
 
@@ -121,7 +121,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="email" id="email" type="text"
                                            class="form-control @error('email') is-invalid @enderror"
-                                           value="{{old('email') ?? (isset($sc->email ) ? $sc->email : null)}}">
+                                           value="{{old('email') ?? ($sc->email ?? null)}}">
                                 </div>
                             </div>
 
@@ -130,7 +130,7 @@
                                 <div class="col-sm-10">
                                     <input dir="rtl" name="address" id="address" type="text"
                                            class="form-control @error('address') is-invalid @enderror"
-                                           value="{{old('address') ?? (isset($sc->address ) ? $sc->address : null)}}">
+                                           value="{{old('address') ?? ($sc->address ?? null)}}">
                                 </div>
                             </div>
 
@@ -139,7 +139,7 @@
                                 <div class="col-sm-10">
                                     <input name="logo" id="logo"
                                            class="form-control  @error('logo') is-invalid @enderror"
-                                           type="file" value="{{old('logo') ?? (isset($sc->logo ) ?? $sc->logo)}}">
+                                           type="file" value="{{old('logo') ?? ($sc->logo ?? null)}}">
                                 </div>
                             </div>
 
@@ -148,7 +148,8 @@
                                 <div class="col-sm-10">
                                     <input name="favicon" id="favicon"
                                            class="form-control  @error('favicon') is-invalid @enderror"
-                                           type="file" value="{{old('favicon') ?? (isset($sc->favicon ) ?? $sc->favicon)}}">
+                                           type="file"
+                                           value="{{old('favicon') ?? ($sc->favicon ?? null)}}">
                                 </div>
                             </div>
 
@@ -161,7 +162,7 @@
 
                                             <!-- TinyMCE Editor -->
                                             <textarea class="tinymce-editor" name="about">
-                                            {{old('about') ?? (isset($sc->about) ? $sc->about : null)}}
+                                            {{old('about') ?? ($sc->about ?? null)}}
                                         </textarea><!-- End TinyMCE Editor -->
 
                                         </div>
@@ -179,12 +180,26 @@
 
                                             <!-- TinyMCE Editor -->
                                             <textarea class="tinymce-editor" name="contact_content">
-                                            {{old('contact_content') ?? (isset($sc->contact_content) ? $sc->contact_content : null)}}
+                                            {{old('contact_content') ?? ($sc->contact_content ?? null)}}
                                         </textarea><!-- End TinyMCE Editor -->
 
                                         </div>
                                     </div>
 
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">محتوى صفحة الأحكام و الشروط</h5>
+                                            <!-- TinyMCE Editor -->
+                                            <textarea class="tinymce-editor" name="terms_conditions">
+                                            {!!old('terms_conditions') ?? ($sc->terms_conditions ?? null)!!}
+                                        </textarea><!-- End TinyMCE Editor -->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

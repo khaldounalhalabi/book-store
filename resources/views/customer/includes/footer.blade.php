@@ -53,6 +53,44 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.0/jquery-migrate.min.js"
         integrity="sha512-iJ1SAH2WFRlq6+tSHM2/y3xJiqcSoJeZ4F5c0u0VAON7+azC3IwfHkDORU3RmIv1xB/w7IBiaiRx8FJEk/fLmw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+@if(session()->has('error'))
+    <script type="module">
+        Swal.fire({
+            title: 'Error!',
+            text: '{{session()->get('error')}}',
+            icon: 'error',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+@endif
 
-</body>
-</html>
+@if(session()->has('success'))
+    <script type="module">
+        Swal.fire({
+            title: 'Success!',
+            text: '{{session()->get('success')}}',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+@endif
+
+@if(session()->has('message'))
+    <script type="module">
+        Swal.fire({
+            title: 'Info !',
+            text: '{{session()->get('message')}}',
+            icon: 'info',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#000000',
+        })
+    </script>
+    @endif
+
+
+    </body>
+    </html>

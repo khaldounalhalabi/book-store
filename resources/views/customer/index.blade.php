@@ -68,12 +68,26 @@
                                     <figure class="product-style">
                                         <img src="{{asset("storage/$featuredBook->face_image")}}" alt="Books"
                                              class="product-item">
-                                        <a href="{{route('customer.cart.add' , $featuredBook->id)}}">
-                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
-                                                Add to
-                                                Cart
+                                        @if($featuredBook->quantity <= 0)
+                                            <button type="button" class="add-to-cart" data-product-tile="add-to-cart"
+                                                    disabled>
+                                                انتهت الكمية
                                             </button>
-                                        </a>
+                                        @elseif(auth()->user() && auth()->user()->hasRole('customer'))
+                                            <a href="{{route('customer.cart.add' , $featuredBook->id)}}">
+                                                <button type="button" class="add-to-cart"
+                                                        data-product-tile="add-to-cart">
+                                                    إضافة إلى السلة
+                                                </button>
+                                            </a>
+                                        @elseif(!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer')))
+                                            <a href="{{route('customer.delivery-details' , $featuredBook->id)}}">
+                                                <button type="button" class="add-to-cart"
+                                                        data-product-tile="add-to-cart">
+                                                    اطلبه الآن
+                                                </button>
+                                            </a>
+                                        @endif
                                         <figcaption>
                                             <a href="{{route('customer.show.book' , $featuredBook->id)}}">
                                                 <h3>{{$featuredBook->name}}</h3></a>
@@ -123,9 +137,15 @@
                                     <p>{{$topSelling->small_description}}</p>
                                     <div class="item-price">$ {{$topSelling->price}}</div>
                                     <div class="btn-wrap">
-                                        <a href="{{route('customer.cart.add' , $topSelling->id)}}"
-                                           class="btn-accent-arrow"><i
-                                                class="icon icon-ns-arrow-right"></i>اطلبه الآن </a>
+                                        @if(auth()->user() && auth()->user()->hasRole('customer') && $topSelling->quantity >= 0)
+                                            <a href="{{route('customer.cart.add' , $topSelling->id)}}"
+                                               class="btn-accent-arrow"><i
+                                                    class="icon icon-ns-arrow-right"></i>اطلبه الآن </a>
+                                        @elseif((!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) && $topSelling->quantity >= 0)
+                                            <a href="{{route('customer.delivery-details' , $topSelling->id)}}" class="
+                                               btn-accent-arrow"><i
+                                                    class="icon icon-ns-arrow-right"></i>اطلبه الآن </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -156,13 +176,26 @@
                                         <figure class="product-style">
                                             <img src="{{asset("storage/$poBook->face_image")}}" alt="Books"
                                                  class="product-item">
-                                            <a href="{{route('customer.cart.add' , $poBook->id)}}">
+                                            @if($poBook->quantity <= 0)
                                                 <button type="button" class="add-to-cart"
-                                                        data-product-tile="add-to-cart">
-                                                    Add to
-                                                    Cart
+                                                        data-product-tile="add-to-cart" disabled>
+                                                    انتهت الكمية
                                                 </button>
-                                            </a>
+                                            @elseif(auth()->user() && auth()->user()->hasRole('customer'))
+                                                <a href="{{route('customer.cart.add' , $poBook->id)}}">
+                                                    <button type="button" class="add-to-cart"
+                                                            data-product-tile="add-to-cart">
+                                                        إضافة إلى السلة
+                                                    </button>
+                                                </a>
+                                            @elseif(!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer')))
+                                                <a href="{{route('customer.delivery-details' , $poBook->id)}}">
+                                                    <button type="button" class="add-to-cart"
+                                                            data-product-tile="add-to-cart">
+                                                        اطلبه الآن
+                                                    </button>
+                                                </a>
+                                            @endif
                                             <figcaption>
                                                 <a href="{{route('customer.show.book' , $poBook->id)}}">
                                                     <h3>{{$poBook->name}}</h3>
@@ -180,13 +213,24 @@
                                         <figure class="product-style">
                                             <img src="{{asset("storage/$poBook->face_image")}}" alt="Books"
                                                  class="product-item">
-                                            <a href="{{route('customer.cart.add' , $poBook->id)}}">
+                                            @if($poBook->quantity <= 0)
                                                 <button type="button" class="add-to-cart"
-                                                        data-product-tile="add-to-cart">
-                                                    Add to
-                                                    Cart
+                                                        data-product-tile="add-to-cart" disabled>
+                                                    انتهت الكمية
                                                 </button>
-                                            </a>
+                                            @elseif(auth()->user() && auth()->user()->hasRole('customer'))
+                                                <a href="{{route('customer.cart.add' , $poBook->id)}}">
+                                                    <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                                        إضافة إلى السلة
+                                                    </button>
+                                                </a>
+                                            @elseif(!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer')))
+                                                <a href="{{route('customer.delivery-details' , $poBook->id)}}">
+                                                    <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                                        اطلبه الآن
+                                                    </button>
+                                                </a>
+                                            @endif
                                             <figcaption>
                                                 <a href="{{route('customer.show.book' , $poBook->id)}}">
                                                     <h3>{{$poBook->name}}</h3>

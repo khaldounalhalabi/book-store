@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Http\Controllers\api\v1\ApiController;
+use App\Http\Controllers\admin\api\v1\ApiController;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;

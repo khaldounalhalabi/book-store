@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('footer_quot');
 
             $table->text('about');
+            $table->text('terms_conditions');
 
             $table->string('phone_number');
             $table->string('email');

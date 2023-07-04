@@ -8,6 +8,7 @@ use App\Models\Book;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,19 +20,19 @@ class BookController extends Controller
      */
     public function data(): \Illuminate\Http\JsonResponse
     {
-        $books = Book::select(['id', 'name', 'author_name', 'publisher', 'price']);
+        $books = Book::select(['id', 'name', 'author_name', 'publisher', 'price', 'quantity', 'order_number']);
 
         return DataTables::eloquent($books)
             ->addColumn('action', function ($book) {
                 return "
                    <div class='d-flex'>
                         <div class='p-1'>
-                            <a href='" . route('admin.books.show', $book->id) . "' class='btn btn-xs btn-info'>
+                            <a href='" . route('admin.books.show', $book->id) . "' class='btn btn-xs btn-info w-auto h-auto m-auto'>
                                 <i class='bi bi-chevron-bar-right'></i>
                             </a>
                         </div>
                         <div class='p-1'>
-                            <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn'
+                            <button type='button' class='btn btn-xs btn-danger remove-item-from-table-btn w-auto h-auto m-auto'
                                     data-deleteurl ='" . route('admin.books.destroy', $book->id) . "' >
                                 <i class='bi bi-trash3-fill'></i>
                             </button>
@@ -65,7 +66,7 @@ class BookController extends Controller
             $this->handleImage($request, $book);
         }
 
-        return redirect()->route('admin.books.show', $book->id);
+        return redirect()->route('admin.books.index', $book->id)->with('success', 'Book Has Been Added Successfully');
     }
 
     /**
@@ -102,7 +103,7 @@ class BookController extends Controller
             $this->handleImage($request, $book);
         }
 
-        return redirect()->route('admin.books.show', $book->id);
+        return redirect()->route('admin.books.index', $book->id)->with('success' , 'Book Data Has Been Updated');
     }
 
     /**
@@ -125,8 +126,21 @@ class BookController extends Controller
         $request->file('face_image')->storeAs('public/' . $destenation_path, $image_name);
         $path = storage_path('app/public/' . $book->face_image);
         $img = Image::make($path);
-        $img->resize(413, 602, function ($constraint) {
-            $constraint->aspectRatio();
-        })->save($path);
+        $img->resize(443, 632)->save($path);
+    }
+
+    public function allBooks(Request $request)
+    {
+        $search = $request->input('search');
+
+        if ($search == '') {
+            $data = Book::where('quantity', '>', 0)->paginate(7);
+        } else {
+            $data = Book::where('name', 'like', '%' . $search . '%')
+                ->where('quantity', '>', 0)
+                ->paginate(7);
+        }
+
+        return response()->json($data);
     }
 }

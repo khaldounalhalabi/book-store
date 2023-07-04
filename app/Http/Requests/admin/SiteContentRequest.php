@@ -12,7 +12,11 @@ class SiteContentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if (auth()->user()->hasRole('super-admin') || auth()->user()->hasRole('admin')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -39,6 +43,7 @@ class SiteContentRequest extends FormRequest
             'email' => 'string|required|email',
             'address' => 'string',
             'contact_content' => 'string|required',
+            'terms_conditions' => 'string|required',
         ];
     }
 }

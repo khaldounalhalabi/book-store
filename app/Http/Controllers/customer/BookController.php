@@ -10,15 +10,15 @@ class BookController extends Controller
 {
     public function show($id)
     {
-        $data['book'] = Book::find($id);
-        if (auth()->user()) {
+        $data['book'] = Book::findOrFail($id);
+        if (auth()->user() && auth()->user()->hasRole('customer')) {
             $like = $data['book']->likes()->where('user_id', auth()->user()->id)->first();
         }
 
         if (isset($like)) {
             $data['liking'] = 'liked';
         } else {
-        $data['liking'] = 'unliked';
+            $data['liking'] = 'unliked';
         }
 
         return view('customer.singleBook')->with($data);

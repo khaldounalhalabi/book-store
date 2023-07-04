@@ -26,12 +26,13 @@ class SiteContentFactory extends Factory
             'snapchat' => 'https://www.snapchat.com',
             'tiktok' => 'https://www.tiktok.com',
             'logo' => fake()->imageUrl(),
-            'footer_quot' => fake()->sentence(5),
-            'about' => fake()->realText(5000),
+            'footer_quot' => fake()->sentence(1),
+            'about' => fake()->realText(500),
             'phone_number' => fake()->phoneNumber(),
             'email' => fake()->email(),
             'address' => fake()->address(),
-            'contact_content' => fake()->realText(5000),
+            'contact_content' => fake()->realText(200),
+            'terms_conditions' => fake()->realText(500),
         ];
     }
 }

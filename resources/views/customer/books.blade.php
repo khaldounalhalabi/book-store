@@ -37,12 +37,23 @@
                         <figure class="product-style">
                             <img src="{{asset("storage/$book->face_image")}}" alt="Books"
                                  class="product-item">
-                            <a href="{{route('customer.cart.add' , $book->id)}}">
-                                <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
-                                    Add to
-                                    Cart
+                            @if($book->quantity <= 0)
+                                <button type="button" class="add-to-cart" data-product-tile="add-to-cart" disabled>
+                                    انتهت الكمية
                                 </button>
-                            </a>
+                            @elseif(auth()->user() && auth()->user()->hasRole('customer'))
+                                <a href="{{route('customer.cart.add' , $book->id)}}">
+                                    <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                        إضافة إلى السلة
+                                    </button>
+                                </a>
+                            @elseif(!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer')))
+                                <a href="{{route('customer.delivery-details' , $book->id)}}">
+                                    <button type="button" class="add-to-cart" data-product-tile="add-to-cart">
+                                        اطلبه الآن
+                                    </button>
+                                </a>
+                            @endif
                             <figcaption>
                                 <a href="{{route('customer.show.book' , $book->id)}}"><h3>{{$book->name}}</h3></a>
                                 <p>{{$book->author_name}}</p>

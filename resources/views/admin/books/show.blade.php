@@ -41,8 +41,19 @@
                             </div>
 
                             <div class="row">
+                                <div class="col-lg-3 col-md-4 label border border-dark-subtle"> الكمية :</div>
+                                <div
+                                    class="col-lg-9 col-md-8 label border border-dark-subtle">{{$book->quantity}}</div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-lg-3 col-md-4 label border border-dark-subtle"> السعر :</div>
                                 <div class="col-lg-9 col-md-8 label border border-dark-subtle">{{$book->price}}</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 label border border-dark-subtle"> عدد الطلبات :</div>
+                                <div class="col-lg-9 col-md-8 label border border-dark-subtle">{{$book->order_number}}</div>
                             </div>
 
                             <div class="row">
@@ -84,7 +95,7 @@
                                         <a href="{{asset("storage/$book->face_image")}}" data-lightbox="image-1"
                                            data-title="My caption" class="grid-img-item p-3 m-2">
                                             <img src="{{asset("storage/$book->face_image")}}"
-                                                 class="grid-img-item p-3 m-2">
+                                                 class="grid-img-item p-3 m-2" alt="">
                                         </a>
                                     </div>
                                 </div>

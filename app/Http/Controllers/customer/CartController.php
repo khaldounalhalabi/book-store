@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     public function index()
     {
-        if (! auth()->user()) {
+        if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
             return redirect()->route('customer.login-page');
         }
 
@@ -28,7 +28,7 @@ class CartController extends Controller
 
     public function addToCart($id)
     {
-        if (! auth()->user()) {
+        if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
             return redirect()->route('customer.login-page');
         }
 
@@ -38,18 +38,18 @@ class CartController extends Controller
             'book_id' => $book->id,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Item added to cart');
     }
 
     public function remove($id)
     {
-        if (! auth()->user()) {
+        if (!auth()->user() || (auth()->user() && !auth()->user()->hasRole('customer'))) {
             return redirect()->route('customer.login-page');
         }
 
         $cart = Cart::findOrFail($id);
         $cart->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Item removed from cart');
     }
 }

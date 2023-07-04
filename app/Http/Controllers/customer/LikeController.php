@@ -16,7 +16,7 @@ class LikeController extends Controller
         if (! $book || ! auth()->user()) {
             return response()->json([
                 'failed',
-            ]);
+            ], 403);
         }
 
         $like = Like::where('user_id', auth()->user()->id)

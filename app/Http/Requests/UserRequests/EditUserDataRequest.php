@@ -11,7 +11,11 @@ class EditUserDataRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        if (auth()->user() && auth()->user()->hasRole('customer')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

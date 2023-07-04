@@ -25,7 +25,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('icomoon/icomoon.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/vendor.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('AdminAssets/vendor/bootstrap-icons/bootstrap-icons.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css"/>
     <!-- script
     ================================================== -->
     <script src="{{asset('js/modernizr.js')}}"></script>
@@ -98,7 +100,7 @@
                 <!--top-right-->
                 <div class="col-md-6">
                     <div class="right-element">
-                        @if(auth()->user())
+                        @if(auth()->user() && auth()->user()->hasRole('customer'))
                             <a href="{{route('customer.userDetails')}}" class="user-account for-buy"><i
                                     class="icon icon-user"></i><span>{{auth()->user()->first_name}}</span></a>
                         @else
@@ -106,14 +108,14 @@
                                     class="icon icon-user"></i><span>تسجيل الدخول</span></a>
                         @endif
 
-                        @if(auth()->user())
+                        @if(auth()->user() && auth()->user()->hasRole('customer'))
                             <a href="{{route('logout')}}" class="cart for-buy"><i
                                     class="icon icon-arrow-right-circle"></i><span>تسجيل الخروج</span></a>
                         @endif
 
                         <a href="{{route('register-page')}}" class="user-account for-buy"><i
                                 class="icon icon-user"></i><span>التسجيل</span></a>
-                        @if(auth()->user())
+                        @if(auth()->user() && auth()->user()->hasRole('customer'))
                             <a href="{{route('customer.cart')}}" class="cart for-buy"><i
                                     class="icon icon-clipboard"></i><span>السلة</span></a>
                         @endif
@@ -158,6 +160,8 @@
                                                          data-effect="Store">الكتب</a></li>
                                 <li class="menu-item"><a href="{{route('customer.contact')}}" class="nav-link"
                                                          data-effect="Contact">اتصل بنا</a></li>
+                                <li class="menu-item"><a href="{{route('customer.terms-conditions')}}" class="nav-link"
+                                                         data-effect="Contact">البنود و الأحكام</a></li>
                             </ul>
 
                             <div class="hamburger">
